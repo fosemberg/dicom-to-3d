@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@types/react-bootstrap": "^0.32.20",
+    "@types/react-router-dom": "^5.1.0",
     "cross-env": "^6.0.3",
     "node-sass": "^4.12.0"
   }
