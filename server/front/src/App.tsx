@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Jumbotron from 'react-bootstrap/Jumbotron'
 import Container from 'react-bootstrap/Container'
 import MainPage from "./pages/MainPage/MainPage";
 import CINavbar from "./components/CINavbar/CINavbar";
