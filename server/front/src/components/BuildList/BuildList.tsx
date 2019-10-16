@@ -1,34 +1,28 @@
 import * as React from 'react';
 import {Table} from "react-bootstrap";
+import { MdCheck, MdClose } from "react-icons/md";
 
 const BuildList = () => {
   return (
     <Table className="BuildList" striped bordered hover>
       <thead>
       <tr>
-        <th>#</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Username</th>
+        <th>OK</th>
+        <th>commit hash</th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td>1</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+        <td><MdCheck/></td>
+        <td>fe45da9</td>
       </tr>
       <tr>
-        <td>2</td>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
+        <td><MdClose/></td>
+        <td>fe45da9</td>
       </tr>
       <tr>
-        <td>3</td>
-        <td>Larry the Bird</td>
-        <td>@twitter</td>
+        <td><MdCheck/></td>
+        <td>fe45da9</td>
       </tr>
       </tbody>
     </Table>
