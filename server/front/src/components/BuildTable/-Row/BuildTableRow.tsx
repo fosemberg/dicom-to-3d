@@ -1,15 +1,19 @@
 import * as React from 'react';
 import {MdCheck, MdClose} from "react-icons/all";
+import './BuildTableRow.scss';
+import { cn } from '@bem-react/classname'
 
 interface IBuildTableRowProps {
-  isOk: boolean;
+  isSuccess: boolean;
   commitHash: string
 }
 
-const BuildTableRow: React.FC<IBuildTableRowProps> = ({isOk, commitHash}) => (
-  <tr>
+export const cnBuildTableRow = cn('BuildTable-Row')
+
+const BuildTableRow: React.FC<IBuildTableRowProps> = ({isSuccess, commitHash}) => (
+  <tr className={cnBuildTableRow({isSuccess})}>
     <td>
-      {isOk ? <MdCheck/> : <MdClose/>}
+      {isSuccess ? <MdCheck/> : <MdClose/>}
     </td>
     <td>{commitHash}</td>
   </tr>

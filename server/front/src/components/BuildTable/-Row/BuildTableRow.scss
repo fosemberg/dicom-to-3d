@@ -1,0 +1,20 @@
+$green: rgb(40, 167, 69);
+$red: rgb(220, 53, 69);
+
+[class][class].BuildTable {
+  &-Row {
+    background-color: var(--red);
+
+    &:hover {
+      background-color: lighten($red, 10%);
+    }
+
+    &_isSuccess {
+      background-color: var(--green);
+
+      &:hover {
+        background-color: lighten($green, 10%);
+      }
+    }
+  }
+}
