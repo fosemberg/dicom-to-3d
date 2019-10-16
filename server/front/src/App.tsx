@@ -1,25 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.scss';
+
+import Jumbotron from 'react-bootstrap/Jumbotron'
+import Container from 'react-bootstrap/Container'
+
+import ButtonsShowcase from './showcases/Buttons'
+import ToastsShowcase from './showcases/Toasts'
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="p-3">
+      <Jumbotron>
+        <h1 className="header">Welcome To React-Bootstrap Typescript Example</h1>
+      </Jumbotron>
+      <h2>Buttons</h2>
+      <ButtonsShowcase/>
+      <h2>Toasts</h2>
+      <ToastsShowcase/>
+    </Container>
   );
 }
 
