@@ -10,7 +10,6 @@ const CINavbar = () => {
       <Navbar.Collapse>
         <Nav className="mr-auto">
           <Link className="nav-link" to="/">Main</Link>
-          <Link className="nav-link" to="/build">Build</Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

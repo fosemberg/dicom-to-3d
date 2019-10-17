@@ -1,35 +1,28 @@
-$building-background: rgba(0,0,0,.05);
-$building-background: rgb(138, 147, 155);
-$building-background-hover: rgba(0,0,0,.075);
-$building-background-hover: rgb(120, 128, 134);
-$success-background: #28a745;
-$success-background-hover: #218838;
-$fail-background: #dc3545;
-$fail-background-hover: #c82333;
-
 [class][class].BuildTable {
   &-Row {
+    cursor: pointer;
+
     &_building {
-      background-color: $building-background;
+      background-color: var(--building-background);
 
       &:hover {
-        background-color: $building-background-hover;
+        background-color: var(--building-background-hover);
       }
     }
 
     &_fail {
-      background-color: $fail-background;
+      background-color: var(--fail-background);
 
       &:hover {
-        background-color: $fail-background-hover;
+        background-color: var(--fail-background-hover);
       }
     }
 
     &_success {
-      background-color: $success-background;
+      background-color: var(--success-background);
 
       &:hover {
-        background-color: $success-background-hover;
+        background-color: var(--success-background-hover);
       }
     }
   }
