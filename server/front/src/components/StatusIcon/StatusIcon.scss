@@ -1,0 +1,11 @@
+.StatusIcon {
+  &_MdAutorenew {
+    animation: StatusIcon_MdAutorenew_spin infinite 2s linear;
+  }
+}
+
+
+@keyframes StatusIcon_MdAutorenew_spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
