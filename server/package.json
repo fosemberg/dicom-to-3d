@@ -4,15 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start-front",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start-front": "node ./node_modules/serve/bin/serve.js -s front/build"
+    "start": "concurrently \"npm run start-back\" \"npm run start-front\"",
+    "start2": "run-p start-back start-front",
+    "start-front": "node ./node_modules/serve/bin/serve.js -s front/build",
+    "start-back": "node ./back/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.0.0",
+    "npm-run-all": "^4.1.5",
     "serve": "^11.2.0"
   }
 }
