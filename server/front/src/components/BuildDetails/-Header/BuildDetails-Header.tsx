@@ -2,7 +2,7 @@ import * as React from 'react';
 import './BuildDetails-Header.scss';
 import StatusIcon from "../../StatusIcon/StatusIcon";
 import {Card} from "react-bootstrap";
-import {Status} from "../../../utils/types";
+import {Status} from "../../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 
 interface IBuildDetailsHeaderProps {

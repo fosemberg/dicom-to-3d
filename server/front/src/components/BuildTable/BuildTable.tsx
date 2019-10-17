@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Table} from "react-bootstrap";
 import BuildTableRow from "./-Row/BuildTableRow";
 import BuildTableHeader from "./-Header/BuildTableHeader";
-import {Status} from "../../utils/types";
+import {Status} from "../../utils/apiTypes";
 
 const BuildTable = () => {
   return (

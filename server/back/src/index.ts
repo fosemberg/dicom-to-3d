@@ -1,6 +1,15 @@
 import {Request, Response} from 'express';
 import {app} from './expressApp';
-import {IBody, IParams, IWithBuildId, IWithCommand, IWithCommitHash, IWithRepositoryId, IWithUrl,} from './types';
+import {
+  IBody,
+  IParams,
+  IWithBuildId,
+  IWithCommand,
+  IWithCommitHash, IWithOut,
+  IWithRepositoryId,
+  IWithStatus,
+  IWithUrl,
+} from './types';
 import {arrayFromOut, execCommandWithRes} from './utils';
 import {PORT} from './config';
 
@@ -10,6 +19,13 @@ const {
   RESPONSE,
 } = require('./config');
 const { createMessageObjectString } = require('./configUtils');
+const Datastore = require('nedb');
+
+const db = new Datastore();
+
+const doc = {hello: 'world'};
+
+db.insert(doc);
 
 // Возвращает массив репозиториев, которые имеются в папке.
 app.get('/api/repos', (req: Request, res: Response) =>
@@ -24,19 +40,15 @@ app.get('/api/repos', (req: Request, res: Response) =>
 // Возвращает массив коммитов в данной ветке (или хэше коммита) вместе с датами их создания.
 // с пагинацией для списка коммитов
 app.get(
-  '/build/:buildId/:repositoryId/:commitHash/:command',
+  '/notify_build_result/:buildId/:status/:out',
   (
     {
-      params: { buildId, repositoryId, commitHash, command },
-    }: IParams<IWithBuildId & IWithRepositoryId & IWithCommitHash & IWithCommand>,
+      params: { buildId, status, out},
+    }: IParams<IWithBuildId & IWithStatus & IWithOut>,
     res: Response
-  ) =>
-    execCommandWithRes(
-      `cd ${PATH_TO_REPOS}/${repositoryId} &&
-            git checkout -q ${commitHash} &&
-            ${command}`,
-      res
-    )
+  ) => {
+
+  }
 );
 
 // DELETE /api/repos/:repositoryId

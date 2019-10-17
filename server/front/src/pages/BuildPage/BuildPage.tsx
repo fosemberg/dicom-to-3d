@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useParams} from "react-router-dom";
 import BuildDetails from "../../components/BuildDetails/BuildDetails";
-import {Status} from "../../utils/types";
+import {Status} from "../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 import './BuildPage.scss';
 

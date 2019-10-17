@@ -1,5 +1,5 @@
 import React from 'react';
-import {Status} from "../../utils/types";
+import {Status} from "../../utils/apiTypes";
 import {MdCheck, MdClose, MdAutorenew} from "react-icons/all";
 import {cn} from "@bem-react/classname";
 import './StatusIcon.scss';
