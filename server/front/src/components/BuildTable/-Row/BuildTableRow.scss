@@ -3,13 +3,19 @@ $red: rgb(220, 53, 69);
 
 [class][class].BuildTable {
   &-Row {
-    background-color: var(--red);
+    &_building {
 
-    &:hover {
-      background-color: lighten($red, 10%);
     }
 
-    &_isSuccess {
+    &_fail {
+      background-color: var(--red);
+
+      &:hover {
+        background-color: lighten($red, 10%);
+      }
+    }
+
+    &_success {
       background-color: var(--green);
 
       &:hover {

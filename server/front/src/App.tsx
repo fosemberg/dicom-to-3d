@@ -11,7 +11,7 @@ const App: React.FC = () => (
       <CINavbar/>
       <Switch>
         <Route path='/' exact={true} component={MainPage}/>
-        <Route path="/build/:id" component={BuildPage}/>
+        <Route path="/build/:id/:commitHash" component={BuildPage}/>
       </Switch>
     </Container>
   </BrowserRouter>
