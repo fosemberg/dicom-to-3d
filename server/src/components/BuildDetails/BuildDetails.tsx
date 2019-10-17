@@ -1,8 +1,6 @@
 import * as React from 'react';
 import {Card, ListGroup} from "react-bootstrap";
-import {MdAutorenew, MdCheck, MdClose} from "react-icons/all";
 import {Status} from "../../utils/types";
-import StatusIcon from "../StatusIcon/StatusIcon";
 import {cn} from "@bem-react/classname";
 import BuildDetailsHeader from "./-Header/BuildDetails-Header";
 
