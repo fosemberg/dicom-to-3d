@@ -16,15 +16,6 @@ export interface IWithUrl {
 export interface IWithCommitHash {
   commitHash: string;
 }
-export interface IFile {
-  num: string;
-  fileType: string;
-  lastCommit: string;
-  name: string;
-  commitMessage: string;
-  committer: string;
-  updated: string;
-}
 
 export interface IWithBuildId {
   buildId: number;

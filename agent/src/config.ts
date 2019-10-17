@@ -3,8 +3,8 @@ import { createMessageObject } from './configUtils';
 
 export const PORT = 3020;
 
-const PATH_TO_REPOS = 'repos';
-const PATH_TO_BACKUP = 'backup';
+export const PATH_TO_REPOS = 'repos';
+export const PATH_TO_BACKUP = 'backup';
 
 export enum MESSAGE {
   NO_ROUT = 'Rout not found.',

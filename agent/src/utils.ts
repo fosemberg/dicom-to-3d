@@ -1,8 +1,6 @@
 import { Response } from 'express';
-import { IFile } from './types';
-
-const { exec } = require('child_process');
-const { RESPONSE } = require('./config');
+import { exec } from 'child_process';
+import { RESPONSE } from './config';
 
 export const execCommand = (
   command: string,
@@ -17,7 +15,7 @@ export const execCommand = (
 export const execCommandWithRes = (
   command: string,
   res: Response,
-  callbackOut: (x: string) => string | string[] | IFile[] = (x: string) => x,
+  callbackOut: (x: string) => string | string[] = (x: string) => x,
   callbackErr = RESPONSE.NO_ROUT(res),
   options = {}
 ) =>
