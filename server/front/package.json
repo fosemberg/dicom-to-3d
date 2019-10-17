@@ -20,7 +20,7 @@
     "typescript": "3.6.4"
   },
   "scripts": {
-    "start": "cross-env PORT=3016 react-scripts start",
+    "start": "cross-env PORT=3023 react-scripts start",
     "build": "react-scripts build",
     "start-build": "node ./node_modules/serve/bin/serve.js -s build",
     "test": "react-scripts test",
