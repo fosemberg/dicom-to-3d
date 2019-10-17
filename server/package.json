@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run start-back\" \"npm run start-front\"",
     "start2": "run-p start-back start-front",
     "start-front": "node ./node_modules/serve/bin/serve.js -s front/build",
-    "start-back": "node ./back/index.js"
+    "start-back": "cd back && node ./build/index.js"
   },
   "keywords": [],
   "author": "",
