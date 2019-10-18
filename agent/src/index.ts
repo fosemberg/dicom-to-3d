@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import {app} from './expressApp';
-import {IBody, IParams, IWithBuildId, IWithCommand, IWithCommitHash, IWithRepositoryId, IWithUrl,} from './types';
+import {IBody, IParams, IWithCommand, IWithCommitHash, IWithRepositoryId, IWithUrl,} from './types';
+import {IWithBuildId, Status} from './apiTypes';
 import {arrayFromOut, execCommandWithRes} from './utils';
 import {PORT} from './config';
 
@@ -35,7 +36,9 @@ app.get(
       `cd ${PATH_TO_REPOS}/${repositoryId} &&
             git checkout -q ${commitHash} &&
             ${command}`,
-      res
+      res,
+      (res) => ({buildId, status: Status.success, stdOut: res}),
+      (error) => ({buildId, status: Status.success, stdOut: error})
     )
 );
 

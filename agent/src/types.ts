@@ -17,10 +17,6 @@ export interface IWithCommitHash {
   commitHash: string;
 }
 
-export interface IWithBuildId {
-  buildId: number;
-}
-
 export interface IWithCommand {
   command: string;
 }

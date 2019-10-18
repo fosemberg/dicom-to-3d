@@ -1,4 +1,4 @@
-import {Status} from "./apiTypes";
+import {BuildId, Command, CommitHash, Status} from "./apiTypes";
 
 export interface IParams<T> {
   params: T;
@@ -16,22 +16,9 @@ export interface IWithUrl {
 }
 
 export interface IWithCommitHash {
-  commitHash: string;
-}
-
-export interface IWithBuildId {
-  buildId: number;
-}
-
-export interface IWithStatus {
-  status: Status;
-}
-
-export interface IWithOut {
-  out: string;
+  commitHash: CommitHash;
 }
 
 export interface IWithCommand {
-  command: string;
+  command: Command;
 }
-
