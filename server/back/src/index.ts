@@ -109,8 +109,27 @@ app.get(
     req: Request,
     res: Response
   ) => {
-    db.find({}).exec((err, docs) => {
-      res.json(JSON.stringify(docs));
+    db.find({}).exec((err, buildResults) => {
+      res.json(JSON.stringify(
+        buildResults.map(({_id, status}) => ({_id, status}))
+      ));
+    });
+  }
+);
+
+// отдать результаты сборки.
+app.get(
+  '/get_build_result/:buildId',
+  (
+    {
+      params: {buildId},
+    }: IParams<IWithBuildId>,
+    res: Response
+  ) => {
+    db.find({_id: buildId}).exec((err, buildResult) => {
+      res.json(JSON.stringify(
+        buildResult
+      ));
     });
   }
 );
