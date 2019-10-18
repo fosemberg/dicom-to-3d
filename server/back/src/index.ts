@@ -56,11 +56,11 @@ const sendBuildRequestToAgent = ({buildId, repositoryId, commitHash, command}: I
 
 // собирает и уведомляет о результатах сборки
 app.get(
-  '/build/:buildId/:repositoryId/:commitHash/:command',
+  '/build/:commitHash/:command',
   (
     {
       params, params: {commitHash, command},
-    }: IParams<IWithRepositoryId & IWithCommitHash & IWithCommand>,
+    }: IParams<IWithCommitHash & IWithCommand>,
     res: Response
   ) => {
     console.info('build: ', JSON.stringify(params));
@@ -183,6 +183,6 @@ app.post('/api/repos', ({body: {url}}: IBody<IWithUrl>, res: Response) =>
   )
 );
 
-console.info(`Server available on: https://localhost:${PORT}`);
+console.info(`Server available on: http://localhost:${PORT}`);
 
 app.listen(PORT);

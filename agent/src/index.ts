@@ -77,6 +77,6 @@ app.get(
 );
 
 
-console.info(`Agent available on: https://localhost:${PORT}`);
+console.info(`Agent available on: http://localhost:${PORT}`);
 
 app.listen(PORT);
