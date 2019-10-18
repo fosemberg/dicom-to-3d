@@ -1,5 +1,5 @@
 export enum Status {
-  success,
+  success ,
   fail,
   building,
 }

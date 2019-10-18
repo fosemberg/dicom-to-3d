@@ -25,9 +25,9 @@ const SERVER_PORT = 3021;
 const notifyBuildResult = ({buildId, status, stdOut}: IBuildResponse, type = 'post') => {
   const host = `http://localhost:${SERVER_PORT}`;
   const url = 'notify_build_result'
-  const _url = `${host}/${url}/${buildId}/${status}`;
+  const _url = `${host}/${url}`;
   console.log('notifyBuildResult', _url);
-  return axios[type](_url, {stdOut})
+  return axios[type](_url, {buildId, status, stdOut})
     .then((response) => {
       console.info(type, _url);
       console.info('Server is alive');

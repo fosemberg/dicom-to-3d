@@ -1,7 +1,7 @@
 export enum Status {
-  success = '0',
-  fail = '1',
-  building = '2',
+  success ,
+  fail,
+  building,
 }
 
 export type BuildId = string;
@@ -34,7 +34,8 @@ export interface IWithStdOut {
 
 export interface IBuildResponse extends
   IWithBuildId,
-  IWithStatus
+  IWithStatus,
+  IWithStdOut
 {}
 
 export interface IBuildRequest extends
