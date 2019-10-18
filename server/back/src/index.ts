@@ -27,6 +27,8 @@ const {createMessageObjectString} = require('./configUtils');
 const DataStore = require('nedb');
 import {DB_FULL_PATH} from "./config";
 
+console.info('Server starting...')
+
 const db = new DataStore({
   filename: DB_FULL_PATH,
   autoload: true,
@@ -35,7 +37,7 @@ const db = new DataStore({
 // сохранить результаты сборки.
 // В параметрах: id сборки, статус, stdout и stderr процесса.
 app.get(
-  '/notify_build_result/:buildId/:status/:out',
+  '/notify_build_result/:buildId/:status/:stdOut',
   (
     {
       params: build,
@@ -46,8 +48,9 @@ app.get(
 
     const {buildId, status, stdOut} = build;
 
+    console.info('notify_build_result', JSON.stringify(build))
     db.update({_id: buildId}, {$set: {status, stdOut}});
-    res.json({buildId, isGet: true});
+    // res.json({data: {buildId, isGet: true}});
   }
 );
 
@@ -115,5 +118,7 @@ app.post('/api/repos', ({body: {url}}: IBody<IWithUrl>, res: Response) =>
     RESPONSE.NO_REPOSITORY(res)
   )
 );
+
+console.info(`Server available on: https://localhost:${PORT}`);
 
 app.listen(PORT);

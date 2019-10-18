@@ -1,9 +1,16 @@
 import {Request, Response} from 'express';
 import {app} from './expressApp';
 import {IBody, IParams, IWithCommand, IWithCommitHash, IWithRepositoryId, IWithUrl,} from './types';
-import {IWithBuildId, Status} from './apiTypes';
+import {IBuild, IWithBuildId, Status} from './apiTypes';
 import {arrayFromOut, execCommandWithRes} from './utils';
 import {PORT} from './config';
+
+// import { exec } from 'child_process';
+// exec(command, options, (err: Error, out: string) =>
+//     err ? callbackErr(err) && console.log(err) : callbackOut(out)
+//   );
+
+console.info('Agent starting...')
 
 const {
   PATH_TO_REPOS,
@@ -12,75 +19,59 @@ const {
 } = require('./config');
 const { createMessageObjectString } = require('./configUtils');
 
+const axios = require(`axios`);
+
+// const url = `https://github.com/fosemberg/${repositoryId}.git`;
+
+const SERVER_PORT = 3021;
+
+const notifyBuildResult = ({buildId, status, stdOut}: IBuild, type = `get`, body = {}) => {
+  const host = `http://localhost:${SERVER_PORT}`;
+  const url = 'notify_build_result'
+  const _url = `${host}/${url}/${buildId}/${status}/${stdOut}`;
+  axios[type](_url, body)
+  return stdOut;
+    // .then((response) => {
+    //   console.info(type, _url);
+    //   console.info('Server is alive');
+    //   console.info(response.data);
+    // })
+    // .catch((error) => {
+    //   console.error(type, _url);
+    //   console.error('Server not response');
+    //   console.error(error.response.data);
+    // });
+};
+
+// checkUrl(`/build/${buildId}/${repositoryId}/${hashCommit}/${command}`)
+
 // собирает и уведомляет о результатах сборки
 app.get(
   '/build/:buildId/:repositoryId/:commitHash/:command',
   (
     {
-      params: { buildId, repositoryId, commitHash, command },
+      params, params: { buildId, repositoryId, commitHash, command },
     }: IParams<IWithBuildId & IWithRepositoryId & IWithCommitHash & IWithCommand>,
     res: Response
-  ) =>
+  ) => {
+    console.log(JSON.stringify(params));
+    console.log(`command: ${command}`);
     execCommandWithRes(
       `cd ${PATH_TO_REPOS}/${repositoryId} &&
             git checkout -q ${commitHash} &&
             ${command}`,
       res,
-      (res) => ({buildId, status: Status.success, stdOut: res}),
-      (error) => ({buildId, status: Status.success, stdOut: error})
+      (res) => (
+        notifyBuildResult({buildId, status: Status.success, stdOut: res})
+      ),
+      (error) => (
+        notifyBuildResult({buildId, status: Status.fail, stdOut: error})
+      )
     )
-);
-
-// DELETE /api/repos/:repositoryId
-// Безвозвратно удаляет репозиторий
-app.delete(
-  '/api/repos/:repositoryId',
-  ({ params: { repositoryId } }: IParams<IWithRepositoryId>, res: Response) =>
-    execCommandWithRes(
-      `rm -rf ${PATH_TO_REPOS}/${repositoryId} &&
-            echo '${createMessageObjectString(MESSAGE.REPOSITORY_DELETED)}'`,
-      res,
-      (x) => JSON.parse(x)
-    )
-);
-
-// POST /api/repos/:repositoryId + { url: ‘repo-url’ }
-// Добавляет репозиторий в список, скачивает его по переданной в теле запроса ссылке и добавляет в папку со всеми репозиториями c названием :repositoryId.
-app.post(
-  '/api/repos/:repositoryId',
-  (
-    {
-      params: { repositoryId },
-      body: { url },
-    }: IParams<IWithRepositoryId> & IBody<IWithUrl>,
-    res: Response
-  ) => {
-    console.log(repositoryId, url);
-    execCommandWithRes(
-      `cd ${PATH_TO_REPOS} &&
-              git clone ${url.replace(
-                /https?(:\/\/)/,
-                'git$1'
-              )} ${repositoryId} && 
-              echo '${createMessageObjectString(MESSAGE.REPOSITORY_CLONED)}'`,
-      res,
-      (x) => JSON.parse(x),
-      RESPONSE.NO_REPOSITORY(res)
-    );
   }
 );
 
-// POST /api/repos + { url: ‘repo-url’ }
-// Добавляет репозиторий в список, скачивает его по переданной в теле запроса ссылке и добавляет в папку со всеми репозиториями.
-app.post('/api/repos', ({ body: { url } }: IBody<IWithUrl>, res: Response) =>
-  execCommandWithRes(
-    `cd ${PATH_TO_REPOS} &&
-                git clone ${url.replace(/https?(:\/\/)/, 'git$1')} && 
-                echo '${createMessageObjectString(MESSAGE.REPOSITORY_CLONED)}'`,
-    res,
-    (x) => JSON.parse(x),
-    RESPONSE.NO_REPOSITORY(res)
-  )
-);
+
+console.info(`Agent available on: https://localhost:${PORT}`);
 
 app.listen(PORT);
