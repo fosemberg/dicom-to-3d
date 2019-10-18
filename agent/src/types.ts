@@ -12,11 +12,3 @@ export interface IWithRepositoryId {
 export interface IWithUrl {
   url: string;
 }
-
-export interface IWithCommitHash {
-  commitHash: string;
-}
-
-export interface IWithCommand {
-  command: string;
-}

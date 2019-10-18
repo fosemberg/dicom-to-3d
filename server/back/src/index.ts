@@ -3,13 +3,10 @@ import {app} from './expressApp';
 import {
   IBody,
   IParams,
-  IWithCommand,
-  IWithCommitHash,
-  IWithRepositoryId,
   IWithUrl,
 } from './types';
 import {
-  IWithStdOut,
+  IWithCommand, IWithCommitHash, IWithRepositoryId, IWithStdOut,
   IWithBuildId,
   IWithStatus,
   IBuildResponse, Status, IBuildRequest,
@@ -69,7 +66,7 @@ app.get(
     console.info('build: ', JSON.stringify(params));
 
     db.insert(
-      {commitHash, command},
+      {commitHash, command, status: Status.building},
       (err, newDoc) => {
         sendBuildRequestToAgent({
           buildId: newDoc._id,
@@ -110,9 +107,9 @@ app.get(
     res: Response
   ) => {
     db.find({}).exec((err, buildResults) => {
-      res.json(JSON.stringify(
-        buildResults.map(({_id, status}) => ({_id, status}))
-      ));
+      res.json(
+        buildResults.map(({_id, status, commitHash}) => ({buildId: _id, status, commitHash}))
+      );
     });
   }
 );

@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 import {app} from './expressApp';
-import {IBody, IParams, IWithCommand, IWithCommitHash, IWithRepositoryId, IWithUrl,} from './types';
-import {IBuildRequest, IBuildResponse, IWithBuildId, Status} from './apiTypes';
+import {IBody, IParams, IWithRepositoryId, IWithUrl,} from './types';
+import {IWithCommand, IWithCommitHash, IBuildRequest, IBuildResponse, IWithBuildId, Status} from './apiTypes';
 import {arrayFromOut, execCommandWithRes} from './utils';
 import {PORT} from './config';
 

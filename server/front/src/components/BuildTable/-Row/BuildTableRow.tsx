@@ -2,13 +2,13 @@ import * as React from 'react';
 import './BuildTableRow.scss';
 import {cn} from '@bem-react/classname'
 import {useHistory} from 'react-router';
-import {Status} from "../../../utils/apiTypes";
+import {BuildId, CommitHash, Status} from "../../../utils/apiTypes";
 import StatusIcon from "../../StatusIcon/StatusIcon";
 
 interface IBuildTableRowProps {
-  id: number;
+  id: BuildId;
   status: Status;
-  commitHash: string
+  commitHash: CommitHash;
 }
 
 export const cnBuildTableRow = cn('BuildTable-Row');

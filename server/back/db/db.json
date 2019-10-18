@@ -1,10 +1,16 @@
-{"_id":1,"commitHash":"7","status":0}
-{"_id":2,"commitHash":"2222","status":0}
-{"_id":3,"commitHash":"3333","status":1}
-{"commitHash":"master","command":"echo 'some'","_id":"5a450UqExHvP0rI6","status":"0","stdOut":"some"}
-{"commitHash":"master","command":"echo 'second build'","_id":"GCJkBofDSBYbbty5","status":"0","stdOut":"second build"}
-{"commitHash":"master","command":"echo 'some'","_id":"LVEKrrkMQJDgqXdo"}
-{"commitHash":"master","command":"echo 'some'","_id":"NeczMYwVOcKtITYJ"}
-{"commitHash":"master","command":"echo 'second build'","_id":"R6GI0sXLU5JORkdP","status":"0","stdOut":"second build"}
-{"commitHash":"master","command":"echo 'some'","_id":"kNGdcyuWwEkaw4hg"}
-{"commitHash":"master","command":"echo 'some'","_id":"kdJrPi09az5BBdAA"}
+{"commitHash":"master","command":"echo 'some'","_id":"4ypCBffpyJoPkBM3","status":"0","stdOut":"some"}
+{"commitHash":"master","command":"echo 'some'","_id":"JiTEotCz9SQ0KVUn","status":"0","stdOut":"some"}
+{"commitHash":"master","command":"echo 'some'","_id":"K321yq54xAaWo307","status":"0","stdOut":"some"}
+{"commitHash":"master","command":"echo 'some'","_id":"TT7bMo6ByW8SXTCK","status":"0","stdOut":"some"}
+{"commitHash":"master","command":"echo 'some'","_id":"y9sCbVtBzr6LSV4e"}
+{"commitHash":"master","command":"echo 'some'","status":"2","_id":"QvLaisIe7LPbydeH"}
+{"commitHash":"master","command":"echo 'some'","status":"2","_id":"5WYyFaYOYqflSgBq"}
+{"commitHash":"master","command":"echo 'some'","status":"2","_id":"6FPJy3dKRpqixWp7"}
+{"commitHash":"master","command":"echo 'some'","status":"2","_id":"68HBxOjxruH6Nb9D"}
+{"commitHash":"master","command":"echo 'some'","status":"2","_id":"IGLZedxukunmV1C8"}
+{"commitHash":"master","command":"echo 'some'","status":"2","_id":"EsPo5AZvY2PH8ThP"}
+{"commitHash":"master","command":"cat lskdfjkl","status":"2","_id":"l1nX3vuMb9kJsp67"}
+{"commitHash":"master","command":"echo 'some'","status":"2","_id":"p3E8tgQhPEk8NUZ4"}
+{"commitHash":"master","command":"echo 'some'","status":"0","_id":"p3E8tgQhPEk8NUZ4","stdOut":"some"}
+{"commitHash":"master","command":"echo 'some'","status":"2","_id":"sMYxYzct6aryVdX4"}
+{"commitHash":"master","command":"echo 'some'","status":"0","_id":"sMYxYzct6aryVdX4","stdOut":"some"}
