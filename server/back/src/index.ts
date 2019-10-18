@@ -51,6 +51,19 @@ app.get(
   }
 );
 
+// отдать результаты сборки.
+app.get(
+  '/get_build_results/',
+  (
+    req: Request,
+    res: Response
+  ) => {
+    db.find({}).exec((err, docs) => {
+      res.json(JSON.stringify(docs));
+    });
+  }
+);
+
 // DELETE /api/repos/:repositoryId
 // Безвозвратно удаляет репозиторий
 app.delete(

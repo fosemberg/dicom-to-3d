@@ -12,18 +12,7 @@ const {
 } = require('./config');
 const { createMessageObjectString } = require('./configUtils');
 
-// Возвращает массив репозиториев, которые имеются в папке.
-app.get('/api/repos', (req: Request, res: Response) =>
-  execCommandWithRes(
-    `cd ${PATH_TO_REPOS} &&
-            ls`,
-    res,
-    arrayFromOut
-  )
-);
-
-// Возвращает массив коммитов в данной ветке (или хэше коммита) вместе с датами их создания.
-// с пагинацией для списка коммитов
+// собирает и уведомляет о результатах сборки
 app.get(
   '/build/:buildId/:repositoryId/:commitHash/:command',
   (
