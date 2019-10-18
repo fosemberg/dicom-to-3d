@@ -50,7 +50,7 @@ app.get(
 
     console.info('notify_build_result', JSON.stringify(build))
     db.update({_id: buildId}, {$set: {status, stdOut}});
-    // res.json({data: {buildId, isGet: true}});
+    res.json({buildId, isGet: true});
   }
 );
 

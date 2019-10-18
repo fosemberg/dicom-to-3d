@@ -5,10 +5,7 @@ import {IBuild, IWithBuildId, Status} from './apiTypes';
 import {arrayFromOut, execCommandWithRes} from './utils';
 import {PORT} from './config';
 
-// import { exec } from 'child_process';
-// exec(command, options, (err: Error, out: string) =>
-//     err ? callbackErr(err) && console.log(err) : callbackOut(out)
-//   );
+import {exec} from 'child_process';
 
 console.info('Agent starting...')
 
@@ -17,7 +14,7 @@ const {
   MESSAGE,
   RESPONSE,
 } = require('./config');
-const { createMessageObjectString } = require('./configUtils');
+const {createMessageObjectString} = require('./configUtils');
 
 const axios = require(`axios`);
 
@@ -29,18 +26,17 @@ const notifyBuildResult = ({buildId, status, stdOut}: IBuild, type = `get`, body
   const host = `http://localhost:${SERVER_PORT}`;
   const url = 'notify_build_result'
   const _url = `${host}/${url}/${buildId}/${status}/${stdOut}`;
-  axios[type](_url, body)
-  return stdOut;
-    // .then((response) => {
-    //   console.info(type, _url);
-    //   console.info('Server is alive');
-    //   console.info(response.data);
-    // })
-    // .catch((error) => {
-    //   console.error(type, _url);
-    //   console.error('Server not response');
-    //   console.error(error.response.data);
-    // });
+  return axios[type](_url, body)
+    .then((response) => {
+      console.info(type, _url);
+      console.info('Server is alive');
+      console.info(response.data);
+    })
+    .catch((error) => {
+      console.error(type, _url);
+      console.error('Server not response');
+      console.error(error.response.data);
+    });
 };
 
 // checkUrl(`/build/${buildId}/${repositoryId}/${hashCommit}/${command}`)
@@ -50,24 +46,32 @@ app.get(
   '/build/:buildId/:repositoryId/:commitHash/:command',
   (
     {
-      params, params: { buildId, repositoryId, commitHash, command },
+      params, params: {buildId, repositoryId, commitHash, command},
     }: IParams<IWithBuildId & IWithRepositoryId & IWithCommitHash & IWithCommand>,
     res: Response
   ) => {
     console.log(JSON.stringify(params));
     console.log(`command: ${command}`);
-    execCommandWithRes(
+
+    exec(
       `cd ${PATH_TO_REPOS}/${repositoryId} &&
             git checkout -q ${commitHash} &&
             ${command}`,
-      res,
-      (res) => (
-        notifyBuildResult({buildId, status: Status.success, stdOut: res})
-      ),
-      (error) => (
-        notifyBuildResult({buildId, status: Status.fail, stdOut: error})
-      )
-    )
+      {},
+      (error: Error, stdOut: string) =>
+        error
+          ? notifyBuildResult({
+            buildId,
+            status: Status.fail,
+            stdOut: String(error)
+          }) &&
+          console.error(error)
+          : notifyBuildResult({
+            buildId,
+            status: Status.success,
+            stdOut
+          })
+    );
   }
 );
 
