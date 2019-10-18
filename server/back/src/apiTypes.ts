@@ -51,7 +51,7 @@ export interface IClientBuildResult extends
   IWithCommitHash
 {}
 
-export interface IClientBuildResultDetails extends
+export interface IClientBuildDetailedResult extends
   IWithBuildId,
   IWithStatus,
   IWithCommitHash,

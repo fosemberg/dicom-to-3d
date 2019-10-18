@@ -1,28 +1,21 @@
 import * as React from 'react';
 import {Card, ListGroup} from "react-bootstrap";
-import {Status} from "../../utils/apiTypes";
+import {IClientBuildDetailedResult, Status} from "../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 import BuildDetailsHeader from "./-Header/BuildDetails-Header";
 
-interface IBuildDetailsProps {
-  id: number;
-  commitHash: string;
-  startDate: string;
-  endDate: string;
-  status: Status;
-  output: string;
-}
+export const cnBuildDetails = cn('BuildDetails');
 
-export const cnBuildDetails = cn('BuildDetails')
-
-const BuildDetails = ({id, commitHash, startDate, endDate, status, output}: IBuildDetailsProps) => {
+const BuildDetails: React.FC<IClientBuildDetailedResult> = ({buildId, commitHash, status, stdOut}) => {
+  const startDate = new Date();
+  const endDate = new Date();
   return (
     <Card className={cnBuildDetails()}>
-      <BuildDetailsHeader status={status} id={id} commitHash={commitHash}/>
+      <BuildDetailsHeader status={status} buildId={buildId} commitHash={commitHash}/>
       <ListGroup variant="flush">
-        <ListGroup.Item>start build: {startDate}</ListGroup.Item>
-        <ListGroup.Item>end build: {endDate}</ListGroup.Item>
-        <ListGroup.Item>{output}</ListGroup.Item>
+        <ListGroup.Item>start build: {'startDate'}</ListGroup.Item>
+        { status !== Status.building && <ListGroup.Item>end build: {'endDate'}</ListGroup.Item> }
+        { status !== Status.building && <ListGroup.Item>{stdOut}</ListGroup.Item>}
       </ListGroup>
     </Card>
   );

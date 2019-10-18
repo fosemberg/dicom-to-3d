@@ -116,17 +116,15 @@ app.get(
 
 // отдать результаты сборки.
 app.get(
-  '/get_build_result/:buildId',
+  '/get_build_detailed_result/:buildId',
   (
     {
       params: {buildId},
     }: IParams<IWithBuildId>,
     res: Response
   ) => {
-    db.find({_id: buildId}).exec((err, buildResult) => {
-      res.json(JSON.stringify(
-        buildResult
-      ));
+    db.findOne({_id: buildId}).exec((err, buildResult) => {
+      res.json({...buildResult, buildId: buildResult._id});
     });
   }
 );

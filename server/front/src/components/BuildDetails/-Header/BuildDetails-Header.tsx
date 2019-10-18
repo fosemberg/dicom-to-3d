@@ -2,18 +2,18 @@ import * as React from 'react';
 import './BuildDetails-Header.scss';
 import StatusIcon from "../../StatusIcon/StatusIcon";
 import {Card} from "react-bootstrap";
-import {Status} from "../../../utils/apiTypes";
+import {BuildId, Status} from "../../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 
 interface IBuildDetailsHeaderProps {
   status: Status;
-  id: number;
+  buildId: BuildId;
   commitHash: string;
 }
 
 const cnBuildDetailsHeader = cn('BuildDetails-Header');
 
-const BuildDetailsHeader = ({status, id, commitHash}: IBuildDetailsHeaderProps) => {
+const BuildDetailsHeader = ({status, buildId, commitHash}: IBuildDetailsHeaderProps) => {
   return (
     <Card.Header className={cnBuildDetailsHeader({
       building: status === Status.building,
@@ -21,7 +21,7 @@ const BuildDetailsHeader = ({status, id, commitHash}: IBuildDetailsHeaderProps) 
       fail: status === Status.fail,
     })}>
       <StatusIcon status={status}/>
-      {id}
+      {buildId}
       {' - '}
       {commitHash}
     </Card.Header>

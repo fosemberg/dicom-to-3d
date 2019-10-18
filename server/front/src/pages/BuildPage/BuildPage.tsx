@@ -1,24 +1,47 @@
 import * as React from 'react';
 import {useParams} from "react-router-dom";
 import BuildDetails from "../../components/BuildDetails/BuildDetails";
-import {Status} from "../../utils/apiTypes";
+import {BuildId, IClientBuildDetailedResult, IClientBuildResult, Status} from "../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 import './BuildPage.scss';
+import {getBuildDetailedResult} from "../../store/getData";
+import {useState} from "react";
+import {useEffect} from "react";
+import Loader from "../../components/Loader/Loader";
 
-const cnBuildPage = cn('BuildPage')
+interface IBuildPageProps {
+  getData: (buildId: BuildId) => Promise<IClientBuildDetailedResult>;
+}
 
-const BuildPage: React.FC = () => {
-  let {id, commitHash} = useParams();
+const cnBuildPage = cn('BuildPage');
+
+const isEmptyObject = (object: Object) => JSON.stringify(object) === '{}';
+
+const BuildPage: React.FC<IBuildPageProps> = (
+  {
+    getData = getBuildDetailedResult
+  }
+) => {
+  let {id} = useParams();
+  const [data, setData] = useState<IClientBuildDetailedResult | {}>({});
+
+  useEffect(() => {
+    if (id) getData(id).then((json) => setData(json));
+  }, []);
+
   return (
     <div className={cnBuildPage()}>
-      <BuildDetails
-        id={Number(id)}
-        commitHash={String(commitHash)}
-        status={Status.success}
-        startDate={'now'}
-        endDate={'never'}
-        output={'everything build good'}
-      />
+      {
+        isEmptyObject(data)
+          ? <Loader/>
+          : <BuildDetails
+            buildId={(data as IClientBuildDetailedResult).buildId}
+            command={(data as IClientBuildDetailedResult).command}
+            stdOut={(data as IClientBuildDetailedResult).stdOut}
+            status={(data as IClientBuildDetailedResult).status}
+            commitHash={(data as IClientBuildDetailedResult).commitHash}
+          />
+      }
     </div>
   )
 };

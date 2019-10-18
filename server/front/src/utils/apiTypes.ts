@@ -43,7 +43,7 @@ export interface IBuildRequest extends
   IWithRepositoryId,
   IWithCommitHash,
   IWithCommand
-{};
+{}
 
 export interface IClientBuildResult extends
   IWithBuildId,
@@ -51,7 +51,7 @@ export interface IClientBuildResult extends
   IWithCommitHash
 {}
 
-export interface IClientBuildResultDetails extends
+export interface IClientBuildDetailedResult extends
   IWithBuildId,
   IWithStatus,
   IWithCommitHash,
