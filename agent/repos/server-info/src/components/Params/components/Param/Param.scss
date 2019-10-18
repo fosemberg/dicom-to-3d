@@ -1,0 +1,27 @@
+.param {
+  > * {
+    padding: 12px;
+    @media (max-width: 500px) {
+      padding: 4px;
+    }
+  }
+
+  &_name {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  &_value {
+    text-align: center;
+    margin: auto;
+
+    input {
+      background-color: rgb(239,240,237);
+    }
+  }
+
+  &_description {
+    color: rgb(137,137,137);
+    font-size: 12px;
+  }
+}
