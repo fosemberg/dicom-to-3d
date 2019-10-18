@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { exec } from 'child_process';
 import { RESPONSE } from './config';
-import {IBuild} from "./apiTypes";
+import {IBuildResponse} from "./apiTypes";
 
 export const execCommand = (
   command: string,
@@ -18,8 +18,8 @@ export const execCommand = (
 export const execCommandWithRes = (
   command: string,
   res: Response,
-  callbackOut: (x: string) => string | string[] | IBuild = (x: string) => x,
-  callbackErr: (stdError: string) => string | IBuild | Response = RESPONSE.NO_ROUT(res),
+  callbackOut: (x: string) => string | string[] | IBuildResponse = (x: string) => x,
+  callbackErr: (stdError: string) => string | IBuildResponse | Response = RESPONSE.NO_ROUT(res),
   options = {}
 ) =>
   execCommand(

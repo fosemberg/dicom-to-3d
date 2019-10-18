@@ -1,3 +1,5 @@
+import {IWithCommand, IWithCommitHash, IWithRepositoryId} from "../../server/back/src/types";
+
 export enum Status {
   success,
   fail,
@@ -20,4 +22,6 @@ export interface IWithStdOut {
   stdOut: string;
 }
 
-export interface IBuild extends IWithBuildId, IWithStatus, IWithStdOut {}
+export interface IBuildResponse extends IWithBuildId, IWithStatus, IWithStdOut {}
+
+export interface IBuildRequest extends IWithBuildId, IWithRepositoryId, IWithCommitHash, IWithCommand {};

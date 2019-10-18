@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 import {app} from './expressApp';
 import {IBody, IParams, IWithCommand, IWithCommitHash, IWithRepositoryId, IWithUrl,} from './types';
-import {IBuild, IWithBuildId, Status} from './apiTypes';
+import {IBuildRequest, IBuildResponse, IWithBuildId, Status} from './apiTypes';
 import {arrayFromOut, execCommandWithRes} from './utils';
 import {PORT} from './config';
 
@@ -22,7 +22,7 @@ const axios = require(`axios`);
 
 const SERVER_PORT = 3021;
 
-const notifyBuildResult = ({buildId, status, stdOut}: IBuild, type = `get`, body = {}) => {
+const notifyBuildResult = ({buildId, status, stdOut}: IBuildResponse, type = `get`, body = {}) => {
   const host = `http://localhost:${SERVER_PORT}`;
   const url = 'notify_build_result'
   const _url = `${host}/${url}/${buildId}/${status}/${stdOut}`;
@@ -47,12 +47,12 @@ app.get(
   (
     {
       params, params: {buildId, repositoryId, commitHash, command},
-    }: IParams<IWithBuildId & IWithRepositoryId & IWithCommitHash & IWithCommand>,
+    }: IParams<IBuildRequest>,
     res: Response
   ) => {
-    console.log(JSON.stringify(params));
-    console.log(`command: ${command}`);
+    console.info('build: ', JSON.stringify(params));
 
+    res.json({buildId, isAlive: true});
     exec(
       `cd ${PATH_TO_REPOS}/${repositoryId} &&
             git checkout -q ${commitHash} &&
