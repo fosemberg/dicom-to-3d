@@ -22,11 +22,12 @@ const axios = require(`axios`);
 
 const SERVER_PORT = 3021;
 
-const notifyBuildResult = ({buildId, status, stdOut}: IBuildResponse, type = `get`, body = {}) => {
+const notifyBuildResult = ({buildId, status, stdOut}: IBuildResponse, type = 'post') => {
   const host = `http://localhost:${SERVER_PORT}`;
   const url = 'notify_build_result'
-  const _url = `${host}/${url}/${buildId}/${status}/${stdOut}`;
-  return axios[type](_url, body)
+  const _url = `${host}/${url}/${buildId}/${status}`;
+  console.log('notifyBuildResult', _url);
+  return axios[type](_url, {stdOut})
     .then((response) => {
       console.info(type, _url);
       console.info('Server is alive');

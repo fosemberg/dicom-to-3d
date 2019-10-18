@@ -1,16 +1,12 @@
-{"commitHash":"master","command":"echo 'some'","_id":"4ypCBffpyJoPkBM3","status":"0","stdOut":"some"}
-{"commitHash":"master","command":"echo 'some'","_id":"JiTEotCz9SQ0KVUn","status":"0","stdOut":"some"}
-{"commitHash":"master","command":"echo 'some'","_id":"K321yq54xAaWo307","status":"0","stdOut":"some"}
-{"commitHash":"master","command":"echo 'some'","_id":"TT7bMo6ByW8SXTCK","status":"0","stdOut":"some"}
-{"commitHash":"master","command":"echo 'some'","_id":"y9sCbVtBzr6LSV4e"}
-{"commitHash":"master","command":"echo 'some'","status":"2","_id":"QvLaisIe7LPbydeH"}
-{"commitHash":"master","command":"echo 'some'","status":"2","_id":"5WYyFaYOYqflSgBq"}
-{"commitHash":"master","command":"echo 'some'","status":"2","_id":"6FPJy3dKRpqixWp7"}
-{"commitHash":"master","command":"echo 'some'","status":"2","_id":"68HBxOjxruH6Nb9D"}
-{"commitHash":"master","command":"echo 'some'","status":"2","_id":"IGLZedxukunmV1C8"}
-{"commitHash":"master","command":"echo 'some'","status":"2","_id":"EsPo5AZvY2PH8ThP"}
-{"commitHash":"master","command":"cat lskdfjkl","status":"2","_id":"l1nX3vuMb9kJsp67"}
-{"commitHash":"master","command":"echo 'some'","status":"2","_id":"p3E8tgQhPEk8NUZ4"}
-{"commitHash":"master","command":"echo 'some'","status":"0","_id":"p3E8tgQhPEk8NUZ4","stdOut":"some"}
-{"commitHash":"master","command":"echo 'some'","status":"2","_id":"sMYxYzct6aryVdX4"}
-{"commitHash":"master","command":"echo 'some'","status":"0","_id":"sMYxYzct6aryVdX4","stdOut":"some"}
+{"commitHash":"master","command":"echo 'some'","status":"0","_id":"2hF2OZRV4p5krrWQ","stdOut":"some"}
+{"commitHash":"master","command":"echo 'some'","status":"0","_id":"7wrEcEkOaJ78LO7H","stdOut":"some"}
+{"commitHash":"master","command":"cat asldfjdks","status":"2","_id":"8VVGPWRHDL3falao"}
+{"commitHash":"master","command":"cat asldfjdks","status":"2","_id":"GWbwiiAa5Bs9IPeL"}
+{"commitHash":"master","command":"cat asldfjdks","status":"2","_id":"hYdjVV5DgA9N1m1x"}
+{"commitHash":"master","command":"cat asldfjdks","status":"2","_id":"iGNF5cPeX8QBmF8E"}
+{"commitHash":"master","command":"cat asldfjdks","status":"2","_id":"l8itnzraQGG9bZ3V"}
+{"commitHash":"master","command":"cat asldfjdks","status":"2","_id":"Hbgxj3C9DiqzPRzF"}
+{"commitHash":"master","command":"cat asldfjdks","status":"2","_id":"lIGjFVZPY2aKwPKt"}
+{"commitHash":"master","command":"cat asldfjdks","status":"1","_id":"lIGjFVZPY2aKwPKt","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q master &&\n            cat asldfjdks\ncat: asldfjdks: No such file or directory\n"}
+{"commitHash":"master","command":"cat asldfjdks","status":"2","_id":"Nu9WuJkfqOwETrWr"}
+{"commitHash":"master","command":"cat asldfjdks","status":"1","_id":"Nu9WuJkfqOwETrWr","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q master &&\n            cat asldfjdks\ncat: asldfjdks: No such file or directory\n"}

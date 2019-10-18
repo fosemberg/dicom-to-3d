@@ -34,8 +34,7 @@ export interface IWithStdOut {
 
 export interface IBuildResponse extends
   IWithBuildId,
-  IWithStatus,
-  IWithStdOut
+  IWithStatus
 {}
 
 export interface IBuildRequest extends

@@ -81,19 +81,20 @@ app.get(
 
 // сохранить результаты сборки.
 // В параметрах: id сборки, статус, stdout и stderr процесса.
-app.get(
-  '/notify_build_result/:buildId/:status/:stdOut',
+app.post(
+  '/notify_build_result/:buildId/:status',
   (
     {
       params: build,
-    }: IParams<IBuildResponse>,
+      body: {stdOut}
+    }: IParams<IBuildResponse> & IBody<IWithStdOut>,
     res: Response
   ) => {
     // send build to user
 
-    const {buildId, status, stdOut} = build;
+    const {buildId, status} = build;
 
-    console.info('notify_build_result', JSON.stringify(build))
+    console.info('notify_build_result', JSON.stringify(build));
     db.update({_id: buildId}, {$set: {status, stdOut}});
     res.json({buildId, isAlive: true});
   }
