@@ -7,6 +7,7 @@ export enum Status {
 export type BuildId = string;
 export type CommitHash = string;
 export type Command = string;
+export type Date = number;
 
 export interface IWithRepositoryId {
   repositoryId: string;
@@ -32,10 +33,20 @@ export interface IWithStdOut {
   stdOut: string;
 }
 
+export interface IWithStartDate {
+  startDate: Date;
+}
+
+export interface IWithEndDate {
+  endDate: Date;
+}
+
 export interface IBuildResponse extends
   IWithBuildId,
   IWithStatus,
-  IWithStdOut
+  IWithStdOut,
+  IWithStartDate,
+  IWithEndDate
 {}
 
 export interface IBuildRequest extends
@@ -56,7 +67,9 @@ export interface IClientBuildDetailedResult extends
   IWithStatus,
   IWithCommitHash,
   IWithCommand,
-  IWithStdOut
+  IWithStdOut,
+  IWithStartDate,
+  IWithEndDate
 {}
 
 

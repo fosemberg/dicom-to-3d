@@ -1,4 +1,3 @@
-
 {
   "name": "nodejs",
   "version": "0.1.0",
@@ -16,9 +15,12 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "rxjs": "^6.5.3",
+    "ws": "^7.1.2"
   },
   "devDependencies": {
+    "@types/ws": "^6.0.3",
     "typescript": "^3.6.4"
   }
 }

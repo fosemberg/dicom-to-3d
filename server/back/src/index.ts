@@ -91,10 +91,10 @@ app.post(
   ) => {
     // send build to user
 
-    const {buildId, status, stdOut} = build;
+    const {buildId, status, stdOut, startDate, endDate} = build;
 
     console.info('notify_build_result', JSON.stringify(build));
-    db.update({_id: buildId}, {$set: {status, stdOut}});
+    db.update({_id: buildId}, {$set: {status, stdOut, startDate, endDate}});
     res.json({buildId, isAlive: true});
   }
 );
@@ -124,7 +124,8 @@ app.get(
     res: Response
   ) => {
     db.findOne({_id: buildId}).exec((err, buildResult) => {
-      res.json({...buildResult, buildId: buildResult._id});
+      const {_id: buildId, ..._buildResult} = buildResult;
+      res.json({..._buildResult, buildId});
     });
   }
 );

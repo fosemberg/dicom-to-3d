@@ -35,11 +35,7 @@ const BuildPage: React.FC<IBuildPageProps> = (
         isEmptyObject(data)
           ? <Loader/>
           : <BuildDetails
-            buildId={(data as IClientBuildDetailedResult).buildId}
-            command={(data as IClientBuildDetailedResult).command}
-            stdOut={(data as IClientBuildDetailedResult).stdOut}
-            status={(data as IClientBuildDetailedResult).status}
-            commitHash={(data as IClientBuildDetailedResult).commitHash}
+            {...(data as IClientBuildDetailedResult)}
           />
       }
     </div>

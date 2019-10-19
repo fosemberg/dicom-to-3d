@@ -1,9 +1,0 @@
-{"commitHash":"master","command":"echo 'fos3'","status":1,"_id":"6ztCkrxhzC17IvIB","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q master &&\n            echo 'fos3'\nfatal: Unable to create '/mnt/d/git/study/shri/hw/my/shri-2019-hw__ci/.git/index.lock': File exists.\n\nAnother git process seems to be running in this repository, e.g.\nan editor opened by 'git commit'. Please make sure all processes\nare terminated then try again. If it still fails, a git process\nmay have crashed in this repository earlier:\nremove the file manually to continue.\n"}
-{"commitHash":"master","command":"echo 'cat sdfklsj'","status":0,"_id":"H8JsbnlQcEDiHoiF","stdOut":"cat sdfklsj\n"}
-{"commitHash":"master","command":"echo 'fos3'","status":0,"_id":"OFei3CeVo1Q3RybC","stdOut":"fos3\n"}
-{"commitHash":"master","command":"echo 'fos3'","status":0,"_id":"kkHmwwfxKZ7Zy792","stdOut":"fos3\n"}
-{"commitHash":"master","command":"echo 'fos3'","status":0,"_id":"lr2rPslvAPPUc8bY","stdOut":"fos3\n"}
-{"commitHash":"master","command":"echo 'cat sdfklsj'","status":2,"_id":"l4GOrRdkBATI2B8V"}
-{"commitHash":"master","command":"echo 'cat sdfklsj'","status":0,"_id":"l4GOrRdkBATI2B8V","stdOut":"cat sdfklsj\n"}
-{"commitHash":"master","command":"cat asldfkjs","status":2,"_id":"1f8C7SbqxAZytZLE"}
-{"commitHash":"master","command":"cat asldfkjs","status":1,"_id":"1f8C7SbqxAZytZLE","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q master &&\n            cat asldfkjs\ncat: asldfkjs: No such file or directory\n"}
