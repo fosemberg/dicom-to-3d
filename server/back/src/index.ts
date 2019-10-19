@@ -14,6 +14,7 @@ import {
 import {arrayFromOut, execCommandWithRes} from './utils';
 import {PORT} from './config';
 import {DB_FULL_PATH} from "./config";
+import * as WS from "ws";
 
 const {
   PATH_TO_REPOS,
@@ -27,9 +28,9 @@ const axios = require(`axios`);
 
 const repositoryId = 'server-info';
 const AGENT_PORT = 3022;
+const WS_PORT = 8022;
 
-
-console.info('Server starting...')
+console.info('Server starting...');
 
 const db = new DataStore({
   filename: DB_FULL_PATH,
@@ -130,58 +131,92 @@ app.get(
   }
 );
 
-// DELETE /api/repos/:repositoryId
-// Безвозвратно удаляет репозиторий
-app.delete(
-  '/api/repos/:repositoryId',
-  ({params: {repositoryId}}: IParams<IWithRepositoryId>, res: Response) =>
-    execCommandWithRes(
-      `rm -rf ${PATH_TO_REPOS}/${repositoryId} &&
-            echo '${createMessageObjectString(MESSAGE.REPOSITORY_DELETED)}'`,
-      res,
-      (x) => JSON.parse(x)
-    )
-);
-
-// POST /api/repos/:repositoryId + { url: ‘repo-url’ }
-// Добавляет репозиторий в список, скачивает его по переданной в теле запроса ссылке и добавляет в папку со всеми репозиториями c названием :repositoryId.
-app.post(
-  '/api/repos/:repositoryId',
-  (
-    {
-      params: {repositoryId},
-      body: {url},
-    }: IParams<IWithRepositoryId> & IBody<IWithUrl>,
-    res: Response
-  ) => {
-    console.log(repositoryId, url);
-    execCommandWithRes(
-      `cd ${PATH_TO_REPOS} &&
-              git clone ${url.replace(
-        /https?(:\/\/)/,
-        'git$1'
-      )} ${repositoryId} && 
-              echo '${createMessageObjectString(MESSAGE.REPOSITORY_CLONED)}'`,
-      res,
-      (x) => JSON.parse(x),
-      RESPONSE.NO_REPOSITORY(res)
-    );
-  }
-);
-
-// POST /api/repos + { url: ‘repo-url’ }
-// Добавляет репозиторий в список, скачивает его по переданной в теле запроса ссылке и добавляет в папку со всеми репозиториями.
-app.post('/api/repos', ({body: {url}}: IBody<IWithUrl>, res: Response) =>
-  execCommandWithRes(
-    `cd ${PATH_TO_REPOS} &&
-                git clone ${url.replace(/https?(:\/\/)/, 'git$1')} && 
-                echo '${createMessageObjectString(MESSAGE.REPOSITORY_CLONED)}'`,
-    res,
-    (x) => JSON.parse(x),
-    RESPONSE.NO_REPOSITORY(res)
-  )
-);
-
 console.info(`Server available on: http://localhost:${PORT}`);
 
 app.listen(PORT);
+
+//  WS
+
+const enum TYPE {
+  SUBSCRIBE = 'SUBSCRIPTION',
+  UNSUBSCRIBE = 'UNSUBSCRIPTION',
+  REQUEST = 'REQUEST',
+  EVENT = 'EVENT',
+  RESPONSE = 'RESPONSE',
+}
+
+const enum ACTION {
+  BAR = 'bar',
+  BAR_HISTORY = 'bar-history',
+  DICTIONARY = 'dictionary',
+  AUTH = 'auth',
+  BUILD_DETAILS = 'BUILD_DETAILS',
+  BUILDS = 'BUILDS',
+}
+
+const WSS = WS.Server;
+const wss = new WSS({port: WS_PORT});
+
+const sendMessage = (json) => {
+  wss.clients.forEach(function each(client) {
+    let outJson = JSON.stringify(json);
+    client.send(outJson);
+    console.log('Send: ' + outJson);
+  });
+};
+
+wss.on('connection', function (socket) {
+  console.log('Opened Connection 🎉');
+
+  let json = JSON.stringify(RESPONSE.CONNECTED);
+  socket.send(json);
+  console.log('Sent: ' + json);
+
+  // обработка приходящих сообщений
+  // здесь нужно осущесвить подписки
+  socket.on('message', function (message: string) {
+    // {"type":"REQUEST","rid":3,"action":"dictionary","body":{}}
+    console.log('Received: ' + message);
+    let data = JSON.parse(message);
+    let action = data.action;
+    let type = data.type;
+
+    switch (type) {
+      case TYPE.SUBSCRIBE:
+        switch (action) {
+          case ACTION.BUILD_DETAILS:
+            sendMessage({message: 'build-details'});
+            break;
+          case ACTION.BUILDS:
+            sendMessage({message: 'builds'});
+            break;
+          case ACTION.BAR:
+            sendMessage({message: 'bar'});
+          default:
+            sendMessage({message: 'unknown'})
+        }
+        break;
+      case TYPE.REQUEST:
+        switch (action) {
+          case ACTION.BUILD_DETAILS:
+            sendMessage(RESPONSE.AUTH);
+            break;
+          case ACTION.BUILDS:
+            sendMessage({message: 'request on build details'});
+            break;
+          default:
+            sendMessage({message: 'unknown'})
+        }
+        break;
+      default:
+        sendMessage({message: 'unknown'});
+    }
+  });
+
+  socket.on('close', function () {
+    console.log('Closed Connection');
+    // clearInterval(interval.bar);
+    // clearInterval(interval.rate);
+  });
+
+});
