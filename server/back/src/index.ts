@@ -55,6 +55,14 @@ const sendBuildRequestToAgent = ({buildId, repositoryId, commitHash, command}: I
     });
 };
 
+const sendMessage = (json) => {
+  wss.clients.forEach(function each(client) {
+    let outJson = JSON.stringify(json);
+    client.send(outJson);
+    console.log('Send: ' + outJson);
+  });
+};
+
 // собирает и уведомляет о результатах сборки
 app.get(
   '/build/:commitHash/:command',
@@ -69,6 +77,12 @@ app.get(
     db.insert(
       {commitHash, command, status: Status.building},
       (err, newDoc) => {
+        sendMessage({
+          buildId: newDoc._id,
+          repositoryId,
+          commitHash,
+          command
+        });
         sendBuildRequestToAgent({
           buildId: newDoc._id,
           repositoryId,
@@ -91,6 +105,8 @@ app.post(
     res: Response
   ) => {
     // send build to user
+
+    sendMessage(build);
 
     const {buildId, status, stdOut, startDate, endDate} = build;
 
@@ -157,13 +173,7 @@ const enum ACTION {
 const WSS = WS.Server;
 const wss = new WSS({port: WS_PORT});
 
-const sendMessage = (json) => {
-  wss.clients.forEach(function each(client) {
-    let outJson = JSON.stringify(json);
-    client.send(outJson);
-    console.log('Send: ' + outJson);
-  });
-};
+
 
 wss.on('connection', function (socket) {
   console.log('Opened Connection 🎉');
