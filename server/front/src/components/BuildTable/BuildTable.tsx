@@ -16,7 +16,7 @@ const BuildTable: React.FC<IBuildTableProps> = ({data}) => {
       {
         data.map(
           ({buildId, status, commitHash})  =>
-            <BuildTableRow id={buildId} status={status} commitHash={commitHash}/>
+            <BuildTableRow key={buildId} id={buildId} status={status} commitHash={commitHash}/>
         )
       }
       </tbody>
