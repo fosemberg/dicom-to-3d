@@ -106,7 +106,7 @@ app.get(
     req: Request,
     res: Response
   ) => {
-    db.find({}).exec((err, buildResults) => {
+    db.find({}).sort({ startDate: -1 }).exec((err, buildResults) => {
       res.json(
         buildResults.map(({_id, status, commitHash}) => ({buildId: _id, status, commitHash}))
       );
