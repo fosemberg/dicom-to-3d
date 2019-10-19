@@ -21,6 +21,7 @@ const BuildDetailsHeader = ({status, buildId, commitHash}: IBuildDetailsHeaderPr
       fail: status === Status.fail,
     })}>
       <StatusIcon status={status}/>
+      {'  '}
       {buildId}
       {' - '}
       {commitHash}
