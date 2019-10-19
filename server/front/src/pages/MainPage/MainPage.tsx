@@ -1,9 +1,9 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import BuildTable from "../../components/BuildTable/BuildTable";
 import BuildForm from "../../components/BuildForm/BuildForm";
 import './MainPage.scss';
 import {IClientBuildResult} from "../../utils/apiTypes";
-import {useEffect, useState} from "react";
 import Loader from "../../components/Loader/Loader";
 import {getAllBuildResults} from "../../store/store";
 import {ACTION, crxClient, TYPE} from "../../utils/CrxClient";
@@ -29,9 +29,9 @@ const MainPage: React.FC<IMainPageProps> = (
       setSubscription(crxClient.subject$
         .subscribe(
           (message: any) => {
-            console.log('message from Subscribe: ', message)
-            if (message.type === TYPE.EVENT && message.action === ACTION.BAR) {
-              console.log('get');
+            console.log('message from Subscribe: ', message);
+            if (message.type === TYPE.EVENT && (message.action === ACTION.START_BUILD || message.action === ACTION.BUILD_RESULT)) {
+              console.log('get', message);
             }
           }
         ))

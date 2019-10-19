@@ -24,6 +24,24 @@ const {
 const {createMessageObjectString} = require('./configUtils');
 const DataStore = require('nedb');
 
+const enum TYPE {
+  SUBSCRIBE = 'SUBSCRIPTION',
+  UNSUBSCRIBE = 'UNSUBSCRIPTION',
+  REQUEST = 'REQUEST',
+  EVENT = 'EVENT',
+  RESPONSE = 'RESPONSE',
+}
+
+const enum ACTION {
+  BAR = 'bar',
+  BAR_HISTORY = 'bar-history',
+  DICTIONARY = 'dictionary',
+  AUTH = 'auth',
+  START_BUILD = 'START_BUILD',
+  BUILD_RESULT = 'BUILD_RESULT',
+  BUILD_RESULTS = 'BUILD_RESULTS',
+}
+
 const axios = require(`axios`);
 
 const repositoryId = 'server-info';
@@ -77,18 +95,19 @@ app.get(
     db.insert(
       {commitHash, command, status: Status.building},
       (err, newDoc) => {
+        const buildRequest: IBuildRequest = {
+          buildId: newDoc._id,
+          repositoryId,
+          commitHash,
+          command
+        };
         sendMessage({
-          buildId: newDoc._id,
-          repositoryId,
-          commitHash,
-          command
+          type: TYPE.EVENT,
+          action: ACTION.START_BUILD,
+          ...buildRequest,
+          status: Status.building
         });
-        sendBuildRequestToAgent({
-          buildId: newDoc._id,
-          repositoryId,
-          commitHash,
-          command
-        })
+        sendBuildRequestToAgent(buildRequest);
       }
     );
   }
@@ -106,7 +125,11 @@ app.post(
   ) => {
     // send build to user
 
-    sendMessage(build);
+    sendMessage({
+      ...build,
+      type: TYPE.EVENT,
+      action: ACTION.BUILD_RESULT,
+    });
 
     const {buildId, status, stdOut, startDate, endDate} = build;
 
@@ -153,23 +176,6 @@ app.listen(PORT);
 
 //  WS
 
-const enum TYPE {
-  SUBSCRIBE = 'SUBSCRIPTION',
-  UNSUBSCRIBE = 'UNSUBSCRIPTION',
-  REQUEST = 'REQUEST',
-  EVENT = 'EVENT',
-  RESPONSE = 'RESPONSE',
-}
-
-const enum ACTION {
-  BAR = 'bar',
-  BAR_HISTORY = 'bar-history',
-  DICTIONARY = 'dictionary',
-  AUTH = 'auth',
-  BUILD_DETAILS = 'BUILD_DETAILS',
-  BUILDS = 'BUILDS',
-}
-
 const WSS = WS.Server;
 const wss = new WSS({port: WS_PORT});
 
@@ -194,10 +200,10 @@ wss.on('connection', function (socket) {
     switch (type) {
       case TYPE.SUBSCRIBE:
         switch (action) {
-          case ACTION.BUILD_DETAILS:
+          case ACTION.BUILD_RESULT:
             sendMessage({message: 'build-details'});
             break;
-          case ACTION.BUILDS:
+          case ACTION.BUILD_RESULTS:
             sendMessage({message: 'builds'});
             break;
           case ACTION.BAR:
@@ -208,10 +214,10 @@ wss.on('connection', function (socket) {
         break;
       case TYPE.REQUEST:
         switch (action) {
-          case ACTION.BUILD_DETAILS:
+          case ACTION.BUILD_RESULT:
             sendMessage(RESPONSE.AUTH);
             break;
-          case ACTION.BUILDS:
+          case ACTION.BUILD_RESULTS:
             sendMessage({message: 'request on build details'});
             break;
           default:

@@ -4,13 +4,6 @@ import {Message} from "./Message";
 
 import "rxjs/add/operator/timeout";
 
-export const ACTION = {
-  BAR: 'bar',
-  BAR_HISTORY: 'bar-history',
-  DICTIONARY: 'dictionary',
-  AUTH: 'auth',
-}
-
 export const TYPE = {
   SUBSCRIBE: 'SUBSCRIBE',
   SUBSCRIPTION: 'SUBSCRIPTION',
@@ -18,6 +11,16 @@ export const TYPE = {
   REQUEST: 'REQUEST',
   RESPONSE: 'RESPONSE',
   EVENT: 'EVENT'
+};
+
+export enum ACTION {
+  BAR = 'bar',
+  BAR_HISTORY = 'bar-history',
+  DICTIONARY = 'dictionary',
+  AUTH = 'auth',
+  START_BUILD = 'START_BUILD',
+  BUILD_RESULT = 'BUILD_RESULT',
+  BUILD_RESULTS = 'BUILD_RESULTS',
 }
 
 const WS_PORT = 8022;
