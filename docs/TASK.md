@@ -1,8 +1,3 @@
-
-### Презентация с лекции
-
-((file:/shri-2019/Domashnie-zadanija/Infrastruktura/shri-2019-infrastruktura.pdf Презентация))
-
 ### Задача 
 Сделать простую систему continuous integration.
 
