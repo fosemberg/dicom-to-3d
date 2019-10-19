@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Button, Card, Form} from "react-bootstrap";
 import {useState} from "react";
 import {CommitHash} from "../../utils/apiTypes";
-import {sendBuild} from "../../store/getData";
+import {sendBuild} from "../../store/store";
 
 interface IBuildFormProps {
   sendData?: (commitHash: CommitHash, command: string) => Promise<string>;

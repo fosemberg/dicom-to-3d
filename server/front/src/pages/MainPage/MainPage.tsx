@@ -5,7 +5,7 @@ import './MainPage.scss';
 import {IClientBuildResult} from "../../utils/apiTypes";
 import {useEffect, useState} from "react";
 import Loader from "../../components/Loader/Loader";
-import {getAllBuildResults} from "../../store/getData";
+import {getAllBuildResults} from "../../store/store";
 
 interface IMainPageProps {
   getData: () => Promise<IClientBuildResult[]>;

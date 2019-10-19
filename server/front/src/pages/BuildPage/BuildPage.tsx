@@ -4,7 +4,7 @@ import BuildDetails from "../../components/BuildDetails/BuildDetails";
 import {BuildId, IClientBuildDetailedResult, IClientBuildResult, Status} from "../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 import './BuildPage.scss';
-import {getBuildDetailedResult} from "../../store/getData";
+import {getBuildDetailedResult} from "../../store/store";
 import {useState} from "react";
 import {useEffect} from "react";
 import Loader from "../../components/Loader/Loader";
