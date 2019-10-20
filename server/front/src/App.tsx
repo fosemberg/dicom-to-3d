@@ -9,6 +9,7 @@ import "./components/Theme/_color/Theme_color_project-default.scss";
 import "./components/Theme/_space/Theme_space_default.scss";
 import {crxClient, CrxClient, WSReadyState} from "./utils/CrxClient";
 import Loader from "./components/Loader/Loader";
+import {getAllBuildResults} from "./store/store";
 
 
 const App: React.FC = () => {
@@ -28,7 +29,7 @@ const App: React.FC = () => {
         <Container className={cnTheme({color: 'project-default', space: 'default'}, ["p-3"])}>
           <CINavbar/>
           <Switch>
-            <Route path='/' exact={true} component={() => <MainPage/>}/>
+            <Route path='/' exact={true} component={() => <MainPage getData={getAllBuildResults}/>}/>
             <Route path="/build/:id/:commitHash" component={() => <BuildPage/>}/>
           </Switch>
         </Container>
