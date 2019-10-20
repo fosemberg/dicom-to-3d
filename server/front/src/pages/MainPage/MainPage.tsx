@@ -6,37 +6,50 @@ import './MainPage.scss';
 import {IClientBuildResult} from "../../utils/apiTypes";
 import Loader from "../../components/Loader/Loader";
 import {getAllBuildResults} from "../../store/store";
-import {ACTION, crxClient, TYPE} from "../../utils/CrxClient";
+import {ACTION, crxClient, CrxClient, TYPE} from "../../utils/CrxClient";
 import {Subscription} from "rxjs";
 
 interface IMainPageProps {
-  getData: () => Promise<IClientBuildResult[]>;
+  getData?: () => Promise<IClientBuildResult[]>;
 }
+
+// const _data = [];
 
 const MainPage: React.FC<IMainPageProps> = (
   {
-    getData = getAllBuildResults
+    getData = getAllBuildResults,
   }
   ) => {
   const [data, setData] = useState<IClientBuildResult[]>([]);
+  // const _getData = () => data;
+
   const [subscription, setSubscription] = useState<Subscription>(new Subscription);
 
   useEffect(() => {
-    getData().then((json) => setData(json));
-    setTimeout(() => {
-      crxClient.subscribeBar();
-
+    let _getData = () => data;
+    getData().then(
+      (json) => {
+        setData(json);
+      }
+    );
       setSubscription(crxClient.subject$
         .subscribe(
           (message: any) => {
             console.log('message from Subscribe: ', message);
-            if (message.type === TYPE.EVENT && (message.action === ACTION.START_BUILD || message.action === ACTION.BUILD_RESULT)) {
-              console.log('get', message);
+            if (message.type === TYPE.EVENT) {
+              if (message.action === ACTION.START_BUILD) {
+                console.log('get', message);
+                const startBuild: IClientBuildResult = message;
+                setData([
+                  startBuild,
+                  ..._getData(),
+                ])
+              } else if (message.action === ACTION.BUILD_RESULT) {
+                console.log('get', message);
+              }
             }
           }
         ))
-
-    }, 1);
   }, []);
 
   return (

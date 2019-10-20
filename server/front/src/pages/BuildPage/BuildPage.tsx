@@ -10,7 +10,7 @@ import {useEffect} from "react";
 import Loader from "../../components/Loader/Loader";
 
 interface IBuildPageProps {
-  getData: (buildId: BuildId) => Promise<IClientBuildDetailedResult>;
+  getData?: (buildId: BuildId) => Promise<IClientBuildDetailedResult>;
 }
 
 const cnBuildPage = cn('BuildPage');

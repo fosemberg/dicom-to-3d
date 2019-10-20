@@ -23,6 +23,13 @@ export enum ACTION {
   BUILD_RESULTS = 'BUILD_RESULTS',
 }
 
+export enum WSReadyState {
+  CONNECTING = 0, //	Socket has been created. The connection is not yet open.
+  OPEN = 1, //	The connection is open and ready to communicate.
+  CLOSING = 2, //	The connection is in the process of closing.
+  CLOSED = 3, //	The connection is closed or couldn't be opened.
+}
+
 const WS_PORT = 8022;
 
 export class CrxClient {
@@ -38,10 +45,15 @@ export class CrxClient {
 
   private barMessage: IBarMessage = initBarMessage;
   private subscriptionIn$: Subscription = new Subscription();
+  public onReady = () => {};
+  public isReady = false;
+
+  private isBarSubscribe = false;
 
 
   public constructor() {
     this.ws = new WebSocket(this.host);
+    (window as any).ws = this.ws;
 
     this.ws.onopen = () => {
       console.log('Соединение установлено.');
@@ -83,6 +95,9 @@ export class CrxClient {
         msg =>
           this.ws.send(msg.toString())
       );
+
+      this.isReady = true;
+      this.onReady();
 
       this.auth();
     };
@@ -133,7 +148,12 @@ export class CrxClient {
       type: TYPE.SUBSCRIPTION,
       rid: this.ridInc++
     };
-    this.ws.send(JSON.stringify(jsonOut));
+    // console.log('this.ws.readyState', this.ws.readyState);
+    if (this.ws.readyState === WSReadyState.OPEN) {
+      this.ws.send(JSON.stringify(jsonOut));
+    } else {
+      this.ws.onopen = () => this.ws.send(JSON.stringify(jsonOut));
+    }
   }
 
   unsubscribe(json: Object) {
@@ -164,4 +184,4 @@ export class CrxClient {
   }
 }
 
-export const crxClient: CrxClient = new CrxClient();
+export const crxClient = new CrxClient();
