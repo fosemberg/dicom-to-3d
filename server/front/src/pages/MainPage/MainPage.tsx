@@ -19,7 +19,7 @@ const MainPage: React.FC<IMainPageProps> = (
   {
     getData = getAllBuildResults,
   }
-  ) => {
+) => {
   const [data, setData] = useState<IClientBuildResult[]>([]);
   // const _getData = () => data;
 
@@ -32,23 +32,24 @@ const MainPage: React.FC<IMainPageProps> = (
         setData(json);
       }
     );
+    const callback = (message: any) => {
+      console.log('message from Subscribe: ', message);
+      if (message.type === TYPE.EVENT) {
+        if (message.action === ACTION.START_BUILD) {
+          console.log('get', message);
+          const startBuild: IClientBuildResult = message;
+          setData([
+            startBuild,
+            ..._getData(),
+          ])
+        } else if (message.action === ACTION.BUILD_RESULT) {
+          console.log('get', message);
+        }
+      }
+    };
       setSubscription(crxClient.subject$
         .subscribe(
-          (message: any) => {
-            console.log('message from Subscribe: ', message);
-            if (message.type === TYPE.EVENT) {
-              if (message.action === ACTION.START_BUILD) {
-                console.log('get', message);
-                const startBuild: IClientBuildResult = message;
-                setData([
-                  startBuild,
-                  ..._getData(),
-                ])
-              } else if (message.action === ACTION.BUILD_RESULT) {
-                console.log('get', message);
-              }
-            }
-          }
+          callback
         ))
   }, []);
 
@@ -57,8 +58,8 @@ const MainPage: React.FC<IMainPageProps> = (
       <BuildForm/>
       {
         data.length !== 0
-        ? <BuildTable data={data}/>
-        : <Loader/>
+          ? <BuildTable data={data}/>
+          : <Loader/>
       }
     </div>
   )
