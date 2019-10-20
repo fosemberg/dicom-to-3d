@@ -4,7 +4,7 @@ import BuildForm from "../../components/BuildForm/BuildForm";
 import './MainPage.scss';
 import {IClientBuildResult} from "../../utils/apiTypes";
 import Loader from "../../components/Loader/Loader";
-import {ACTION, crxClient, CrxClient, TYPE} from "../../utils/CrxClient";
+import {ACTION, crxClient, TYPE} from "../../utils/CrxClient";
 
 interface IMainPageProps {
   getData: () => Promise<IClientBuildResult[]>;
@@ -46,6 +46,14 @@ class MainPage extends React.Component<IMainPageProps, IMainPageState> {
               })
             } else if (message.action === ACTION.BUILD_RESULT) {
               console.log('get', message);
+              const build: IClientBuildResult = message;
+              this.setState({
+                data: this.state.data.map(
+                  result => result.buildId === build.buildId
+                    ? build
+                    : result
+                )
+              })
             }
           }
         }
