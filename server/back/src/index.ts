@@ -13,14 +13,13 @@ import {
 } from './apiTypes';
 import {DB_FULL_PATH} from "./config";
 import * as WS from "ws";
-import {AGENT_PORT, SERVER_WS_PORT, SERVER_HTTP_PORT} from "./env";
+import {AGENT_PORT, SERVER_WS_PORT, SERVER_HTTP_PORT, repositoryUrl} from "./env";
 
 const {
   MESSAGE,
 } = require('./config');
 const {createMessageObjectString} = require('./configUtils');
 const DataStore = require('nedb');
-
 const axios = require(`axios`);
 
 const repositoryId = 'server-info';
@@ -58,6 +57,7 @@ const sendMessage = (message: Message) => {
   });
 };
 
+
 // собирает и уведомляет о результатах сборки
 app.get(
   '/build/:commitHash/:command',
@@ -92,8 +92,64 @@ app.get(
   }
 );
 
-// сохранить результаты сборки.
-// В параметрах: id сборки, статус, stdout и stderr процесса.
+export interface IWithPort {
+  port: number;
+}
+
+export interface IWithRepositoryUrl {
+  repositoryUrl: string;
+}
+
+type Agents = { [s: number]: boolean; };
+
+const agents: Agents = {};
+
+const registryAgent = (port: number) => {
+  agents[port] = false;
+}
+
+const makeAgentFree = (port: number) => {
+  agents[port] = true;
+}
+
+app.post(
+  '/notify_agent',
+  (
+    {
+      body: {
+        port
+      },
+    }: IBody<IWithPort>,
+    res: Response
+  ) => {
+    registryAgent(port);
+    res.json({repositoryUrl});
+  }
+);
+
+// сказать серверу, что он свободен
+// освободить агента или дать ему новое задание
+app.post(
+  '/notify_agent_free',
+  (
+    {
+      body: {
+        port
+      },
+    }: IBody<IWithPort>,
+    res: Response
+  ) => {
+    const tasks = []
+    if (tasks.length === 0) {
+      makeAgentFree(port);
+    } else {
+      res.json({task: 'DO something'});
+    }
+  }
+);
+
+// сохранить результаты сборки и сообщить об этом клиента
+// В параметрах: id сборки, статус, stdout и stderr процесса.1
 app.post(
   '/notify_build_result',
   (
@@ -107,7 +163,7 @@ app.post(
     sendMessage({
       type: TYPE.EVENT,
       action: ACTION.BUILD_RESULT,
-      body : build,
+      body: build,
     });
 
     const {buildId, status, stdOut, startDate, endDate} = build;
@@ -133,7 +189,7 @@ app.get(
   }
 );
 
-// отдать результаты сборки.
+// отдать детализированный результат сборки.
 app.get(
   '/get_build_detailed_result/:buildId',
   (
@@ -148,10 +204,6 @@ app.get(
     });
   }
 );
-
-console.info(`Server available on: http://localhost:${SERVER_HTTP_PORT}`);
-
-app.listen(SERVER_HTTP_PORT);
 
 //  WS
 
@@ -169,3 +221,7 @@ wss.on('connection', function (socket) {
     console.log('Closed Connection');
   });
 });
+
+app.listen(SERVER_HTTP_PORT);
+
+console.info(`Server available on: http://localhost:${SERVER_HTTP_PORT}`);
