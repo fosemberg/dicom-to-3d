@@ -161,7 +161,7 @@ const wss = new WSS({port: WS_PORT_SERVER});
 wss.on('connection', function (socket) {
   console.log('WS: Opened new connection');
 
-  let json = JSON.stringify(RESPONSE.CONNECTED);
+  let json = createMessageObjectString(MESSAGE.CONNECTED);
   socket.send(json);
   console.log('Sent: ' + json);
 
