@@ -9,7 +9,7 @@ import {
   IWithCommand, IWithCommitHash, IWithRepositoryId, IWithStdOut,
   IWithBuildId,
   IWithStatus,
-  IBuildResponse, Status, IBuildRequest, TYPE, ACTION,
+  IBuildResponse, Status, IBuildRequest, TYPE, ACTION, Message,
 } from './apiTypes';
 import {DB_FULL_PATH} from "./config";
 import * as WS from "ws";
@@ -52,9 +52,9 @@ const sendBuildRequestToAgent = ({buildId, repositoryId, commitHash, command}: I
     });
 };
 
-const sendMessage = (json) => {
+const sendMessage = (message: Message) => {
   wss.clients.forEach(function each(client) {
-    let outJson = JSON.stringify(json);
+    let outJson = JSON.stringify(message);
     client.send(outJson);
     console.log('Send: ' + outJson);
   });
@@ -83,8 +83,10 @@ app.get(
         sendMessage({
           type: TYPE.EVENT,
           action: ACTION.START_BUILD,
-          ...buildRequest,
-          status: Status.building
+          body: {
+            ...buildRequest,
+            status: Status.building
+          }
         });
         sendBuildRequestToAgent(buildRequest);
       }
@@ -105,9 +107,9 @@ app.post(
     // send build to user
 
     sendMessage({
-      ...build,
       type: TYPE.EVENT,
       action: ACTION.BUILD_RESULT,
+      body : build,
     });
 
     const {buildId, status, stdOut, startDate, endDate} = build;
@@ -125,7 +127,7 @@ app.get(
     req: Request,
     res: Response
   ) => {
-    db.find({}).sort({ startDate: -1 }).exec((err, buildResults) => {
+    db.find({}).sort({startDate: -1}).exec((err, buildResults) => {
       res.json(
         buildResults.map(({_id, status, commitHash}) => ({buildId: _id, status, commitHash}))
       );

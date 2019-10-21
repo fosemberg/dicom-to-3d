@@ -90,5 +90,6 @@ export enum ACTION {
 
 export interface Message {
     type: TYPE;
+    action: ACTION;
     body: any;
 }

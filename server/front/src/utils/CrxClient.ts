@@ -14,7 +14,7 @@ export enum WSReadyState {
 export class CrxClient {
   private host: string = `ws://localhost:${WS_PORT_SERVER}/`;
   private ws: WebSocket;
-  public subject$: Observable<Object> = new Observable();
+  public subject$: Observable<Message> = new Observable();
   public in$ = new Subject<Message>();
   public out$ = new Subject<Message>();
 
@@ -27,7 +27,6 @@ export class CrxClient {
 
     this.ws.onopen = () => {
       console.log('Соединение установлено.');
-      // авторизация
       this.subject$ = Observable.create(
         (observer: Subscriber<MessageEvent>) => {
           this.ws.onmessage = (messageEvent: MessageEvent) => {

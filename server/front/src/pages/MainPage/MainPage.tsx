@@ -2,7 +2,7 @@ import * as React from 'react';
 import BuildTable from "../../components/BuildTable/BuildTable";
 import BuildForm from "../../components/BuildForm/BuildForm";
 import './MainPage.scss';
-import {IClientBuildResult, ACTION, TYPE} from "../../utils/apiTypes";
+import {IClientBuildResult, ACTION, TYPE, Message} from "../../utils/apiTypes";
 import Loader from "../../components/Loader/Loader";
 import {crxClient} from "../../utils/CrxClient";
 
@@ -31,12 +31,12 @@ class MainPage extends React.Component<IMainPageProps, IMainPageState> {
 
     crxClient.subject$
       .subscribe(
-        (message: any) => {
+        (message: Message) => {
           console.log('message from Subscribe: ', message);
           if (message.type === TYPE.EVENT) {
             if (message.action === ACTION.START_BUILD) {
               console.log('get', message);
-              const startBuild: IClientBuildResult = message;
+              const startBuild: IClientBuildResult = message.body;
               this.setState({
                 data: [
                   startBuild,
@@ -45,7 +45,7 @@ class MainPage extends React.Component<IMainPageProps, IMainPageState> {
               })
             } else if (message.action === ACTION.BUILD_RESULT) {
               console.log('get', message);
-              const build: IClientBuildResult = message;
+              const build: IClientBuildResult = message.body;
               this.setState({
                 data: this.state.data.map(
                   result => result.buildId === build.buildId

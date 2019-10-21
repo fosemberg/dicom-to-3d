@@ -1,6 +1,14 @@
 import * as React from 'react';
 import BuildDetails from "../../components/BuildDetails/BuildDetails";
-import {BuildId, IClientBuildDetailedResult, IClientBuildResult, Status, ACTION, TYPE} from "../../utils/apiTypes";
+import {
+  BuildId,
+  IClientBuildDetailedResult,
+  IClientBuildResult,
+  Status,
+  ACTION,
+  TYPE,
+  Message
+} from "../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 import './BuildPage.scss';
 
@@ -46,12 +54,12 @@ class BuildPage extends React.Component<IBuildPageProps & RouteComponentProps<IM
 
     crxClient.subject$
       .subscribe(
-        (message: any) => {
+        (message: Message) => {
           console.log('message from Subscribe: ', message);
           if (message.type === TYPE.EVENT) {
             if (message.action === ACTION.BUILD_RESULT) {
               console.log('get', message);
-              const data: IClientBuildDetailedResult = message;
+              const data: IClientBuildDetailedResult = message.body;
               this.setState({data})
             }
           }
