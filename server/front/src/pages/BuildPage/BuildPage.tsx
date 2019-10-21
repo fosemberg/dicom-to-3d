@@ -54,7 +54,7 @@ class BuildPage extends React.Component<IBuildPageProps & RouteComponentProps<IM
 
     crxClient.subject$
       .subscribe(
-        (message: Message) => {
+        (message: Message<IClientBuildDetailedResult>) => {
           console.log('message from Subscribe: ', message);
           if (message.type === TYPE.EVENT) {
             if (message.action === ACTION.BUILD_RESULT) {

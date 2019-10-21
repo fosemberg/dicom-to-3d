@@ -31,7 +31,7 @@ class MainPage extends React.Component<IMainPageProps, IMainPageState> {
 
     crxClient.subject$
       .subscribe(
-        (message: Message) => {
+        (message: Message<IClientBuildResult>) => {
           console.log('message from Subscribe: ', message);
           if (message.type === TYPE.EVENT) {
             if (message.action === ACTION.START_BUILD) {

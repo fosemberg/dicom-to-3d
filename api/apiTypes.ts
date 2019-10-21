@@ -88,8 +88,8 @@ export enum ACTION {
   BUILD_RESULTS = 'BUILD_RESULTS',
 }
 
-export interface Message {
+export interface Message<T = any> {
     type: TYPE;
     action: ACTION;
-    body: any;
+    body: T;
 }
