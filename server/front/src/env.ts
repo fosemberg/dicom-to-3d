@@ -1,0 +1,1 @@
+export const WS_PORT_SERVER = 8022;

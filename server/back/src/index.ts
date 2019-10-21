@@ -9,12 +9,11 @@ import {
   IWithCommand, IWithCommitHash, IWithRepositoryId, IWithStdOut,
   IWithBuildId,
   IWithStatus,
-  IBuildResponse, Status, IBuildRequest,
+  IBuildResponse, Status, IBuildRequest, TYPE, ACTION,
 } from './apiTypes';
-import {arrayFromOut, execCommandWithRes} from './utils';
-import {PORT} from './config';
 import {DB_FULL_PATH} from "./config";
 import * as WS from "ws";
+import {AGENT_PORT, WS_PORT_SERVER, SERVER_HTTP_PORT} from "./env";
 
 const {
   PATH_TO_REPOS,
@@ -24,29 +23,9 @@ const {
 const {createMessageObjectString} = require('./configUtils');
 const DataStore = require('nedb');
 
-const enum TYPE {
-  SUBSCRIBE = 'SUBSCRIPTION',
-  UNSUBSCRIBE = 'UNSUBSCRIPTION',
-  REQUEST = 'REQUEST',
-  EVENT = 'EVENT',
-  RESPONSE = 'RESPONSE',
-}
-
-const enum ACTION {
-  BAR = 'bar',
-  BAR_HISTORY = 'bar-history',
-  DICTIONARY = 'dictionary',
-  AUTH = 'auth',
-  START_BUILD = 'START_BUILD',
-  BUILD_RESULT = 'BUILD_RESULT',
-  BUILD_RESULTS = 'BUILD_RESULTS',
-}
-
 const axios = require(`axios`);
 
 const repositoryId = 'server-info';
-const AGENT_PORT = 3022;
-const WS_PORT = 8022;
 
 console.info('Server starting...');
 
@@ -170,28 +149,23 @@ app.get(
   }
 );
 
-console.info(`Server available on: http://localhost:${PORT}`);
+console.info(`Server available on: http://localhost:${SERVER_HTTP_PORT}`);
 
-app.listen(PORT);
+app.listen(SERVER_HTTP_PORT);
 
 //  WS
 
 const WSS = WS.Server;
-const wss = new WSS({port: WS_PORT});
-
-
+const wss = new WSS({port: WS_PORT_SERVER});
 
 wss.on('connection', function (socket) {
-  console.log('Opened Connection 🎉');
+  console.log('WS: Opened new connection');
 
   let json = JSON.stringify(RESPONSE.CONNECTED);
   socket.send(json);
   console.log('Sent: ' + json);
 
-  // обработка приходящих сообщений
-  // здесь нужно осущесвить подписки
   socket.on('message', function (message: string) {
-    // {"type":"REQUEST","rid":3,"action":"dictionary","body":{}}
     console.log('Received: ' + message);
     let data = JSON.parse(message);
     let action = data.action;
@@ -231,8 +205,6 @@ wss.on('connection', function (socket) {
 
   socket.on('close', function () {
     console.log('Closed Connection');
-    // clearInterval(interval.bar);
-    // clearInterval(interval.rate);
   });
 
 });

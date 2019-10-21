@@ -2,6 +2,7 @@ import {Observable, Subject, Subscriber} from "rxjs";
 import {Message} from "./apiTypes";
 
 import "rxjs/add/operator/timeout";
+import {WS_PORT_SERVER} from "../env";
 
 export enum WSReadyState {
   CONNECTING = 0, //	Socket has been created. The connection is not yet open.
@@ -10,10 +11,8 @@ export enum WSReadyState {
   CLOSED = 3, //	The connection is closed or couldn't be opened.
 }
 
-const WS_PORT = 8022;
-
 export class CrxClient {
-  private host: string = `ws://localhost:${WS_PORT}/`;
+  private host: string = `ws://localhost:${WS_PORT_SERVER}/`;
   private ws: WebSocket;
   public subject$: Observable<Object> = new Observable();
   public in$ = new Subject<Message>();
