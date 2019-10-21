@@ -41,6 +41,18 @@ export interface IWithEndDate {
   endDate: Date;
 }
 
+export interface IWithHost {
+  host: string;
+}
+
+export interface IWithPort {
+  port: number;
+}
+
+export interface IWithRepositoryUrl {
+  repositoryUrl: string;
+}
+
 export interface IBuildResponse extends
   IWithBuildId,
   IWithCommitHash,

@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import {app} from './expressApp';
 import {
+  Agents,
   IBody,
   IParams,
   IWithUrl,
@@ -9,7 +10,7 @@ import {
   IWithCommand, IWithCommitHash, IWithRepositoryId, IWithStdOut,
   IWithBuildId,
   IWithStatus,
-  IBuildResponse, Status, IBuildRequest, TYPE, ACTION, Message,
+  IBuildResponse, Status, IBuildRequest, TYPE, ACTION, Message, IWithPort, IWithHost,
 } from './apiTypes';
 import {DB_FULL_PATH} from "./config";
 import * as WS from "ws";
@@ -92,24 +93,21 @@ app.get(
   }
 );
 
-export interface IWithPort {
-  port: number;
-}
-
-export interface IWithRepositoryUrl {
-  repositoryUrl: string;
-}
-
-type Agents = { [s: number]: boolean; };
-
 const agents: Agents = {};
 
-const registryAgent = (port: number) => {
-  agents[port] = false;
+const generateUrl = (host: string, port: number) => `${host}:${port}`;
+
+const changeAgentStatus = (host: string, port: number, status: boolean) => {
+  agents[generateUrl(host, port)] = status;
+  console.info(`Agent: ${generateUrl(host, port)} => ${status}`);
 }
 
-const makeAgentFree = (port: number) => {
-  agents[port] = true;
+const registryAgent = (host: string, port: number) => {
+  changeAgentStatus(host, port, false);
+}
+
+const makeAgentFree = (host: string, port: number) => {
+  changeAgentStatus(host, port, true);
 }
 
 app.post(
@@ -117,12 +115,13 @@ app.post(
   (
     {
       body: {
-        port
+        host,
+        port,
       },
-    }: IBody<IWithPort>,
+    }: IBody<IWithHost & IWithPort>,
     res: Response
   ) => {
-    registryAgent(port);
+    registryAgent(host, port);
     res.json({repositoryUrl});
   }
 );
@@ -134,14 +133,15 @@ app.post(
   (
     {
       body: {
-        port
+        host,
+        port,
       },
-    }: IBody<IWithPort>,
+    }: IBody<IWithHost & IWithPort>,
     res: Response
   ) => {
     const tasks = []
     if (tasks.length === 0) {
-      makeAgentFree(port);
+      makeAgentFree(host, port);
     } else {
       res.json({task: 'DO something'});
     }
@@ -224,4 +224,6 @@ wss.on('connection', function (socket) {
 
 app.listen(SERVER_HTTP_PORT);
 
-console.info(`Server available on: http://localhost:${SERVER_HTTP_PORT}`);
+console.info(`Server http API available on: http://localhost:${SERVER_HTTP_PORT}`);
+
+console.info(`Server WS API available on: ws://localhost:${SERVER_WS_PORT}`);

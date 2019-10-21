@@ -9,3 +9,5 @@ export interface IBody<T> {
 export interface IWithUrl {
   url: string;
 }
+
+export type Agents = { [s: string]: boolean; };
