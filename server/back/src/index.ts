@@ -3,7 +3,7 @@ import {app} from './expressApp';
 import {
   Agents,
   IBody,
-  IParams,
+  IParams, ITask,
   IWithUrl,
 } from './types';
 import {
@@ -58,48 +58,14 @@ const sendMessage = (message: Message) => {
   });
 };
 
-
-// собирает и уведомляет о результатах сборки
-app.get(
-  '/build/:commitHash/:command',
-  (
-    {
-      params, params: {commitHash, command},
-    }: IParams<IWithCommitHash & IWithCommand>,
-    res: Response
-  ) => {
-    console.info('build: ', JSON.stringify(params));
-
-    db.insert(
-      {commitHash, command, status: Status.building},
-      (err, newDoc) => {
-        const buildRequest: IBuildRequest = {
-          buildId: newDoc._id,
-          repositoryId,
-          commitHash,
-          command
-        };
-        sendMessage({
-          type: TYPE.EVENT,
-          action: ACTION.START_BUILD,
-          body: {
-            ...buildRequest,
-            status: Status.building
-          }
-        });
-        sendBuildRequestToAgent(buildRequest);
-      }
-    );
-  }
-);
-
 const agents: Agents = {};
+const buildRequests: IBuildRequest[] = [];
 
 const generateUrl = (host: string, port: number) => `${host}:${port}`;
 
-const changeAgentStatus = (host: string, port: number, status: boolean) => {
-  agents[generateUrl(host, port)] = status;
-  console.info(`Agent: ${generateUrl(host, port)} {status: ${status}}`);
+const changeAgentStatus = (host: string, port: number, isFree: boolean) => {
+  agents[generateUrl(host, port)] = isFree;
+  console.info(`Agent: ${generateUrl(host, port)} {isFree: ${isFree}}`);
 }
 
 const registryAgent = (host: string, port: number) => {
@@ -110,6 +76,56 @@ const registryAgent = (host: string, port: number) => {
 const makeAgentFree = (host: string, port: number) => {
   changeAgentStatus(host, port, true);
 }
+
+const getFreeAgent = () => {
+  for (const agent in agents) {
+    if (agents[agent]) return agent;
+  }
+  return false;
+}
+
+// собирает и уведомляет о результатах сборки
+app.get(
+  '/build/:commitHash/:command',
+  (
+    {
+      params, params: task,
+    }: IParams<ITask>,
+    res: Response
+  ) => {
+    console.info('build: ', JSON.stringify(params));
+    const {commitHash, command} = task;
+
+    db.insert(
+      {commitHash, command, status: Status.building},
+      (err, newDoc) => {
+        const buildRequest: IBuildRequest = {
+          buildId: newDoc._id,
+          repositoryId,
+          commitHash,
+          command
+        };
+
+        const freeAgent = getFreeAgent();
+        if (freeAgent) {
+          sendBuildRequestToAgent(buildRequest);
+        } else {
+          console.info(`Add buildRequest: ${buildRequest} to stack`);
+          buildRequests.push(buildRequest);
+        }
+
+        sendMessage({
+          type: TYPE.EVENT,
+          action: ACTION.START_BUILD,
+          body: {
+            ...buildRequest,
+            status: Status.building
+          }
+        });
+      }
+    );
+  }
+);
 
 app.post(
   '/notify_agent',
@@ -140,11 +156,10 @@ app.post(
     }: IBody<IWithHost & IWithPort>,
     res: Response
   ) => {
-    const tasks = []
-    if (tasks.length === 0) {
+    if (buildRequests.length === 0) {
       makeAgentFree(host, port);
     } else {
-      res.json({task: 'DO something'});
+      sendBuildRequestToAgent(buildRequests.pop());
     }
   }
 );
