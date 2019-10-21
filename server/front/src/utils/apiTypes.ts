@@ -43,6 +43,7 @@ export interface IWithEndDate {
 
 export interface IBuildResponse extends
   IWithBuildId,
+  IWithCommitHash,
   IWithStatus,
   IWithStdOut,
   IWithStartDate,
