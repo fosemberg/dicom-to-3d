@@ -1,0 +1,24 @@
+{
+  "name": "shri-2019-hw__ci",
+  "version": "1.0.0",
+  "description": "Простая система continuous integration.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "apiTypes": "cp api/apiTypes.ts server/back/src/apiTypes.ts && cp api/apiTypes.ts server/front/src/utils/apiTypes.ts && cp api/apiTypes.ts agent/src/apiTypes.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fosemberg/shri-2019-hw__ci.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fosemberg/shri-2019-hw__ci/issues"
+  },
+  "homepage": "https://github.com/fosemberg/shri-2019-hw__ci#readme"
+}
