@@ -72,6 +72,3 @@ export interface IClientBuildDetailedResult extends
   IWithStartDate,
   IWithEndDate
 {}
-
-
-

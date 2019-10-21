@@ -22,12 +22,12 @@ const axios = require(`axios`);
 
 const SERVER_PORT = 3021;
 
-const notifyBuildResult = ({buildId, status, stdOut, startDate, endDate}: IBuildResponse, type = 'post') => {
+const notifyBuildResult = (buildResponse: IBuildResponse, type = 'post') => {
   const host = `http://localhost:${SERVER_PORT}`;
   const url = 'notify_build_result'
   const _url = `${host}/${url}`;
   console.log('notifyBuildResult', _url);
-  return axios[type](_url, {buildId, status, stdOut, startDate, endDate})
+  return axios[type](_url, buildResponse)
     .then((response) => {
       console.info(type, _url);
       console.info('Server is alive');
@@ -64,6 +64,7 @@ app.get(
         error
           ? notifyBuildResult({
             buildId,
+            commitHash,
             status: Status.fail,
             stdOut: String(error),
             startDate,
@@ -72,6 +73,7 @@ app.get(
           console.error(error)
           : notifyBuildResult({
             buildId,
+            commitHash,
             status: Status.success,
             stdOut,
             startDate,
