@@ -13,7 +13,7 @@ import {
 } from './apiTypes';
 import {DB_FULL_PATH} from "./config";
 import * as WS from "ws";
-import {AGENT_PORT, WS_PORT_SERVER, SERVER_HTTP_PORT} from "./env";
+import {AGENT_PORT, SERVER_WS_PORT, SERVER_HTTP_PORT} from "./env";
 
 const {
   MESSAGE,
@@ -156,7 +156,7 @@ app.listen(SERVER_HTTP_PORT);
 //  WS
 
 const WSS = WS.Server;
-const wss = new WSS({port: WS_PORT_SERVER});
+const wss = new WSS({port: SERVER_WS_PORT});
 
 wss.on('connection', function (socket) {
   console.log('WS: Opened new connection');

@@ -1,8 +1,6 @@
 import { Response } from 'express';
 import { createMessageObject } from './configUtils';
 
-export const PORT = 3022;
-
 export const PATH_TO_REPOS = 'repos';
 export const PATH_TO_BACKUP = 'backup';
 

@@ -3,7 +3,7 @@ import {app} from './expressApp';
 import {IBody, IParams, IWithRepositoryId, IWithUrl,} from './types';
 import {IWithCommand, IWithCommitHash, IBuildRequest, IBuildResponse, IWithBuildId, Status} from './apiTypes';
 import {arrayFromOut, execCommandWithRes} from './utils';
-import {PORT} from './config';
+import {AGENT_PORT, SERVER_HTTP_PORT} from './env';
 
 import {exec} from 'child_process';
 
@@ -20,10 +20,8 @@ const axios = require(`axios`);
 
 // const url = `https://github.com/fosemberg/${repositoryId}.git`;
 
-const SERVER_PORT = 3021;
-
 const notifyBuildResult = (buildResponse: IBuildResponse, type = 'post') => {
-  const host = `http://localhost:${SERVER_PORT}`;
+  const host = `http://localhost:${SERVER_HTTP_PORT}`;
   const url = 'notify_build_result'
   const _url = `${host}/${url}`;
   console.log('notifyBuildResult', _url);
@@ -84,6 +82,6 @@ app.get(
 );
 
 
-console.info(`Agent available on: http://localhost:${PORT}`);
+console.info(`Agent available on: http://localhost:${AGENT_PORT}`);
 
-app.listen(PORT);
+app.listen(AGENT_PORT);

@@ -1,4 +1,4 @@
-import {PORT} from "./config";
+import {AGENT_PORT} from "./env";
 
 const axios = require(`axios`);
 
@@ -8,7 +8,7 @@ const hashCommit = 'master';
 const command = 'node console.js';
 
 const url = `https://github.com/fosemberg/${repositoryId}.git`;
-const host = `http://localhost:${PORT}`;
+const host = `http://localhost:${AGENT_PORT}`;
 
 
 const checkUrl = (url, type = `get`, body = {}) => {
