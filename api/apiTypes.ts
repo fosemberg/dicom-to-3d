@@ -83,10 +83,6 @@ export enum TYPE {
 };
 
 export enum ACTION {
-  BAR = 'bar',
-  BAR_HISTORY = 'bar-history',
-  DICTIONARY = 'dictionary',
-  AUTH = 'auth',
   START_BUILD = 'START_BUILD',
   BUILD_RESULT = 'BUILD_RESULT',
   BUILD_RESULTS = 'BUILD_RESULTS',
@@ -95,6 +91,4 @@ export enum ACTION {
 export interface Message {
     type: TYPE;
     body: any;
-    v: number;
-    rid: number;
 }
