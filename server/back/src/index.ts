@@ -16,9 +16,7 @@ import * as WS from "ws";
 import {AGENT_PORT, WS_PORT_SERVER, SERVER_HTTP_PORT} from "./env";
 
 const {
-  PATH_TO_REPOS,
   MESSAGE,
-  RESPONSE,
 } = require('./config');
 const {createMessageObjectString} = require('./configUtils');
 const DataStore = require('nedb');
