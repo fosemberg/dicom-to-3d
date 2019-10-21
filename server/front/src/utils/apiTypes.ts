@@ -73,13 +73,13 @@ export interface IClientBuildDetailedResult extends
   IWithEndDate
 {}
 
-export const TYPE = {
-  SUBSCRIBE: 'SUBSCRIBE',
-  SUBSCRIPTION: 'SUBSCRIPTION',
-  UNSUBSCRIPTION: 'UNSUBSCRIPTION',
-  REQUEST: 'REQUEST',
-  RESPONSE: 'RESPONSE',
-  EVENT: 'EVENT'
+export enum TYPE {
+  SUBSCRIBE = 'SUBSCRIBE',
+  SUBSCRIPTION = 'SUBSCRIPTION',
+  UNSUBSCRIPTION = 'UNSUBSCRIPTION',
+  REQUEST = 'REQUEST',
+  RESPONSE = 'RESPONSE',
+  EVENT = 'EVENT'
 };
 
 export enum ACTION {
@@ -90,4 +90,11 @@ export enum ACTION {
   START_BUILD = 'START_BUILD',
   BUILD_RESULT = 'BUILD_RESULT',
   BUILD_RESULTS = 'BUILD_RESULTS',
+}
+
+export interface Message {
+    type: TYPE;
+    body: any;
+    v: number;
+    rid: number;
 }

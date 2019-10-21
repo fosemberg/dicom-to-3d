@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useParams} from "react-router-dom";
 import BuildDetails from "../../components/BuildDetails/BuildDetails";
 import {BuildId, IClientBuildDetailedResult, IClientBuildResult, Status, ACTION, TYPE} from "../../utils/apiTypes";
 import {cn} from "@bem-react/classname";

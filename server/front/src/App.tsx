@@ -16,12 +16,10 @@ const App: React.FC = () => {
   const [isReady, setReady] = useState<boolean>(false);
 
   useEffect(() => {
-    debugger;
     crxClient.isReady
       ? setReady(true)
       : crxClient.onReady = () => setReady(true)
   }, []);
-  debugger;
 
   return (
     isReady
