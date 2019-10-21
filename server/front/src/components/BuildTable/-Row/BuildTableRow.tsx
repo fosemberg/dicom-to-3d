@@ -16,7 +16,7 @@ export const cnBuildTableRow = cn('BuildTable-Row');
 const BuildTableRow: React.FC<IBuildTableRowProps> = ({id, status, commitHash}) => {
   const {push} = useHistory();
   return (
-    <tr onClick={() => push(`build/${id}/${commitHash}`)} className={cnBuildTableRow({
+    <tr onClick={() => push(`build/${id}`)} className={cnBuildTableRow({
       success: status === Status.success,
       fail: status === Status.fail,
       building: status === Status.building,

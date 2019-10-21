@@ -4,42 +4,54 @@ import BuildDetails from "../../components/BuildDetails/BuildDetails";
 import {BuildId, IClientBuildDetailedResult, IClientBuildResult, Status} from "../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 import './BuildPage.scss';
-import {getBuildDetailedResult} from "../../store/store";
-import {useState} from "react";
-import {useEffect} from "react";
+
 import Loader from "../../components/Loader/Loader";
+import {withRouter, RouteComponentProps} from "react-router";
 
 interface IBuildPageProps {
-  getData?: (buildId: BuildId) => Promise<IClientBuildDetailedResult>;
+  getData: (buildId: BuildId) => Promise<IClientBuildDetailedResult>;
+}
+
+interface IBuildPageState {
+  data: IClientBuildDetailedResult | {};
+}
+
+interface IMatchParams {
+  id: string
 }
 
 const cnBuildPage = cn('BuildPage');
 
 const isEmptyObject = (object: Object) => JSON.stringify(object) === '{}';
 
-const BuildPage: React.FC<IBuildPageProps> = (
-  {
-    getData = getBuildDetailedResult
+class BuildPage extends React.Component<IBuildPageProps & RouteComponentProps<IMatchParams>, IBuildPageState> {
+  constructor(props: IBuildPageProps & RouteComponentProps<IMatchParams>) {
+    super(props);
+    this.state = {
+      data: {},
+    }
   }
-) => {
-  let {id} = useParams();
-  const [data, setData] = useState<IClientBuildDetailedResult | {}>({});
 
-  useEffect(() => {
-    if (id) getData(id).then((json) => setData(json));
-  }, []);
+  componentWillMount(): void {
+    const {props: {getData,  match: {params: {id}}}} = this;
 
-  return (
-    <div className={cnBuildPage()}>
-      {
-        isEmptyObject(data)
-          ? <Loader/>
-          : <BuildDetails
-            {...(data as IClientBuildDetailedResult)}
-          />
-      }
-    </div>
-  )
+      if (id) getData(id).then((data) => this.setState({data}));
+  }
+
+  render() {
+    const {state: {data}} = this;
+    return (
+      <div className={cnBuildPage()}>
+        {
+          isEmptyObject(data)
+            ? <Loader/>
+            : <BuildDetails
+              {...(data as IClientBuildDetailedResult)}
+            />
+        }
+      </div>
+    )
+  }
 };
 
-export default BuildPage;
+export default withRouter(BuildPage);
