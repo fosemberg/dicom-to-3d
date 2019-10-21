@@ -1,12 +1,13 @@
 import * as React from 'react';
 import {useParams} from "react-router-dom";
 import BuildDetails from "../../components/BuildDetails/BuildDetails";
-import {BuildId, IClientBuildDetailedResult, IClientBuildResult, Status} from "../../utils/apiTypes";
+import {BuildId, IClientBuildDetailedResult, IClientBuildResult, Status, ACTION, TYPE} from "../../utils/apiTypes";
 import {cn} from "@bem-react/classname";
 import './BuildPage.scss';
 
 import Loader from "../../components/Loader/Loader";
 import {withRouter, RouteComponentProps} from "react-router";
+import {crxClient} from "../../utils/CrxClient";
 
 interface IBuildPageProps {
   getData: (buildId: BuildId) => Promise<IClientBuildDetailedResult>;
@@ -33,9 +34,30 @@ class BuildPage extends React.Component<IBuildPageProps & RouteComponentProps<IM
   }
 
   componentWillMount(): void {
-    const {props: {getData,  match: {params: {id}}}} = this;
+    const {
+      props: {
+        getData,
+        match: {
+          params: {id}
+        }
+      }
+    } = this;
 
-      if (id) getData(id).then((data) => this.setState({data}));
+    getData(id).then((data) => this.setState({data}));
+
+    crxClient.subject$
+      .subscribe(
+        (message: any) => {
+          console.log('message from Subscribe: ', message);
+          if (message.type === TYPE.EVENT) {
+            if (message.action === ACTION.BUILD_RESULT) {
+              console.log('get', message);
+              const data: IClientBuildDetailedResult = message;
+              this.setState({data})
+            }
+          }
+        }
+      )
   }
 
   render() {

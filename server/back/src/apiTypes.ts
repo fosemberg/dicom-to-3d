@@ -72,3 +72,22 @@ export interface IClientBuildDetailedResult extends
   IWithStartDate,
   IWithEndDate
 {}
+
+export const TYPE = {
+  SUBSCRIBE: 'SUBSCRIBE',
+  SUBSCRIPTION: 'SUBSCRIPTION',
+  UNSUBSCRIPTION: 'UNSUBSCRIPTION',
+  REQUEST: 'REQUEST',
+  RESPONSE: 'RESPONSE',
+  EVENT: 'EVENT'
+};
+
+export enum ACTION {
+  BAR = 'bar',
+  BAR_HISTORY = 'bar-history',
+  DICTIONARY = 'dictionary',
+  AUTH = 'auth',
+  START_BUILD = 'START_BUILD',
+  BUILD_RESULT = 'BUILD_RESULT',
+  BUILD_RESULTS = 'BUILD_RESULTS',
+}

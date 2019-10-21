@@ -3,25 +3,7 @@ import {Observable, Subject, Subscriber, Subscription} from "rxjs";
 import {Message} from "./Message";
 
 import "rxjs/add/operator/timeout";
-
-export const TYPE = {
-  SUBSCRIBE: 'SUBSCRIBE',
-  SUBSCRIPTION: 'SUBSCRIPTION',
-  UNSUBSCRIPTION: 'UNSUBSCRIPTION',
-  REQUEST: 'REQUEST',
-  RESPONSE: 'RESPONSE',
-  EVENT: 'EVENT'
-};
-
-export enum ACTION {
-  BAR = 'bar',
-  BAR_HISTORY = 'bar-history',
-  DICTIONARY = 'dictionary',
-  AUTH = 'auth',
-  START_BUILD = 'START_BUILD',
-  BUILD_RESULT = 'BUILD_RESULT',
-  BUILD_RESULTS = 'BUILD_RESULTS',
-}
+import {ACTION, TYPE} from "./apiTypes";
 
 export enum WSReadyState {
   CONNECTING = 0, //	Socket has been created. The connection is not yet open.

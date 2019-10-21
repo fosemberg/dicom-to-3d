@@ -2,9 +2,9 @@ import * as React from 'react';
 import BuildTable from "../../components/BuildTable/BuildTable";
 import BuildForm from "../../components/BuildForm/BuildForm";
 import './MainPage.scss';
-import {IClientBuildResult} from "../../utils/apiTypes";
+import {IClientBuildResult, ACTION, TYPE} from "../../utils/apiTypes";
 import Loader from "../../components/Loader/Loader";
-import {ACTION, crxClient, TYPE} from "../../utils/CrxClient";
+import {crxClient} from "../../utils/CrxClient";
 
 interface IMainPageProps {
   getData: () => Promise<IClientBuildResult[]>;
@@ -23,13 +23,12 @@ class MainPage extends React.Component<IMainPageProps, IMainPageState> {
   }
 
   componentWillMount(): void {
-    this.props.getData && this.props.getData().then(
-      (json) => {
-        this.setState({
-          data: json
-        })
-      }
+    const {props:{getData}} = this;
+
+    getData().then(
+      (data) => this.setState({data})
     );
+
     crxClient.subject$
       .subscribe(
         (message: any) => {
