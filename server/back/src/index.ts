@@ -99,10 +99,11 @@ const generateUrl = (host: string, port: number) => `${host}:${port}`;
 
 const changeAgentStatus = (host: string, port: number, status: boolean) => {
   agents[generateUrl(host, port)] = status;
-  console.info(`Agent: ${generateUrl(host, port)} => ${status}`);
+  console.info(`Agent: ${generateUrl(host, port)} {status: ${status}}`);
 }
 
 const registryAgent = (host: string, port: number) => {
+  console.info(`Registry new agent: ${generateUrl(host, port)}`);
   changeAgentStatus(host, port, false);
 }
 
