@@ -58,7 +58,7 @@ const sendBuildRequestToAgentIfNeed = (host: string, port: number) => {
   if (buildRequests.length === 0) {
     makeAgentFree(host, port);
   } else {
-    sendBuildRequestToAgent(buildRequests.pop(), generateUrl(host, port));
+    sendBuildRequestToAgent(buildRequests.pop(), generateUrl(host, port)).catch(console.error);
   }
 };
 
@@ -98,7 +98,7 @@ const getFreeAgent = () => {
     if (agents[agent]) return agent;
   }
   return false;
-}
+};
 
 // собирает и уведомляет о результатах сборки
 app.get(
@@ -124,7 +124,7 @@ app.get(
 
         const freeAgent = getFreeAgent();
         if (freeAgent) {
-          sendBuildRequestToAgent(buildRequest, freeAgent);
+          sendBuildRequestToAgent(buildRequest, freeAgent).catch(console.error);
         } else {
           console.info(`Add buildRequest: ${buildRequest} to stack`);
           buildRequests.push(buildRequest);
@@ -177,8 +177,8 @@ app.post(
     }: IBody<IWithHost & IWithPort>,
     res: Response
   ) => {
-    console.info(`Agent: ${generateUrl(host,port)} free`);
     sendBuildRequestToAgentIfNeed(host, port);
+    res.json({isAlive: true});
   }
 );
 
