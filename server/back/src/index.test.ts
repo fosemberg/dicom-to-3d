@@ -1,4 +1,4 @@
-import {SERVER_HTTP_PORT} from "./config";
+import {SERVER_HTTP_PORT} from "./env";
 
 const axios = require(`axios`);
 

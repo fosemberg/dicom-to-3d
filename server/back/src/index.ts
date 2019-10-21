@@ -165,46 +165,7 @@ wss.on('connection', function (socket) {
   socket.send(json);
   console.log('Sent: ' + json);
 
-  socket.on('message', function (message: string) {
-    console.log('Received: ' + message);
-    let data = JSON.parse(message);
-    let action = data.action;
-    let type = data.type;
-
-    switch (type) {
-      case TYPE.SUBSCRIBE:
-        switch (action) {
-          case ACTION.BUILD_RESULT:
-            sendMessage({message: 'build-details'});
-            break;
-          case ACTION.BUILD_RESULTS:
-            sendMessage({message: 'builds'});
-            break;
-          case ACTION.BAR:
-            sendMessage({message: 'bar'});
-          default:
-            sendMessage({message: 'unknown'})
-        }
-        break;
-      case TYPE.REQUEST:
-        switch (action) {
-          case ACTION.BUILD_RESULT:
-            sendMessage(RESPONSE.AUTH);
-            break;
-          case ACTION.BUILD_RESULTS:
-            sendMessage({message: 'request on build details'});
-            break;
-          default:
-            sendMessage({message: 'unknown'})
-        }
-        break;
-      default:
-        sendMessage({message: 'unknown'});
-    }
-  });
-
   socket.on('close', function () {
     console.log('Closed Connection');
   });
-
 });
