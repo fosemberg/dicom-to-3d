@@ -32,11 +32,15 @@ const db = new DataStore({
   autoload: true,
 });
 
-const sendBuildRequestToAgent = ({buildId, repositoryId, commitHash, command}: IBuildRequest, type = `get`, body = {}) => {
-  const host = `http://localhost:${AGENT_PORT}`;
-  const url = 'build';
-  const _url = `${host}/${url}/${buildId}/${repositoryId}/${commitHash}/${command}`;
+const sendBuildRequestToAgent = ({buildId, repositoryId, commitHash, command}: IBuildRequest, agentUrl: string) => {
+  const type = 'get';
+  const body = {};
+  const commandUrl = 'build';
+  const _url = `${agentUrl}/${commandUrl}/${buildId}/${repositoryId}/${commitHash}/${command}`;
+
   console.info(`sendBuildRequestToAgent: ${_url}`);
+  changeAgentStatusByUrl(agentUrl, false);
+
   return axios[type](_url, body)
     .then((response) => {
       console.info(type, _url);
@@ -48,6 +52,14 @@ const sendBuildRequestToAgent = ({buildId, repositoryId, commitHash, command}: I
       console.error('Agent not response');
       console.error(error.response.data);
     });
+};
+
+const sendBuildRequestToAgentIfNeed = (host: string, port: number) => {
+  if (buildRequests.length === 0) {
+    makeAgentFree(host, port);
+  } else {
+    sendBuildRequestToAgent(buildRequests.pop(), generateUrl(host, port));
+  }
 };
 
 const sendMessage = (message: Message) => {
@@ -63,19 +75,23 @@ const buildRequests: IBuildRequest[] = [];
 
 const generateUrl = (host: string, port: number) => `${host}:${port}`;
 
+const changeAgentStatusByUrl = (url: string, isFree: boolean) => {
+  agents[url] = isFree;
+  console.info(`Agent: ${url} {isFree: ${isFree}}`);
+};
+
 const changeAgentStatus = (host: string, port: number, isFree: boolean) => {
-  agents[generateUrl(host, port)] = isFree;
-  console.info(`Agent: ${generateUrl(host, port)} {isFree: ${isFree}}`);
-}
+  changeAgentStatusByUrl(generateUrl(host, port), isFree);
+};
 
 const registryAgent = (host: string, port: number) => {
   console.info(`Registry new agent: ${generateUrl(host, port)}`);
   changeAgentStatus(host, port, false);
-}
+};
 
 const makeAgentFree = (host: string, port: number) => {
   changeAgentStatus(host, port, true);
-}
+};
 
 const getFreeAgent = () => {
   for (const agent in agents) {
@@ -89,11 +105,11 @@ app.get(
   '/build/:commitHash/:command',
   (
     {
-      params, params: task,
+      params: task,
     }: IParams<ITask>,
     res: Response
   ) => {
-    console.info('build: ', JSON.stringify(params));
+    console.info('build: ', JSON.stringify(task));
     const {commitHash, command} = task;
 
     db.insert(
@@ -108,11 +124,16 @@ app.get(
 
         const freeAgent = getFreeAgent();
         if (freeAgent) {
-          sendBuildRequestToAgent(buildRequest);
+          sendBuildRequestToAgent(buildRequest, freeAgent);
         } else {
           console.info(`Add buildRequest: ${buildRequest} to stack`);
           buildRequests.push(buildRequest);
         }
+
+        res.json({
+          ...buildRequest,
+          status: Status.building
+        });
 
         sendMessage({
           type: TYPE.EVENT,
@@ -156,11 +177,8 @@ app.post(
     }: IBody<IWithHost & IWithPort>,
     res: Response
   ) => {
-    if (buildRequests.length === 0) {
-      makeAgentFree(host, port);
-    } else {
-      sendBuildRequestToAgent(buildRequests.pop());
-    }
+    console.info(`Agent: ${generateUrl(host,port)} free`);
+    sendBuildRequestToAgentIfNeed(host, port);
   }
 );
 
@@ -174,8 +192,6 @@ app.post(
     }: IBody<IBuildResponse>,
     res: Response
   ) => {
-    // send build to user
-
     sendMessage({
       type: TYPE.EVENT,
       action: ACTION.BUILD_RESULT,
@@ -197,7 +213,7 @@ app.get(
     req: Request,
     res: Response
   ) => {
-    db.find({}).sort({startDate: -1}).exec((err, buildResults) => {
+    db.find({}).sort({startDate: 1}).exec((err, buildResults) => {
       res.json(
         buildResults.map(({_id, status, commitHash}) => ({buildId: _id, status, commitHash}))
       );

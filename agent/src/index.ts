@@ -40,11 +40,11 @@ const downloadRepository = ({isExist: boolean, repositoryUrl: string}): Promise<
   return Promise.resolve(true);
 };
 
-const notifyReady = () => {
-  const type = 'post'
-  const url = 'notify_agent_free'
+const notifyAgentFree = () => {
+  const type = 'post';
+  const url = 'notify_agent_free';
   const _url = `${serverUrl}/${url}`;
-  console.log('notifyReady', _url);
+  console.log('notifyAgentFree', _url);
   return axios[type](_url, {host: AGENT_HOST, port: AGENT_PORT})
     .then((response) => {
       console.info(type, _url);
@@ -60,23 +60,24 @@ const notifyReady = () => {
 
 const notifyStart = (type = 'post') => {
   console.info(`Agent available on: ${AGENT_HOST}:${AGENT_PORT}`);
-  const url = 'notify_agent'
+  const url = 'notify_agent';
   const _url = `${serverUrl}/${url}`;
   return axios[type](_url, {host: AGENT_HOST, port: AGENT_PORT})
     .then(checkIsRepositoryExist)
     .then(downloadRepository)
-    .then(notifyReady)
+    .then(notifyAgentFree)
     .catch((error) => {
       // console.error(type, _url);
       // console.error('Server not response');
       console.error(error);
     });
-}
+};
 
 const notifyBuildResult = (buildResponse: IBuildResponse, type = 'post') => {
-  const url = 'notify_build_result'
+  const url = 'notify_build_result';
   const _url = `${serverUrl}/${url}`;
   console.log('notifyBuildResult', _url);
+  notifyAgentFree();
   return axios[type](_url, buildResponse)
     .then((response) => {
       console.info(type, _url);
