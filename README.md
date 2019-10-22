@@ -5,7 +5,9 @@
 
 ## Запуск
 
-### Запуск server
+## Production запуск
+
+#### Запуск server
 
 ```npm
 cd server &&
@@ -13,12 +15,38 @@ npm install &&
 npm start
 ```
 
-### Запуск agent
+#### Запуск agent
 
 ```npm
 cd agent &&
 npm install &&
 npm start
+```
+
+## Dev запуск
+
+#### Запуск server back
+
+```npm
+cd server/back &&
+npm install &&
+npm run star
+```
+
+#### Запуск server front
+
+```npm
+cd server/front &&
+yarn &&
+yarn start
+```
+
+#### Запуск agent
+
+```npm
+cd agent &&
+npm install &&
+npm run start-dev
 ```
 
 ## Схемы работы приложения
