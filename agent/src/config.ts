@@ -1,8 +1,8 @@
 import { Response } from 'express';
 import { createMessageObject } from './configUtils';
+import {AGENT_NAME} from "./env";
 
-export const PATH_TO_REPOS = 'repos';
-export const PATH_TO_BACKUP = 'backup';
+export const PATH_TO_REPOS = `repos/${AGENT_NAME}`;
 
 export enum MESSAGE {
   NO_ROUT = 'Rout not found.',

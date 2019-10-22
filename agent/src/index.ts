@@ -98,6 +98,9 @@ app.get(
 
     res.json({buildId, isAlive: true});
     const startDate = new Date().getTime();
+    console.log(`cd ${PATH_TO_REPOS}/${repositoryId} &&
+            git checkout -q ${commitHash} &&
+            ${command}`);
     exec(
       `cd ${PATH_TO_REPOS}/${repositoryId} &&
             git checkout -q ${commitHash} &&
