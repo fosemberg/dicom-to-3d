@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "tsc && node build/index.js",
+    "start": "ts-node -r dotenv/config index.ts dotenv_config_path=env/default/.env",
+    "start-custom": "ts-node -r dotenv/config index.ts dotenv_config_path=env/custom/.env",
     "test": "tsc --p ./tsconfig.test.json && node build/index.test.js",
     "tsc": "tsc"
   },
@@ -15,6 +16,7 @@
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "morgan": "~1.9.1",
     "nedb": "^1.8.0",
@@ -22,6 +24,7 @@
     "ws": "^7.1.2"
   },
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "@types/ws": "^6.0.3",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"

@@ -14,7 +14,7 @@ import {
 } from './apiTypes';
 import {DB_FULL_PATH} from "./config";
 import * as WS from "ws";
-import {AGENT_PORT, SERVER_WS_PORT, SERVER_HTTP_PORT, repositoryUrl} from "./env";
+import {SERVER_WS_PORT, SERVER_HTTP_PORT, REPOSITORY_URL} from "./env";
 
 const {
   MESSAGE,
@@ -160,7 +160,7 @@ app.post(
     res: Response
   ) => {
     registryAgent(host, port);
-    res.json({repositoryUrl});
+    res.json({repositoryUrl: REPOSITORY_URL});
   }
 );
 
