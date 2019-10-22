@@ -1,3 +1,5 @@
+import { config } from "dotenv"
+config();
 import {Response} from 'express';
 import {app} from './expressApp';
 import {IData, IParams, } from './types';
