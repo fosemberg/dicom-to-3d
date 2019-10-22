@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "ts-node -r dotenv/config src/index.ts dotenv_config_path=envs/1/.env",
-    "start-2": "ts-node -r dotenv/config src/index.ts dotenv_config_path=envs/2/.env",
+    "start": "node -r dotenv/config build/index.js dotenv_config_path=envs/1/.env",
+    "start-2": "node -r dotenv/config build/index.js dotenv_config_path=envs/2/.env",
+    "start-dev": "ts-node -r dotenv/config src/index.ts dotenv_config_path=envs/1/.env",
+    "start-dev-2": "ts-node -r dotenv/config src/index.ts dotenv_config_path=envs/2/.env",
     "test": "tsc --p ./tsconfig.test.json && node build/index.test.js",
+    "build": "tsc",
     "tsc": "tsc"
   },
   "dependencies": {
