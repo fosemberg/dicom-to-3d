@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "run-p start-back start-front",
-    "start2": "concurrently \"npm run start-back\" \"npm run start-front\"",
+    "start": "run-p start-back start-front front-port-log",
+    "start2": "concurrently \"npm run start-back\" \"npm run start-front\" \"npm run front-port-log\"",
     "start-back": "node -r dotenv/config ./back/build/index.js dotenv_config_path=back/env/default/.env",
-    "start-front": "node ./node_modules/serve/bin/serve.js -s front/build"
+    "start-front": "node ./node_modules/serve/bin/serve.js -s front/build",
+    "front-port-log": "echo 'front is avaliable on: http://localhost:5000'"
   },
   "keywords": [],
   "author": "",
