@@ -1,0 +1,64 @@
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"0XfvrT537U7k5IyV","stdOut":"2\n","startDate":1571733486770,"endDate":1571733497176}
+{"commitHash":"master","command":"sleep 4 && echo '4'","status":0,"_id":"25yj7psGFrqxxTJp","stdOut":"4\n","startDate":1571659893189,"endDate":1571659897562}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"4L2kHliD7CObNfir","stdOut":"2\n","startDate":1571660075175,"endDate":1571660085585}
+{"commitHash":"12","command":"12","status":1,"_id":"4ocAzR9lDvkW3cp1","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q 12 &&\n            12\nerror: pathspec '12' did not match any file(s) known to git.\n","startDate":1571659664651,"endDate":1571659664782}
+{"commitHash":"s","command":"sleep 20 & echo '2'","status":0,"_id":"8jIYKp0qgLQzUaur","stdOut":"2\n","startDate":1571670549640,"endDate":1571670549757}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"AblJK2XSLod5fDXF","stdOut":"2\n","startDate":1571733312711,"endDate":1571733312763}
+{"commitHash":"sdf","command":"sdf","status":1,"_id":"AxoVAZ4s7QBobtA8","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q sdf &&\n            sdf\nerror: pathspec 'sdf' did not match any file(s) known to git.\n","startDate":1571658422176,"endDate":1571658422275}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"BRbixDGt8cIl2KQd","stdOut":"2\n","startDate":1571660104002,"endDate":1571660109409}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"C8sdUcJ6YEskucQR","stdOut":"2\n","startDate":1571670359626,"endDate":1571670370096}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"CAG3mWOv8liWvgCP","stdOut":"2\n","startDate":1571733466043,"endDate":1571733476594}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"CReVXNaYAGeJN2uu","stdOut":"2\n","startDate":1571659909916,"endDate":1571659915288}
+{"commitHash":"master","command":"sleep 20 & echo '2'","status":0,"_id":"DaONaRpsJqXdANX3","stdOut":"2\n","startDate":1571670553826,"endDate":1571670574287}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":1,"_id":"EZQXMvQMNi0haEMV","stdOut":"Error: Command failed: cd repos/1/server-info &&\n            git checkout -q master &&\n            sleep 10 & echo '2'\nThe syntax of the command is incorrect.\r\n","startDate":1571735327737,"endDate":1571735327795}
+{"commitHash":"sdf","command":"sdf","status":1,"_id":"F7twn3Kp08tkbleJ","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q sdf &&\n            sdf\nerror: pathspec 'sdf' did not match any file(s) known to git.\n","startDate":1571659691873,"endDate":1571659691981}
+{"commitHash":"master","command":"echo '2'","status":0,"_id":"GaxSBBY7hT7IIcaX","stdOut":"2\n","startDate":1571643099715,"endDate":1571643100289}
+{"commitHash":"master","command":"sleep 5 && echo '4'","status":0,"_id":"H5hBsqMqcogT2uCG","stdOut":"4\n","startDate":1571647920775,"endDate":1571647926236}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"IYjmfjF37kc8iiMi","stdOut":"2\n","startDate":1571733306228,"endDate":1571733306290}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"JafbCASVtgyrf8d1","stdOut":"2\n","startDate":1571660018684,"endDate":1571660024067}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"JpWKJFvHp8X8CGlt","stdOut":"2\n","startDate":1571656335803,"endDate":1571656341543}
+{"commitHash":"master","command":"sleep 20 & echo '2'","status":0,"_id":"Kdmh5QluTfT93xAl","stdOut":"2\n","startDate":1571670401603,"endDate":1571670422042}
+{"commitHash":"sdf","command":"sdf","status":1,"_id":"L1HrKWQzIWVCam21","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q sdf &&\n            sdf\nerror: pathspec 'sdf' did not match any file(s) known to git.\n","startDate":1571659668620,"endDate":1571659668729}
+{"commitHash":"master","command":"sleep 20 & echo '2'","status":0,"_id":"LO5DQFxfbnwfBQIR","stdOut":"2\n","startDate":1571670625962,"endDate":1571670646496}
+{"commitHash":"master","command":"sleep4 && echo '1'","status":1,"_id":"MtxvJY6ZSWhukboz","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q master &&\n            sleep4 && echo '1'\n/bin/sh: 3: sleep4: not found\n","startDate":1571659866961,"endDate":1571659867346}
+{"commitHash":"master","command":"echo '2'","status":0,"_id":"OANgOlZMLWWelIEZ","stdOut":"2\n","startDate":1571659727484,"endDate":1571659727921}
+{"commitHash":"sdf","command":"sdf","status":1,"_id":"OJWq9LFw8fbZWm6c","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q sdf &&\n            sdf\nerror: pathspec 'sdf' did not match any file(s) known to git.\n","startDate":1571658542149,"endDate":1571658542260}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"ObbRXprLPfW2fp4w","stdOut":"2\n","startDate":1571660178560,"endDate":1571660188931}
+{"commitHash":"dd","command":"sleep 20 & echo '2'","status":0,"_id":"OwlqYmnDu6lfRtQo","stdOut":"2\n","startDate":1571670610563,"endDate":1571670610753}
+{"commitHash":"master","command":"echo '2'","status":0,"_id":"PPLj7x5NhBzIzGGp","stdOut":"2\n","startDate":1571643944435,"endDate":1571643944952}
+{"commitHash":"sdf","command":"sdf","status":1,"_id":"QuK9vv7JYiwF1H6A","stdOut":"Error: Command failed: cd repos/1/server-info &&\n            git checkout -q sdf &&\n            sdf\nerror: pathspec 'sdf' did not match any file(s) known to git.\n","startDate":1571733497214,"endDate":1571733497345}
+{"commitHash":"f","command":"sleep 20 & echo '2'","status":0,"_id":"RisnzIwDmAzodcGD","stdOut":"2\n","startDate":1571670586705,"endDate":1571670586863}
+{"commitHash":"sdf","command":"sdf","status":1,"_id":"RvPX2deFDxWjFLEy","stdOut":"Error: Command failed: cd repos/2/server-info &&\n            git checkout -q sdf &&\n            sdf\nerror: pathspec 'sdf' did not match any file(s) known to git.\n","startDate":1571733500795,"endDate":1571733500920}
+{"commitHash":"master","command":"sleep 20 & echo '2'","status":0,"_id":"TUk8lLrmj8pMrv17","stdOut":"2\n","startDate":1571670519609,"endDate":1571670540124}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"XO1nfAfjUyMEPz9S","stdOut":"2\n","startDate":1571643122535,"endDate":1571643127921}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"Z4D8HFrBPBxRkR2L","stdOut":"2\n","startDate":1571660054030,"endDate":1571660059431}
+{"commitHash":"master","command":"sleep 5 & echo '5'","status":0,"_id":"Z7hQ4VVHUIq14rkE","stdOut":"5\n","startDate":1571647839804,"endDate":1571647845430}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"ZNX1s6t5pGs44Vlx","stdOut":"2\n","startDate":1571733497417,"endDate":1571733507838}
+{"commitHash":"d","command":"d","status":1,"_id":"aDiUZST1TC0opPZu","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q d &&\n            d\nerror: pathspec 'd' did not match any file(s) known to git.\n","startDate":1571660050553,"endDate":1571660050649}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"aPRLKHaYz6HSBV1H","stdOut":"2\n","startDate":1571733474482,"endDate":1571733484892}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"brGAAJMa3epiu1rG","stdOut":"2\n","startDate":1571657461505,"endDate":1571657466969}
+{"commitHash":"1","command":"2","status":1,"_id":"esCakMqrT577hnwz","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q 1 &&\n            2\nerror: pathspec '1' did not match any file(s) known to git.\n","startDate":1571659691046,"endDate":1571659691139}
+{"commitHash":"asd","command":"asd","status":1,"_id":"fzdyXIWleQiPBuRJ","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q asd &&\n            asd\nerror: pathspec 'asd' did not match any file(s) known to git.\n","startDate":1571643106322,"endDate":1571643106420}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"iJLdswrmFRnFAwj4","stdOut":"2\n","startDate":1571733417001,"endDate":1571733417078}
+{"commitHash":"1","command":"1","status":1,"_id":"lC8I18ba1S0TQUfk","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q 1 &&\n            1\nerror: pathspec '1' did not match any file(s) known to git.\n","startDate":1571659686932,"endDate":1571659687045}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"nM3vSoUaem6VCHuH","stdOut":"2\n","startDate":1571670393504,"endDate":1571670404002}
+{"commitHash":"master","command":"sleep 15 & echo '2'","status":0,"_id":"nf49neW03RSl5r9c","stdOut":"2\n","startDate":1571670351482,"endDate":1571670367161}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"nsJ3QVgeM4woJT9p","stdOut":"2\n","startDate":1571659962769,"endDate":1571659968176}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"oWd9mhk5JqnymKTj","stdOut":"2\n","startDate":1571670407756,"endDate":1571670418224}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"ovLJsriQrrlfp0B4","stdOut":"2\n","startDate":1571660298579,"endDate":1571660309077}
+{"commitHash":"sdf","command":"sdf","status":1,"_id":"p4RzRmLvdtVyW4UH","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q sdf &&\n            sdf\nerror: pathspec 'sdf' did not match any file(s) known to git.\n","startDate":1571659302993,"endDate":1571659303095}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"qW7KVkHqqnEjw92k","stdOut":"2\n","startDate":1571660061254,"endDate":1571660066630}
+{"commitHash":"master","command":"sleep 20 & echo '2'","status":0,"_id":"r7Kenw66EmWpKg6U","stdOut":"2\n","startDate":1571670466722,"endDate":1571670487171}
+{"commitHash":"master","command":"sleep 20 & echo '2'","status":0,"_id":"rvODLaA41MuS0RD0","stdOut":"2\n","startDate":1571670490553,"endDate":1571670511018}
+{"commitHash":"dfg","command":"d","status":1,"_id":"sDM63Nsp6jwIAcMe","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q dfg &&\n            d\nerror: pathspec 'dfg' did not match any file(s) known to git.\n","startDate":1571659678462,"endDate":1571659678566}
+{"commitHash":"master","command":"sleep 5 && echo 'l'","status":0,"_id":"skBX3gw2dApXSESS","stdOut":"l\n","startDate":1571643986483,"endDate":1571643991958}
+{"commitHash":"master","command":"sdf","status":1,"_id":"t63pEidrkf5WCs5E","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q master &&\n            sdf\n/bin/sh: 3: sdf: not found\n","startDate":1571660009237,"endDate":1571660009702}
+{"commitHash":"master","command":"sleep 20 & echo '2'","status":0,"_id":"th1GhWERpbemYkEC","stdOut":"2\n","startDate":1571670505948,"endDate":1571670526429}
+{"commitHash":"master","command":"sleep 5 & echo '2'","status":0,"_id":"uBmt1ZOLBu2kvid1","stdOut":"2\n","startDate":1571660451965,"endDate":1571660457444}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"w0SUHn8vBopD14dj","stdOut":"2\n","startDate":1571735505563,"endDate":1571735516350}
+{"commitHash":"master","command":"sleep 4 && echo '5'","status":0,"_id":"xprC99Je82IpTxKE","stdOut":"5\n","startDate":1571659743221,"endDate":1571659747595}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"zQ5RImUpfYpzZ2n3","stdOut":"2\n","startDate":1571670388355,"endDate":1571670398806}
+{"commitHash":"sdf","command":"sdf","status":1,"_id":"zU3PMxJbdQ8XPxwT","stdOut":"Error: Command failed: cd repos/server-info &&\n            git checkout -q sdf &&\n            sdf\nerror: pathspec 'sdf' did not match any file(s) known to git.\n","startDate":1571659423082,"endDate":1571659423205}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"zgjuwih14tUNZ7NU","stdOut":"2\n","startDate":1571733490297,"endDate":1571733500719}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":2,"_id":"fm35wMtcOxgjLhAw"}
+{"commitHash":"master","command":"sleep 10 & echo '2'","status":0,"_id":"fm35wMtcOxgjLhAw","stdOut":"2\n","startDate":1571735731317,"endDate":1571735742092}
