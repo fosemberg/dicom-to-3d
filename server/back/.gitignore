@@ -90,5 +90,3 @@ typings/
 .dynamodb/
 
 ../.idea
-
-build

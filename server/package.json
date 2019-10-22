@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run start-back\" \"npm run start-front\"",
     "start2": "run-p start-back start-front",
     "start-front": "node ./node_modules/serve/bin/serve.js -s front/build",
-    "start-back": "cd back && node ./build/index.js"
+    "start-back": "cd back && node -r dotenv/config ./build/index.js dotenv_config_path=back/env/default/.env"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,8 @@
     "concurrently": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "serve": "^11.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
   }
 }

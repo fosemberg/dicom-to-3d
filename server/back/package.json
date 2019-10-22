@@ -6,6 +6,7 @@
     "start": "ts-node -r dotenv/config index.ts dotenv_config_path=env/default/.env",
     "start-custom": "ts-node -r dotenv/config index.ts dotenv_config_path=env/custom/.env",
     "test": "tsc --p ./tsconfig.test.json && node build/index.test.js",
+    "build": "tsc",
     "tsc": "tsc"
   },
   "dependencies": {
