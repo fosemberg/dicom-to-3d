@@ -15,6 +15,10 @@ npm install &&
 npm start
 ```
 
+Открыть в хроме:
+
+http://localhost:5000 
+
 #### Запуск agent
 
 ```npm
