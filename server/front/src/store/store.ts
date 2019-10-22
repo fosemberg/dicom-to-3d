@@ -1,22 +1,22 @@
 import {IClientBuildResult, IClientBuildDetailedResult, BuildId, CommitHash} from "../utils/apiTypes";
+import {SERVER_HOST, SERVER_HTTP_PORT} from "../env";
 
-const SERVER_PORT = 3021;
-const host = `http://localhost:${SERVER_PORT}`;
+const hostUrl = `${SERVER_HOST}:${SERVER_HTTP_PORT}`;
 
 export const getAllBuildResults = (): Promise<IClientBuildResult[]> => {
   const url = 'get_build_results';
-  const _url = `${host}/${url}`;
+  const _url = `${hostUrl}/${url}`;
   return fetch(`${_url}`).then((res) => res.json());
 };
 
 export const getBuildDetailedResult = (buildId: BuildId): Promise<IClientBuildDetailedResult> => {
   const url = 'get_build_detailed_result';
-  const _url = `${host}/${url}/${buildId}`;
+  const _url = `${hostUrl}/${url}/${buildId}`;
   return fetch(`${_url}`).then((res) => res.json());
 };
 
 export const sendBuild = (commitHash: CommitHash, command: string): Promise<string> => {
   const url = 'build';
-  const _url = `${host}/${url}/${commitHash}/${command}`;
+  const _url = `${hostUrl}/${url}/${commitHash}/${command}`;
   return fetch(`${_url}`).then((res) => res.json());
 };
