@@ -1,0 +1,4 @@
+{"commitHash":"master","command":"echo '2'","status":0,"_id":"0Tt0qLIV6TYjB3m3","stdOut":"2\n","startDate":1571740594136,"endDate":1571740594737}
+{"commitHash":"master","command":"echo '3'","status":0,"_id":"B751f7ckRTgjxOF7","stdOut":"3\n","startDate":1571740600124,"endDate":1571740600702}
+{"commitHash":"master","command":"echo '2'","status":0,"_id":"WyrxGkZ1jGEW8nzI","stdOut":"2\n","startDate":1571740584092,"endDate":1571740584920}
+{"commitHash":"asdf","command":"asdf","status":1,"_id":"haIm8ZiKUmFTibQL","stdOut":"Error: Command failed: cd repos/1/server-info &&\n            git checkout -q asdf &&\n            asdf\nerror: pathspec 'asdf' did not match any file(s) known to git.\n","startDate":1571740588684,"endDate":1571740588767}
