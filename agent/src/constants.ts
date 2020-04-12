@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { createMessageObject } from './configUtils';
-import {AGENT_NAME} from "./env";
+import {AGENT_NAME} from "../config/env";
 
 export const PATH_TO_REPOS = `repos/${AGENT_NAME}`;
 

@@ -9,11 +9,11 @@ import {
   Status,
   IWithRepositoryUrl
 } from './apiTypes';
-import {AGENT_HOST, AGENT_PORT, SERVER_HOST, SERVER_HTTP_PORT} from './env';
+import {AGENT_HOST, AGENT_PORT, SERVER_HOST, SERVER_HTTP_PORT} from '../config/env';
 
 import {exec} from 'child_process';
 
-import {PATH_TO_REPOS} from "./config";
+import {PATH_TO_REPOS} from "./constants";
 
 console.info('Agent starting...');
 const axios = require(`axios`);

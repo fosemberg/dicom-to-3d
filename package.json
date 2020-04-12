@@ -8,7 +8,7 @@
   },
   "scripts": {
     "apiTypes": "ncp api/apiTypes.ts server/back/src/apiTypes.ts && ncp api/apiTypes.ts server/front/src/utils/apiTypes.ts && ncp api/apiTypes.ts agent/src/apiTypes.ts",
-    "copy-examples": "ncp server/back/.env.example server/back/.env && ncp agent/envs/1/.env.example agent/envs/1/.env && ncp agent/envs/2/.env.example agent/envs/2/.env"
+    "copy-examples": "ncp server/back/.env.example server/back/.env && ncp agent/envs/1/.env.example agent/.env && ncp agent/envs/2/.env.example agent/envs/2/.env"
   },
   "repository": {
     "type": "git",

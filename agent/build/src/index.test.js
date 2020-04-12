@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var env_1 = require("./env");
+var env_1 = require("../config/env");
 var axios = require("axios");
 var buildId = 2;
 var repositoryId = "server-info";

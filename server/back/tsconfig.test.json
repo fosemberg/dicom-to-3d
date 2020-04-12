@@ -3,6 +3,6 @@
     "outDir": "build"
   },
   "include": [
-    "src/*.test.ts"
+    "src/**/*.test.ts"
   ]
 }

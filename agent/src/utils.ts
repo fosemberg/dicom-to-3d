@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { exec } from 'child_process';
-import { RESPONSE } from './config';
+import { RESPONSE } from './constants';
 import {IBuildResponse} from "./apiTypes";
 
 export const execCommand = (

@@ -4,9 +4,9 @@ var dotenv_1 = require("dotenv");
 dotenv_1.config();
 var expressApp_1 = require("./expressApp");
 var apiTypes_1 = require("./apiTypes");
-var env_1 = require("./env");
+var env_1 = require("../config/env");
 var child_process_1 = require("child_process");
-var config_1 = require("./config");
+var constants_1 = require("./constants");
 console.info('Agent starting...');
 var axios = require("axios");
 // const url = `https://github.com/fosemberg/${repositoryId}.git`;
@@ -74,7 +74,7 @@ expressApp_1.app.get('/build/:buildId/:repositoryId/:commitHash/:command', funct
     console.info('build: ', JSON.stringify(params));
     res.json({ buildId: buildId, isAlive: true });
     var startDate = new Date().getTime();
-    child_process_1.exec("cd " + config_1.PATH_TO_REPOS + "/" + repositoryId + " &&\n            git checkout -q " + commitHash + " &&\n            " + command, {}, function (error, stdOut) {
+    child_process_1.exec("cd " + constants_1.PATH_TO_REPOS + "/" + repositoryId + " &&\n            git checkout -q " + commitHash + " &&\n            " + command, {}, function (error, stdOut) {
         return error
             ? notifyBuildResult({
                 buildId: buildId,

@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var child_process_1 = require("child_process");
-var config_1 = require("./config");
+var constants_1 = require("./constants");
 exports.execCommand = function (command, callbackOut, callbackErr, options) {
     if (callbackOut === void 0) { callbackOut = function (x) { return x; }; }
     if (callbackErr === void 0) { callbackErr = callbackOut; }
@@ -12,7 +12,7 @@ exports.execCommand = function (command, callbackOut, callbackErr, options) {
 };
 exports.execCommandWithRes = function (command, res, callbackOut, callbackErr, options) {
     if (callbackOut === void 0) { callbackOut = function (x) { return x; }; }
-    if (callbackErr === void 0) { callbackErr = config_1.RESPONSE.NO_ROUT(res); }
+    if (callbackErr === void 0) { callbackErr = constants_1.RESPONSE.NO_ROUT(res); }
     if (options === void 0) { options = {}; }
     return exports.execCommand(command, function (json) { return res.json(callbackOut(json)); }, callbackErr, options);
 };

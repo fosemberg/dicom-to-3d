@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var configUtils_1 = require("./configUtils");
-var env_1 = require("./env");
+var env_1 = require("../config/env");
 exports.PATH_TO_REPOS = "repos/" + env_1.AGENT_NAME;
 var MESSAGE;
 (function (MESSAGE) {

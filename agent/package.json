@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node -r dotenv/config build/index.js dotenv_config_path=envs/1/.env",
-    "start-2": "node -r dotenv/config build/index.js dotenv_config_path=envs/2/.env",
-    "start-dev": "ts-node -r dotenv/config src/index.ts dotenv_config_path=envs/1/.env",
-    "start-dev-2": "ts-node -r dotenv/config src/index.ts dotenv_config_path=envs/2/.env",
-    "test": "tsc --p ./tsconfig.test.json && node build/index.test.js",
+    "start": "node -r dotenv/config build/src/index.js dotenv_config_path=.env",
+    "start-2": "node -r dotenv/config build/src/index.js dotenv_config_path=2.env",
+    "dev": "ts-node -r dotenv/config src/index.ts dotenv_config_path=.env",
+    "dev-2": "ts-node -r dotenv/config src/index.ts dotenv_config_path=2.env",
+    "test": "ts-node -r dotenv/config src/index.test.ts dotenv_config_path=.env",
     "build": "tsc",
-    "tsc": "tsc"
+    "copy-examples": "ncp .env.example .env && ncp 2.env.example 2.env"
   },
   "dependencies": {
     "@types/express": "^4.17.1",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
+    "ncp": "^2.0.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   }

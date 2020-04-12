@@ -1,4 +1,4 @@
-import {AGENT_PORT} from "./env";
+import {AGENT_PORT} from "../config/env";
 
 const axios = require(`axios`);
 
