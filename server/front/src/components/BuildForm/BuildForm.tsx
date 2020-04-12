@@ -49,12 +49,12 @@ const BuildForm: React.FC<IBuildFormProps> = (
           </Form.Group>
 
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>commit hash</Form.Label>
+            <Form.Label>branch or commit hash</Form.Label>
             <Form.Control
               value={commitHash}
               onChange={onChangeCommitHash}
               type="text"
-              placeholder="hash commit"
+              placeholder="master"
             />
           </Form.Group>
 
@@ -65,6 +65,7 @@ const BuildForm: React.FC<IBuildFormProps> = (
               onChange={onChangeCommand}
               as="textarea"
               rows="3"
+              placeholder="npm run build"
             />
           </Form.Group>
 

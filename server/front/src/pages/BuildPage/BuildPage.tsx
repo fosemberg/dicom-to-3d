@@ -3,8 +3,6 @@ import BuildDetails from "../../components/BuildDetails/BuildDetails";
 import {
   BuildId,
   IClientBuildDetailedResult,
-  IClientBuildResult,
-  Status,
   ACTION,
   TYPE,
   Message
@@ -81,6 +79,6 @@ class BuildPage extends React.Component<IBuildPageProps & RouteComponentProps<IM
       </div>
     )
   }
-};
+}
 
 export default withRouter(BuildPage);

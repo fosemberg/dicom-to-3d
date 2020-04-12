@@ -7,7 +7,7 @@ import BuildPage from "./pages/BuildPage/BuildPage";
 import {cnTheme} from "./components/Theme";
 import "./components/Theme/_color/Theme_color_project-default.scss";
 import "./components/Theme/_space/Theme_space_default.scss";
-import {crxClient, CrxClient, WSReadyState} from "./utils/CrxClient";
+import {crxClient} from "./utils/CrxClient";
 import Loader from "./components/Loader/Loader";
 import {getAllBuildResults, getBuildDetailedResult} from "./store/store";
 

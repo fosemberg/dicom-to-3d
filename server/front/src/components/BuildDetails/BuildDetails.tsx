@@ -11,6 +11,7 @@ export const cnBuildDetails = cn('BuildDetails');
 const BuildDetails: React.FC<IClientBuildDetailedResult> = (
   {
     buildId,
+    repositoryUrl,
     commitHash,
     command,
     status,
@@ -23,10 +24,16 @@ const BuildDetails: React.FC<IClientBuildDetailedResult> = (
     <Card className={cnBuildDetails()}>
       <BuildDetailsHeader status={status} buildId={buildId} commitHash={commitHash}/>
       <ListGroup variant="flush">
+        <ListGroup.Item>url: {repositoryUrl}</ListGroup.Item>
         <ListGroup.Item>command: {command}</ListGroup.Item>
         <ListGroup.Item>start build: {moment(startDate).format(dateFormat)}</ListGroup.Item>
         {status !== Status.building && <ListGroup.Item>end build: {moment(endDate).format(dateFormat)}</ListGroup.Item>}
-        {status !== Status.building && <ListGroup.Item>std out: {stdOut}</ListGroup.Item>}
+        {
+          status !== Status.building && <ListGroup.Item>
+            std out: <br/>
+            <pre>{stdOut}</pre>
+          </ListGroup.Item>
+        }
       </ListGroup>
     </Card>
   );

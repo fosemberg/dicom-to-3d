@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Table} from "react-bootstrap";
 import BuildTableRow from "./-Row/BuildTableRow";
 import BuildTableHeader from "./-Header/BuildTableHeader";
-import {IClientBuildResult, Status} from "../../utils/apiTypes";
+import {IClientBuildResult} from "../../utils/apiTypes";
 
 interface IBuildTableProps {
   data: IClientBuildResult[];
@@ -15,8 +15,11 @@ const BuildTable: React.FC<IBuildTableProps> = ({data}) => {
       <tbody>
       {
         data.map(
-          ({buildId, status, commitHash})  =>
-            <BuildTableRow key={buildId} id={buildId} status={status} commitHash={commitHash}/>
+          (buildTableRowProps)  =>
+            <BuildTableRow
+              key={buildTableRowProps.buildId}
+              {...buildTableRowProps}
+            />
         )
       }
       </tbody>

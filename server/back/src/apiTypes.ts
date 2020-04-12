@@ -4,7 +4,7 @@ export enum Status {
   building,
 }
 
-export type repositoryUrl = string;
+export type RepositoryUrl = string;
 export type BuildId = string;
 export type CommitHash = string;
 export type Command = string;
@@ -54,8 +54,22 @@ export interface IWithRepositoryUrl {
   repositoryUrl: string;
 }
 
+export interface IWithRepositoryOwner {
+  repositoryOwner: string;
+}
+
+export interface IWithRepositoryName {
+  repositoryName: string;
+}
+
+export interface IRepositoryInfo extends
+  IWithRepositoryOwner,
+  IWithRepositoryName
+{}
+
 export interface IBuildResponse extends
   IWithBuildId,
+  IWithRepositoryUrl,
   IWithCommitHash,
   IWithStatus,
   IWithStdOut,
@@ -73,12 +87,14 @@ export interface IBuildRequest extends
 export interface IClientBuildResult extends
   IWithBuildId,
   IWithStatus,
+  IRepositoryInfo,
   IWithCommitHash
 {}
 
 export interface IClientBuildDetailedResult extends
   IWithBuildId,
   IWithStatus,
+  IWithRepositoryUrl,
   IWithCommitHash,
   IWithCommand,
   IWithStdOut,

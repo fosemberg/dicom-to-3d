@@ -10,7 +10,15 @@ import {
 } from './types';
 import {
   IWithBuildId,
-  IBuildResponse, Status, IBuildRequest, TYPE, ACTION, Message, IWithPort, IWithHost,
+  IBuildResponse,
+  Status,
+  IBuildRequest,
+  TYPE,
+  ACTION,
+  Message,
+  IWithPort,
+  IWithHost,
+  IRepositoryInfo,
 } from './apiTypes';
 import {DB_FULL_PATH} from "./constants";
 import * as WS from "ws";
@@ -31,6 +39,14 @@ const db = new DataStore({
   filename: DB_FULL_PATH,
   autoload: true,
 });
+
+const getInfoFromRepositoryUrl = (url: string): IRepositoryInfo => {
+  console.log('getInfoFromGithubUrl:url', url);
+  const urlArr = url.split('/');
+  const repositoryName = urlArr.pop().replace(/\.git$/,'');
+  const repositoryOwner = urlArr.pop();
+  return {repositoryName, repositoryOwner};
+}
 
 const sendBuildRequestToAgent = ({buildId, repositoryUrl, commitHash, command}: IBuildRequest, agentUrl: string) => {
   const type = 'get';
@@ -132,18 +148,19 @@ app.get(
           buildRequests.push(buildRequest);
         }
 
-        res.json({
-          ...buildRequest,
-          status: Status.building
-        });
+        const buildRequestWithoutRepositoryUrl = {...buildRequest};
+        delete buildRequestWithoutRepositoryUrl.repositoryUrl;
+        const body = {
+          ...buildRequestWithoutRepositoryUrl,
+          ...getInfoFromRepositoryUrl(repositoryUrl),
+          status: Status.building,
+        }
 
+        res.json(body);
         sendMessage({
           type: TYPE.EVENT,
           action: ACTION.START_BUILD,
-          body: {
-            ...buildRequest,
-            status: Status.building
-          }
+          body,
         });
       }
     );
@@ -194,10 +211,15 @@ app.post(
     }: IBody<IBuildResponse>,
     res: Response
   ) => {
+    const {repositoryUrl, ...buildWithoutRepositoryUrl} = build;
+    const body = {
+      ...buildWithoutRepositoryUrl,
+      ...getInfoFromRepositoryUrl(repositoryUrl),
+    }
     sendMessage({
       type: TYPE.EVENT,
       action: ACTION.BUILD_RESULT,
-      body: build,
+      body,
     });
 
     const {buildId, status, stdOut, startDate, endDate} = build;
@@ -217,7 +239,7 @@ app.get(
   ) => {
     db.find({}).sort({startDate: 1}).exec((err, buildResults) => {
       res.json(
-        buildResults.map(({_id, status, commitHash}) => ({buildId: _id, status, commitHash}))
+        buildResults.map(({_id, status, repositoryUrl, commitHash}) => ({buildId: _id, status, ...getInfoFromRepositoryUrl(repositoryUrl), commitHash}))
       );
     });
   }

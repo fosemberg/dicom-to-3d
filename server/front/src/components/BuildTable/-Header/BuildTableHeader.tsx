@@ -5,7 +5,9 @@ const BuildTableHeader = () => (
   <tr>
     <th>id</th>
     <th>OK</th>
-    <th>commit hash</th>
+    <th>owner</th>
+    <th>name</th>
+    <th>hash</th>
   </tr>
   </thead>
 );

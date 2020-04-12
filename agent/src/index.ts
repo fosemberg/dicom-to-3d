@@ -1,13 +1,15 @@
-import { config } from "dotenv"
+import {config} from "dotenv"
+
 config();
 import {Response} from 'express';
 import {app} from './expressApp';
-import {IData, IParams, } from './types';
+import {IData, IParams,} from './types';
 import {
   IBuildRequest,
   IBuildResponse,
   Status,
-  IWithRepositoryUrl
+  IWithRepositoryUrl,
+  IRepositoryInfo
 } from './apiTypes';
 import {AGENT_HOST, AGENT_PORT, SERVER_HOST, SERVER_HTTP_PORT} from '../config/env';
 
@@ -17,6 +19,7 @@ import * as path from 'path';
 import {MESSAGE, PATH_TO_REPOS, RESPONSE} from "./constants";
 import * as fs from "fs";
 import {createMessageObjectString} from "./configUtils";
+import {IWithRepositoryName, IWithRepositoryOwner} from "../../api/apiTypes";
 
 console.info('Agent starting...');
 const axios = require(`axios`);
@@ -26,38 +29,36 @@ const url = `https://github.com/fosemberg/${repositoryId}.git`;
 
 const serverUrl = `${SERVER_HOST}:${SERVER_HTTP_PORT}`;
 
-interface GitGubInfo {
-  repoName: string;
-  repoOwner: string;
-}
-
-const getInfoFromGithubUrl = (url: string): GitGubInfo => {
+const getInfoFromRepositoryUrl = (url: string): IRepositoryInfo => {
   console.log('getInfoFromGithubUrl:url', url);
   const urlArr = url.split('/');
-  const repoName = urlArr.pop().replace(/\.git$/,'');
-  const repoOwner = urlArr.pop();
-  return {repoName, repoOwner};
+  const repositoryName = urlArr.pop().replace(/\.git$/, '');
+  const repositoryOwner = urlArr.pop();
+  return {repositoryName, repositoryOwner};
 }
 
 const checkIsRepositoryExist = async (repositoryUrl: string): Promise<boolean> => {
   // const {data: {repositoryUrl}} = response;
   console.info(`Check repository: ${repositoryUrl}`);
-  const {repoName, repoOwner} = getInfoFromGithubUrl(repositoryUrl);
-  const repoPath = path.join(PATH_TO_REPOS, repoOwner, repoName);
-  if (fs.existsSync(repoPath)) {
-    return true;
+  try {
+    const {repositoryOwner, repositoryName} = getInfoFromRepositoryUrl(repositoryUrl);
+    const repoPath = path.join(PATH_TO_REPOS, repositoryOwner, repositoryName);
+    if (fs.existsSync(repoPath)) {
+      return true;
+    }
+  } catch (e) {
+    return false;
   }
-  return false;
 };
 
 const downloadRepository = (repositoryUrl: string): Promise<string | Error> => {
   console.log('downloadRepository:repositoryUrl', repositoryUrl);
-  const {repoOwner} = getInfoFromGithubUrl(repositoryUrl);
+  const {repositoryOwner} = getInfoFromRepositoryUrl(repositoryUrl);
   return new Promise((resolve, reject) => {
     exec(
       `mkdir -p ${PATH_TO_REPOS} &&
-      mkdir -p ${PATH_TO_REPOS}/${repoOwner} &&
-      cd ${PATH_TO_REPOS}/${repoOwner} &&
+      mkdir -p ${PATH_TO_REPOS}/${repositoryOwner} &&
+      cd ${PATH_TO_REPOS}/${repositoryOwner} &&
     git clone ${repositoryUrl.replace(/https?(:\/\/)/, 'git$1')} && 
     echo '${createMessageObjectString(MESSAGE.REPOSITORY_CLONED)}'`,
       {},
@@ -75,10 +76,6 @@ const downloadRepositoryIfNeed = async (repositoryUrl: string): Promise<string |
   }
   return MESSAGE.REPOSITORY_ALREADY_EXIST;
 }
-
-downloadRepositoryIfNeed(url)
-  .then(console.log)
-  .catch(console.error);
 
 const notifyAgentFree = () => {
   const type = 'post';
@@ -103,9 +100,6 @@ const notifyStart = (type = 'post') => {
   const url = 'notify_agent';
   const _url = `${serverUrl}/${url}`;
   return axios[type](_url, {host: AGENT_HOST, port: AGENT_PORT})
-    // .then(({data:{}})downloadRepositoryIfNeed)
-    // .then(checkIsRepositoryExist)
-    // .then(downloadRepository)
     .then(notifyAgentFree)
     .catch((error) => {
       // console.error(type, _url);
@@ -146,33 +140,45 @@ app.get(
     console.info('build: ', JSON.stringify(params));
     res.json({buildId, isAlive: true});
     const startDate = new Date().getTime();
-    await downloadRepositoryIfNeed(repositoryUrl);
-    const {repoOwner, repoName} =  getInfoFromGithubUrl(repositoryUrl);
-    exec(
-      `cd ${PATH_TO_REPOS}/${repoOwner}/${repoName} &&
+    const generateBuildResponse = () => ({
+      buildId,
+      repositoryUrl,
+      commitHash,
+      startDate,
+      endDate: new Date().getTime(),
+    });
+    await downloadRepositoryIfNeed(repositoryUrl)
+      .then(() => {
+        const {repositoryOwner, repositoryName} = getInfoFromRepositoryUrl(repositoryUrl);
+        exec(
+          `cd ${PATH_TO_REPOS}/${repositoryOwner}/${repositoryName} &&
             git checkout -q ${commitHash} &&
             ${command}`,
-      {},
-      (error: Error, stdOut: string) =>
-        error
-          ? notifyBuildResult({
-            buildId,
-            commitHash,
+          {},
+          (error: Error, stdOut: string) =>
+            error
+              ? notifyBuildResult({
+                ...generateBuildResponse(),
+                status: Status.fail,
+                stdOut: String(error),
+              }) &&
+              console.error(error)
+              : notifyBuildResult({
+                ...generateBuildResponse(),
+                status: Status.success,
+                stdOut,
+              })
+        );
+      })
+      .catch((error) => {
+          console.error(error);
+          notifyBuildResult({
+            ...generateBuildResponse(),
             status: Status.fail,
             stdOut: String(error),
-            startDate,
-            endDate: new Date().getTime()
-          }) &&
-          console.error(error)
-          : notifyBuildResult({
-            buildId,
-            commitHash,
-            status: Status.success,
-            stdOut,
-            startDate,
-            endDate: new Date().getTime()
           })
-    );
+        }
+      );
   }
 );
 
