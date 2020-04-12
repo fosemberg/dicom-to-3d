@@ -7,7 +7,6 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "apiTypes": "cp api/apiTypes.ts server/back/src/apiTypes.ts && cp api/apiTypes.ts server/front/src/utils/apiTypes.ts && cp api/apiTypes.ts agent/src/apiTypes.ts",
     "copy-examples": "cp agent/envs/1/.env.example agent/envs/1/.env && cp agent/envs/1/.env.example agent/envs/1/.env"
   },
