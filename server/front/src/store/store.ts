@@ -1,4 +1,4 @@
-import {IClientBuildResult, IClientBuildDetailedResult, BuildId, CommitHash} from "../utils/apiTypes";
+import {IClientBuildResult, IClientBuildDetailedResult, RepositoryUrl, BuildId, CommitHash} from "../utils/apiTypes";
 import {SERVER_HOST, SERVER_HTTP_PORT} from "../config/env";
 
 const hostUrl = `${SERVER_HOST}:${SERVER_HTTP_PORT}`;
@@ -15,8 +15,8 @@ export const getBuildDetailedResult = (buildId: BuildId): Promise<IClientBuildDe
   return fetch(`${_url}`).then((res) => res.json());
 };
 
-export const sendBuild = (commitHash: CommitHash, command: string): Promise<string> => {
+export const sendBuild = (repositoryUrl: RepositoryUrl, commitHash: CommitHash, command: string): Promise<string> => {
   const url = 'build';
-  const _url = `${hostUrl}/${url}/${commitHash}/${command}`;
+  const _url = `${hostUrl}/${url}/${encodeURIComponent(repositoryUrl)}/${commitHash}/${command}`;
   return fetch(`${_url}`).then((res) => res.json());
 };

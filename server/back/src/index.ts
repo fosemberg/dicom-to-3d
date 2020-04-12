@@ -5,7 +5,8 @@ import {app} from './expressApp';
 import {
   Agents,
   IBody,
-  IParams, ITask,
+  IParams,
+  ITask,
 } from './types';
 import {
   IWithBuildId,
@@ -31,11 +32,11 @@ const db = new DataStore({
   autoload: true,
 });
 
-const sendBuildRequestToAgent = ({buildId, repositoryId, commitHash, command}: IBuildRequest, agentUrl: string) => {
+const sendBuildRequestToAgent = ({buildId, repositoryUrl, commitHash, command}: IBuildRequest, agentUrl: string) => {
   const type = 'get';
   const body = {};
   const commandUrl = 'build';
-  const _url = `${agentUrl}/${commandUrl}/${buildId}/${repositoryId}/${commitHash}/${command}`;
+  const _url = `${agentUrl}/${commandUrl}/${buildId}/${encodeURIComponent(repositoryUrl)}/${commitHash}/${command}`;
 
   console.info(`sendBuildRequestToAgent: ${_url}`);
   changeAgentStatusByUrl(agentUrl, false);
@@ -103,7 +104,7 @@ const getFreeAgent = () => {
 
 // собирает и уведомляет о результатах сборки
 app.get(
-  '/build/:commitHash/:command',
+  '/build/:repositoryUrl/:commitHash/:command',
   (
     {
       params: task,
@@ -111,14 +112,14 @@ app.get(
     res: Response
   ) => {
     console.info('build: ', JSON.stringify(task));
-    const {commitHash, command} = task;
+    const {repositoryUrl, commitHash, command} = task;
 
     db.insert(
-      {commitHash, command, status: Status.building},
+      {repositoryUrl, commitHash, command, status: Status.building},
       (err, newDoc) => {
         const buildRequest: IBuildRequest = {
           buildId: newDoc._id,
-          repositoryId,
+          repositoryUrl,
           commitHash,
           command
         };

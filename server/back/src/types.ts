@@ -1,4 +1,4 @@
-import {IWithCommand, IWithCommitHash} from "./apiTypes";
+import {IWithCommand, IWithCommitHash, IWithRepositoryUrl} from "./apiTypes";
 
 export interface IParams<T = any> {
   params: T;
@@ -19,6 +19,7 @@ export interface IWithUrl {
 export type Agents = { [s: string]: boolean; };
 
 export interface ITask extends
+  IWithRepositoryUrl,
   IWithCommitHash,
   IWithCommand
 {}
