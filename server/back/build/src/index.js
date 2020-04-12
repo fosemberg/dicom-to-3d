@@ -35,6 +35,8 @@ var DataStore = require('nedb');
 var axios = require("axios");
 var repositoryId = 'server-info';
 console.info('Server starting...');
+console.log('DB_FULL_PATH:', constants_1.DB_FULL_PATH);
+console.log('__dirname:', __dirname + "/../../db/");
 var db = new DataStore({
     filename: constants_1.DB_FULL_PATH,
     autoload: true
