@@ -6,21 +6,18 @@ import {
   Agents,
   IBody,
   IParams, ITask,
-  IWithUrl,
 } from './types';
 import {
-  IWithCommand, IWithCommitHash, IWithRepositoryId, IWithStdOut,
   IWithBuildId,
-  IWithStatus,
   IBuildResponse, Status, IBuildRequest, TYPE, ACTION, Message, IWithPort, IWithHost,
 } from './apiTypes';
-import {DB_FULL_PATH} from "./config";
+import {DB_FULL_PATH} from "./constants";
 import * as WS from "ws";
-import {SERVER_WS_PORT, SERVER_HTTP_PORT, REPOSITORY_URL} from "./env";
+import {SERVER_WS_PORT, SERVER_HTTP_PORT, REPOSITORY_URL} from "../config/env";
 
 const {
   MESSAGE,
-} = require('./config');
+} = require('./constants');
 const {createMessageObjectString} = require('./configUtils');
 const DataStore = require('nedb');
 const axios = require(`axios`);
@@ -97,7 +94,9 @@ const makeAgentFree = (host: string, port: number) => {
 
 const getFreeAgent = () => {
   for (const agent in agents) {
-    if (agents[agent]) return agent;
+    if (agents.hasOwnProperty(agent) && agents[agent]) {
+      return agent;
+    }
   }
   return false;
 };

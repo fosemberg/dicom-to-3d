@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "ts-node -r dotenv/config index.ts dotenv_config_path=env/default/.env",
-    "start-custom": "ts-node -r dotenv/config index.ts dotenv_config_path=env/custom/.env",
-    "test": "tsc --p ./tsconfig.test.json && node build/index.test.js",
+    "dev": "ts-node -r dotenv/config src/index.ts dotenv_config_path=.env",
     "build": "tsc",
-    "tsc": "tsc"
+    "start": "node -r dotenv/config ./build/src/index.js dotenv_config_path=.env",
+    "test": "tsc --p ./tsconfig.test.json && node build/index.test.js"
   },
   "dependencies": {
     "@types/express": "^4.17.1",

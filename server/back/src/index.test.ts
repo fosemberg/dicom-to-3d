@@ -1,4 +1,4 @@
-import {SERVER_HTTP_PORT} from "./env";
+import {SERVER_HTTP_PORT} from "../config/env";
 
 const axios = require(`axios`);
 
@@ -7,7 +7,6 @@ const repositoryId = `server-info`;
 const hashCommit = 'master';
 const command = 'node console.js';
 
-const url = `https://github.com/fosemberg/${repositoryId}.git`;
 const host = `http://localhost:${SERVER_HTTP_PORT}`;
 
 
@@ -24,4 +23,4 @@ const checkUrl = (url, type = `get`, body = {}) => {
     });
 };
 
-checkUrl(`/build/${buildId}/${repositoryId}/${hashCommit}/${command}`)
+checkUrl(`/build/${buildId}/${repositoryId}/${hashCommit}/${command}`);

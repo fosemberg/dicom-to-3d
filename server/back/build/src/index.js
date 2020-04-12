@@ -26,17 +26,17 @@ var dotenv_1 = require("dotenv");
 dotenv_1.config();
 var expressApp_1 = require("./expressApp");
 var apiTypes_1 = require("./apiTypes");
-var config_1 = require("./config");
+var constants_1 = require("./constants");
 var WS = require("ws");
-var env_1 = require("./env");
-var MESSAGE = require('./config').MESSAGE;
+var env_1 = require("../config/env");
+var MESSAGE = require('./constants').MESSAGE;
 var createMessageObjectString = require('./configUtils').createMessageObjectString;
 var DataStore = require('nedb');
 var axios = require("axios");
 var repositoryId = 'server-info';
 console.info('Server starting...');
 var db = new DataStore({
-    filename: config_1.DB_FULL_PATH,
+    filename: constants_1.DB_FULL_PATH,
     autoload: true
 });
 var sendBuildRequestToAgent = function (_a, agentUrl) {
@@ -92,8 +92,9 @@ var makeAgentFree = function (host, port) {
 };
 var getFreeAgent = function () {
     for (var agent in agents) {
-        if (agents[agent])
+        if (agents.hasOwnProperty(agent) && agents[agent]) {
             return agent;
+        }
     }
     return false;
 };
