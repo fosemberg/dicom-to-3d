@@ -1,6 +1,8 @@
 # fosemberg-ci
 Простая система continuous integration.
 
+[Видео, демонстрирующее работу fosemberg-ci](https://yadi.sk/i/9SPnjGzA13iNAA)
+
 [ТЗ](docs/TASK.md)
 
 ## Зависимости
