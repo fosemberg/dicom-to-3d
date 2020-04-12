@@ -2,7 +2,7 @@ import {Observable, Subject, Subscriber} from "rxjs";
 import {Message} from "./apiTypes";
 
 import "rxjs/add/operator/timeout";
-import {SERVER_WS_PORT} from "../env";
+import {SERVER_WS_PORT} from "../config/env";
 
 export enum WSReadyState {
   CONNECTING = 0, //	Socket has been created. The connection is not yet open.

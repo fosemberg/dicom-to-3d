@@ -6,8 +6,9 @@
 ## Зависимости
 
 - [nodejs](https://nodejs.org/en/)
-- [npm](https://www.npmjs.com/get-npm)
-- [yarn](https://www.npmjs.com/package/yarn)
+- [git](https://git-scm.com/downloads)
+- [npm](https://www.npmjs.com/get-npm) (обычно устанавливается вместе с nodejs)
+- [yarn](https://www.npmjs.com/package/yarn) (опционально, вместо yarn можно использовать во всех командах ниже npm)
 
 ## Запуск
 

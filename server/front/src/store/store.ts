@@ -1,5 +1,5 @@
 import {IClientBuildResult, IClientBuildDetailedResult, BuildId, CommitHash} from "../utils/apiTypes";
-import {SERVER_HOST, SERVER_HTTP_PORT} from "../env";
+import {SERVER_HOST, SERVER_HTTP_PORT} from "../config/env";
 
 const hostUrl = `${SERVER_HOST}:${SERVER_HTTP_PORT}`;
 
