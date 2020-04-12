@@ -1,5 +1,5 @@
 {
-  "name": "shri-2019-hw__ci",
+  "name": "fosemberg-ci",
   "version": "1.0.0",
   "description": "Простая система continuous integration.",
   "main": "index.js",
@@ -8,17 +8,18 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "apiTypes": "cp api/apiTypes.ts server/back/src/apiTypes.ts && cp api/apiTypes.ts server/front/src/utils/apiTypes.ts && cp api/apiTypes.ts agent/src/apiTypes.ts"
+    "apiTypes": "cp api/apiTypes.ts server/back/src/apiTypes.ts && cp api/apiTypes.ts server/front/src/utils/apiTypes.ts && cp api/apiTypes.ts agent/src/apiTypes.ts",
+    "copy-examples": "cp agent/envs/1/.env.example agent/envs/1/.env && cp agent/envs/1/.env.example agent/envs/1/.env"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fosemberg/shri-2019-hw__ci.git"
+    "url": "git+https://github.com/fosemberg/fosemberg-ci.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fosemberg/shri-2019-hw__ci/issues"
+    "url": "https://github.com/fosemberg/fosemberg-ci/issues"
   },
-  "homepage": "https://github.com/fosemberg/shri-2019-hw__ci#readme"
+  "homepage": "https://github.com/fosemberg/fosemberg-ci#readme"
 }

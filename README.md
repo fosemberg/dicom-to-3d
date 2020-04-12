@@ -1,4 +1,4 @@
-# shri-2019-hw__ci
+# fosemberg-ci
 Простая система continuous integration.
 
 [ТЗ](docs/TASK.md)
