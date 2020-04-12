@@ -3,16 +3,22 @@
 
 [ТЗ](docs/TASK.md)
 
+## Зависимости
+
+- [nodejs](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/get-npm)
+- [yarn](https://www.npmjs.com/package/yarn)
+
 ## Запуск
 
 ## Production запуск
 
 #### Запуск server
 
-```npm
+```bash
 cd server &&
-npm install &&
-npm start
+yarn &&
+yarn run start
 ```
 
 Открыть в хроме:
@@ -21,10 +27,10 @@ http://localhost:5000
 
 #### Запуск agent
 
-```npm
+```bash
 cd agent &&
-npm install &&
-npm start
+yarn &&
+yarn run start
 ```
 
 #### Проверка функционала
@@ -41,10 +47,9 @@ command: ```sleep 10 & echo '10'```
 
 Чтобы ускроить сборку, можно поднять второго агента:
 
-```npm
+```bash
 cd agent &&
-npm install &&
-npm run start-2
+yarn run start-2
 ```
 
 После этого процесс сборки будет выполняться параллельно на 2 разных агентах, что приведет к увеличению скорости сборки в 2 раза, при наличие задач в очереди.
@@ -57,8 +62,8 @@ npm run start-2
 
 ```npm
 cd server/back &&
-npm install &&
-npm run star
+yarn &&
+yarn run dev
 ```
 
 #### Запуск server front
@@ -66,15 +71,15 @@ npm run star
 ```npm
 cd server/front &&
 yarn &&
-yarn start
+yarn run dev
 ```
 
 #### Запуск agent
 
 ```npm
 cd agent &&
-npm install &&
-npm run start-dev
+yarn &&
+yarn run dev
 ```
 
 ## Схемы работы приложения
@@ -90,7 +95,7 @@ agent->server:notify_build_result
 server->client:notify_build_result
 ```
 
-![](docs/build_sequince_uml_diagram.png)
+![build_sequince_uml_diagram](docs/build_sequince_uml_diagram.png)
 
 ### Подробная схема сборки
 
@@ -110,7 +115,7 @@ server->client:notify_build_result
 server->server:save to db
 ```
 
-![](docs/build_sequince_uml_diagram_detailed.png)
+![build_sequince_uml_diagram_detailed](docs/build_sequince_uml_diagram_detailed.png)
 
 
 
