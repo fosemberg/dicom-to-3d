@@ -16,6 +16,13 @@
 
 ## Production запуск
 
+#### Скопировать дефолтные конфиги
+
+```bash
+yarn &&
+yarn run copy-default-configs
+```
+
 #### Запуск server
 
 ```bash
@@ -40,11 +47,15 @@ yarn run start
 
 Для проверки корректности работы Fosemberg CI можно вбить в форму:
 
-commitHash: ```master```
+repository url: ```https://github.com/fosemberg/fosemberg-ci.git```
+
+branch or commit hash: ```master```
 
 command: ```sleep 10 & echo '10'```
 
 отправить на сборку, нажав на кнопку: "Run build"
+
+![input_data_example](docs/input_data_example.png)
 
 Повторить эту процеудуру несколько раз и тогда можно увидеть, что задачи отправляются на сервер и идет процесс сборки.
 
