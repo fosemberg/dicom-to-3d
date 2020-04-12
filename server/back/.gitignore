@@ -90,3 +90,4 @@ typings/
 .dynamodb/
 
 ../.idea
+db/db.json
