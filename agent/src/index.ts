@@ -19,7 +19,7 @@ import * as path from 'path';
 import {MESSAGE, PATH_TO_REPOS, RESPONSE} from "./constants";
 import * as fs from "fs";
 import {createMessageObjectString} from "./configUtils";
-import {IWithRepositoryName, IWithRepositoryOwner} from "../../api/apiTypes";
+import {IWithRepositoryName, IWithRepositoryOwner} from "./apiTypes";
 
 console.info('Agent starting...');
 const axios = require(`axios`);
