@@ -1,7 +1,7 @@
 # fosemberg-ci
 Простая система continuous integration.
 
-[![Видео, демонстрирующее работу fosemberg-ci](docs/video_preview.png?1)](https://yadi.sk/i/9SPnjGzA13iNAA)
+[![Видео, демонстрирующее работу fosemberg-ci](docs/video_preview_img.png?1)](https://yadi.sk/i/9SPnjGzA13iNAA)
 
 [ТЗ](docs/TASK.md)
 
