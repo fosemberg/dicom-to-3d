@@ -35,18 +35,23 @@ var DataStore = require('nedb');
 var axios = require("axios");
 var repositoryId = 'server-info';
 console.info('Server starting...');
-console.log('DB_FULL_PATH:', constants_1.DB_FULL_PATH);
-console.log('__dirname:', __dirname + "/../../db/");
 var db = new DataStore({
     filename: constants_1.DB_FULL_PATH,
     autoload: true
 });
+var getInfoFromRepositoryUrl = function (url) {
+    console.log('getInfoFromGithubUrl:url', url);
+    var urlArr = url.split('/');
+    var repositoryName = urlArr.pop().replace(/\.git$/, '');
+    var repositoryOwner = urlArr.pop();
+    return { repositoryName: repositoryName, repositoryOwner: repositoryOwner };
+};
 var sendBuildRequestToAgent = function (_a, agentUrl) {
-    var buildId = _a.buildId, repositoryId = _a.repositoryId, commitHash = _a.commitHash, command = _a.command;
+    var buildId = _a.buildId, repositoryUrl = _a.repositoryUrl, commitHash = _a.commitHash, command = _a.command;
     var type = 'get';
     var body = {};
     var commandUrl = 'build';
-    var _url = agentUrl + "/" + commandUrl + "/" + buildId + "/" + repositoryId + "/" + commitHash + "/" + command;
+    var _url = agentUrl + "/" + commandUrl + "/" + buildId + "/" + encodeURIComponent(repositoryUrl) + "/" + commitHash + "/" + command;
     console.info("sendBuildRequestToAgent: " + _url);
     changeAgentStatusByUrl(agentUrl, false);
     return axios[type](_url, body)
@@ -101,14 +106,14 @@ var getFreeAgent = function () {
     return false;
 };
 // собирает и уведомляет о результатах сборки
-expressApp_1.app.get('/build/:commitHash/:command', function (_a, res) {
+expressApp_1.app.get('/build/:repositoryUrl/:commitHash/:command', function (_a, res) {
     var task = _a.params;
     console.info('build: ', JSON.stringify(task));
-    var commitHash = task.commitHash, command = task.command;
-    db.insert({ commitHash: commitHash, command: command, status: apiTypes_1.Status.building }, function (err, newDoc) {
+    var repositoryUrl = task.repositoryUrl, commitHash = task.commitHash, command = task.command;
+    db.insert({ repositoryUrl: repositoryUrl, commitHash: commitHash, command: command, status: apiTypes_1.Status.building }, function (err, newDoc) {
         var buildRequest = {
             buildId: newDoc._id,
-            repositoryId: repositoryId,
+            repositoryUrl: repositoryUrl,
             commitHash: commitHash,
             command: command
         };
@@ -120,11 +125,14 @@ expressApp_1.app.get('/build/:commitHash/:command', function (_a, res) {
             console.info("Add buildRequest: " + buildRequest + " to stack");
             buildRequests.push(buildRequest);
         }
-        res.json(__assign(__assign({}, buildRequest), { status: apiTypes_1.Status.building }));
+        var buildRequestWithoutRepositoryUrl = __assign({}, buildRequest);
+        delete buildRequestWithoutRepositoryUrl.repositoryUrl;
+        var body = __assign(__assign(__assign({}, buildRequestWithoutRepositoryUrl), getInfoFromRepositoryUrl(repositoryUrl)), { status: apiTypes_1.Status.building });
+        res.json(body);
         sendMessage({
             type: apiTypes_1.TYPE.EVENT,
             action: apiTypes_1.ACTION.START_BUILD,
-            body: __assign(__assign({}, buildRequest), { status: apiTypes_1.Status.building })
+            body: body
         });
     });
 });
@@ -144,10 +152,12 @@ expressApp_1.app.post('/notify_agent_free', function (_a, res) {
 // В параметрах: id сборки, статус, stdout и stderr процесса.1
 expressApp_1.app.post('/notify_build_result', function (_a, res) {
     var build = _a.body;
+    var repositoryUrl = build.repositoryUrl, buildWithoutRepositoryUrl = __rest(build, ["repositoryUrl"]);
+    var body = __assign(__assign({}, buildWithoutRepositoryUrl), getInfoFromRepositoryUrl(repositoryUrl));
     sendMessage({
         type: apiTypes_1.TYPE.EVENT,
         action: apiTypes_1.ACTION.BUILD_RESULT,
-        body: build
+        body: body
     });
     var buildId = build.buildId, status = build.status, stdOut = build.stdOut, startDate = build.startDate, endDate = build.endDate;
     console.info('notify_build_result', JSON.stringify(build));
@@ -158,8 +168,8 @@ expressApp_1.app.post('/notify_build_result', function (_a, res) {
 expressApp_1.app.get('/get_build_results/', function (req, res) {
     db.find({}).sort({ startDate: 1 }).exec(function (err, buildResults) {
         res.json(buildResults.map(function (_a) {
-            var _id = _a._id, status = _a.status, commitHash = _a.commitHash;
-            return ({ buildId: _id, status: status, commitHash: commitHash });
+            var _id = _a._id, status = _a.status, repositoryUrl = _a.repositoryUrl, commitHash = _a.commitHash;
+            return (__assign(__assign({ buildId: _id, status: status }, getInfoFromRepositoryUrl(repositoryUrl)), { commitHash: commitHash }));
         }));
     });
 });
