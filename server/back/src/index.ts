@@ -21,7 +21,7 @@ import {
   IWithHost,
   IRepositoryInfo,
 } from './apiTypes';
-import {DB_FULL_PATH} from "./constants";
+import {DB_FULL_PATH, STATIC_DIR} from "./constants";
 import * as WS from "ws";
 import {SERVER_WS_PORT, SERVER_HTTP_PORT, REPOSITORY_URL} from "../config/env";
 import * as multer from "multer";
@@ -121,27 +121,85 @@ const getFreeAgent = () => {
   return false;
 };
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
-  }
-})
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname)
+//   }
+// })
 // const upload = multer({storage})
-const upload = multer({dest: 'upload/'})
 
-app.post('/upload', upload.array('file') , (req,res) => {
+const projectsFolder = `${STATIC_DIR}/projects`
 
-  const filenames = req.files.map(({filename, originalname}) => ({
-    filename,
-    originalname,
-  })) // or file.originalname);
-  console.log('filenames', filenames)
-  res.json({message: 'complete'});
+const uploadFolder = projectsFolder
 
-});
+const upload = multer({dest: `${uploadFolder}/`})
+
+const makeFolderIfNotExist = (path) => {
+  if (!fs.existsSync(path)){
+    fs.mkdirSync(path);
+  }
+}
+
+const moveFile = async (file: any, projectName: string) => {
+  /** When using the "single"
+   data come in "req.file" regardless of the attribute "name". **/
+  var tmp_path = file.path;
+
+
+  const targetDir = `${uploadFolder}/${projectName}/imgs`
+  makeFolderIfNotExist(`${uploadFolder}/${projectName}`)
+  makeFolderIfNotExist(targetDir)
+
+  /** The original name of the uploaded file
+   stored in the variable "originalname". **/
+  var target_path = `${targetDir}/${file.originalname}`;
+
+  /** A better way to copy the uploaded file. **/
+  var src = fs.createReadStream(tmp_path);
+  var dest = fs.createWriteStream(target_path);
+  src.pipe(dest);
+  src.on('end', function() {
+
+    console.info('file successfuly write')
+    // delete tmp file
+    try {
+      fs.unlinkSync(tmp_path)
+      //file removed
+    } catch(err) {
+      console.error(err)
+    }
+  });
+  src.on('error', function(err) {
+    console.error(err)
+  });
+}
+
+app.post(
+  '/upload/:projectName',
+  upload.array('file'),
+  (
+    {
+      params,
+      files,
+    },
+    response: Response,
+  ) => {
+    const {projectName} = params
+    const filenames = files.map(({filename, originalname}) => ({
+      filename,
+      originalname,
+    })) // or file.originalname);
+    console.log('projectName', projectName)
+    console.log('filenames', filenames)
+
+    files.forEach(file => moveFile(file, projectName))
+
+    response.json({message: 'complete'});
+  }
+);
 
 // собирает и уведомляет о результатах сборки
 app.get(
