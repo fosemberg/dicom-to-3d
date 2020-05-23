@@ -129,10 +129,16 @@ const storage = multer.diskStorage({
     cb(null, file.originalname)
   }
 })
-const upload = multer({storage})
+// const upload = multer({storage})
+const upload = multer({dest: 'upload/'})
 
 app.post('/upload', upload.array('file') , (req,res) => {
 
+  const filenames = req.files.map(({filename, originalname}) => ({
+    filename,
+    originalname,
+  })) // or file.originalname);
+  console.log('filenames', filenames)
   res.json({message: 'complete'});
 
 });
