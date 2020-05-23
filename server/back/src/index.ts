@@ -1,6 +1,7 @@
 import { config } from "dotenv"
 config();
 import {Request, Response} from 'express';
+
 import {app} from './expressApp';
 import {
   Agents,
@@ -23,6 +24,8 @@ import {
 import {DB_FULL_PATH} from "./constants";
 import * as WS from "ws";
 import {SERVER_WS_PORT, SERVER_HTTP_PORT, REPOSITORY_URL} from "../config/env";
+import * as multer from "multer";
+import * as fs from 'fs'
 
 const {
   MESSAGE,
@@ -117,6 +120,37 @@ const getFreeAgent = () => {
   }
   return false;
 };
+
+const upload = multer({ dest: 'uploads/' })
+var type = upload.single('file');
+
+app.post('/upload', type, function (req,res) {
+
+  /** When using the "single"
+   data come in "req.file" regardless of the attribute "name". **/
+  var tmp_path = req.file.path;
+
+  /** The original name of the uploaded file
+   stored in the variable "originalname". **/
+  var target_path = 'uploads/' + req.file.originalname;
+
+  /** A better way to copy the uploaded file. **/
+  var src = fs.createReadStream(tmp_path);
+  var dest = fs.createWriteStream(target_path);
+  src.pipe(dest);
+  src.on('end', function() { res.json({message: 'complete'}); });
+  src.on('error', function(err) { res.json({message: err}) });
+
+
+  // delete tmp file
+  try {
+    fs.unlinkSync(tmp_path)
+    //file removed
+  } catch(err) {
+    console.error(err)
+  }
+
+});
 
 // собирает и уведомляет о результатах сборки
 app.get(
