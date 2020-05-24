@@ -27,6 +27,8 @@ import {SERVER_WS_PORT, SERVER_HTTP_PORT, REPOSITORY_URL} from "../config/env";
 import * as multer from "multer";
 import * as fs from 'fs'
 import * as path from 'path'
+import {exec} from "child_process";
+import {PATH_TO_REPOS} from "../../../agent/src/constants";
 
 const {
   MESSAGE,
@@ -159,6 +161,22 @@ const moveFileToProject = (file: any, projectName: string) => {
   return fs.promises.rename(oldPath, newPath)
 }
 
+const pathToDicom2StlPy = `${__dirname}/../dicom2stl/dicom2stl.py`
+
+const makeStlInProject = (projectName: string) => {
+  const pathToProject = path.join(projectsFolder, projectName)
+  return new Promise((resolve, reject) => {
+    exec(
+      `python3 ${pathToDicom2StlPy} -t skin -o ${path.join(pathToProject, 'index.stl')} ${path.join(pathToProject, 'imgs')}`,
+      {},
+      (error: Error, stdOut: string) =>
+        error
+          ? reject(error)
+          : resolve(stdOut)
+    );
+  });
+}
+
 app.post(
   '/upload/:projectName',
   upload.array('file'),
@@ -179,9 +197,9 @@ app.post(
 
     await Promise.all(files.map(file => moveFileToProject(file, projectName)))
 
-    // make styl
+    const stdOut = await makeStlInProject(projectName)
 
-    response.json({message: 'complete'});
+    response.json({stdOut});
   }
 );
 

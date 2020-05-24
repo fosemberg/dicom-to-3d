@@ -1,0 +1,17 @@
+.FileUploader-Drag-n-drop {
+  min-height: 100px;
+  margin-bottom: var(--space-s);
+}
+
+.FileUploader-Drag-n-drop-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.FileUploader-Preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--space-m);
+}

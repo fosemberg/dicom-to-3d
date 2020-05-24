@@ -1,0 +1,19 @@
+.SearchButton_disabled {
+  opacity: 0.65;
+}
+
+.SearchButton_disabled[class] {
+  border: none;
+}
+
+.SearchButton_disabled[class][class][class] {
+  cursor: not-allowed;
+}
+
+.SearchButton_disabled[class][class][class][class] {
+  background-color: #007bff;
+}
+
+.SearchButton_disabled[class][class][class][class][class] {
+  box-shadow: none;
+}

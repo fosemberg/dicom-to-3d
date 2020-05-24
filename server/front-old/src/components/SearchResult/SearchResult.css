@@ -1,0 +1,13 @@
+.SearchResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SearchResult__page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--space-s);
+  max-width: 100%;
+}

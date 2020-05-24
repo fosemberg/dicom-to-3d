@@ -257,7 +257,7 @@ else:
     if dirFlag:
         if verbose:
             print("directory")
-        img, modality = loadLargestSeries(fname[0])
+        img, modality = dicomutils.loadLargestSeries(fname[0])
 
     else:
         # Case for a single volume image
