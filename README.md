@@ -41,39 +41,22 @@ yarn &&
 yarn run start
 ```
 
-## Схемы работы приложения
-
-### Общая схема сборки
+## Схема работы приложения
 
 ```
-title easy build process
-
-client->server:build
-server->agent:build
-agent->server:notify_build_result
-server->client:notify_build_result
+title images to 3d
+react->node js: images
+node js->file system: images
+react->node js: make 3d
+node js->python cli: make 3d
+file system->python cli:images
+python cli->python cli:make 3d
+file system<-python cli:3d
+node js<-file system:3d
+react<-node js:3d
+react->react:visualate 3d
 ```
 
-![build_sequince_uml_diagram](docs/build_sequince_uml_diagram.png)
-
-### Подробная схема сборки
-
-```
-title build process detailed
-
-client->client:init
-server->server:restore data from db
-client->server:get_all_builds
-server->client:all_builds
-client->server:build
-server->server:great empty build in db
-server->agent:build
-agent->server:notify_build_result
-server->agent:i am alive
-server->client:notify_build_result
-server->server:save to db
-```
-
-![build_sequince_uml_diagram_detailed](docs/build_sequince_uml_diagram_detailed.png)
+[![build_sequince_uml_diagram](docs/build_sequince_uml_diagram.png?2)](https://sequencediagram.org/index.html#initialData=C4S2BsFMAIQWwIYHNIGdrAPbQMwBMAoAJ0gQGNgBaAPgDtM8YArVALlkRVQPsehZoAzEFGioAnqmCQ47eMjTFSFGr2ZtoiANYx8PBupoAHccAAWmWtDLgQ7bbsLDREqTOOmLVm3flcCJuaW1rYeQd62rA64TiIwrtJwADyUgV4hdnpq-KgpzvGSiax6JOTAKdksxYSlKtS1wKwAbiCoAK4I4AjSMUA)
 
 [service for UML visualization](https://sequencediagram.org/)
