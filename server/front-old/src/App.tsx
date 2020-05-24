@@ -2,11 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Container from 'react-bootstrap/Container'
 
-import SearchPage from "./pages/SearchPage/SearchPage";
 import AppNavbar from "./components/AppNavbar/AppNavbar";
 import UploadPage from "./pages/UploadPage/UploadPage";
 import Loader from "./components/Loader/Loader";
-import {sendGetComponentNamesRequest, sendSearchRequest, sendUploadFileRequest} from "./store/store";
+import { sendUploadFileRequest} from "./store/store";
 import {cnTheme} from "./components/Theme";
 
 import "./components/Theme/_color/Theme_color_project-default.css";
@@ -29,13 +28,12 @@ const App: React.FC = () => {
                   <Route
                     path='/'
                     exact={true}
-                    component={() => <SearchPage
-                      sendData={sendSearchRequest}
-                      getComponentNames={sendGetComponentNamesRequest}
+                    component={() => <UploadPage
+                      sendData={sendUploadFileRequest}
                     />}
                   />
                   <Route
-                    path="/upload"
+                    path='/upload'
                     component={() => <UploadPage
                       sendData={sendUploadFileRequest}
                     />}

@@ -10,9 +10,6 @@ const AppNavbar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse className="justify-content-end">
           <Nav>
-            <Link className="nav-link" to="/">Search</Link>
-          </Nav>
-          <Nav>
             <Link className="nav-link" to="/upload">Upload</Link>
           </Nav>
         </Navbar.Collapse>
