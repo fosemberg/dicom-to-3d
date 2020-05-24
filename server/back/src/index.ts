@@ -26,6 +26,7 @@ import * as WS from "ws";
 import {SERVER_WS_PORT, SERVER_HTTP_PORT, REPOSITORY_URL} from "../config/env";
 import * as multer from "multer";
 import * as fs from 'fs'
+import * as path from 'path'
 
 const {
   MESSAGE,
@@ -131,11 +132,9 @@ const getFreeAgent = () => {
 // })
 // const upload = multer({storage})
 
-const projectsFolder = `${STATIC_DIR}/projects`
+const projectsFolder = path.join(STATIC_DIR, 'projects')
 
-const uploadFolder = projectsFolder
-
-const upload = multer({dest: `${uploadFolder}/`})
+const upload = multer({dest: `${projectsFolder}/`})
 
 const makeFolderIfNotExist = (path) => {
   if (!fs.existsSync(path)){
@@ -143,44 +142,27 @@ const makeFolderIfNotExist = (path) => {
   }
 }
 
-const moveFile = async (file: any, projectName: string) => {
+const moveFileToProject = (file: any, projectName: string) => {
   /** When using the "single"
    data come in "req.file" regardless of the attribute "name". **/
-  var tmp_path = file.path;
+  var oldPath = file.path;
 
-
-  const targetDir = `${uploadFolder}/${projectName}/imgs`
-  makeFolderIfNotExist(`${uploadFolder}/${projectName}`)
-  makeFolderIfNotExist(targetDir)
+  let newDir = path.join(projectsFolder, projectName)
+  makeFolderIfNotExist(newDir)
+  newDir = path.join(newDir, 'imgs')
+  makeFolderIfNotExist(newDir)
 
   /** The original name of the uploaded file
    stored in the variable "originalname". **/
-  var target_path = `${targetDir}/${file.originalname}`;
+  const newPath = path.join(newDir, file.originalname)
 
-  /** A better way to copy the uploaded file. **/
-  var src = fs.createReadStream(tmp_path);
-  var dest = fs.createWriteStream(target_path);
-  src.pipe(dest);
-  src.on('end', function() {
-
-    console.info('file successfuly write')
-    // delete tmp file
-    try {
-      fs.unlinkSync(tmp_path)
-      //file removed
-    } catch(err) {
-      console.error(err)
-    }
-  });
-  src.on('error', function(err) {
-    console.error(err)
-  });
+  return fs.promises.rename(oldPath, newPath)
 }
 
 app.post(
   '/upload/:projectName',
   upload.array('file'),
-  (
+  async (
     {
       params,
       files,
@@ -195,7 +177,9 @@ app.post(
     console.log('projectName', projectName)
     console.log('filenames', filenames)
 
-    files.forEach(file => moveFile(file, projectName))
+    await Promise.all(files.map(file => moveFileToProject(file, projectName)))
+
+    // make styl
 
     response.json({message: 'complete'});
   }
