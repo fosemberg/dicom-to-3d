@@ -20,11 +20,10 @@ dicom to 3d converter:
 - **creat react app** - отличный инструмент для быстрого старта React-приложений. Благодаря creat react app сэкономил много врмени на настройку окружения для React.
 - **react bootstrap** - дизайн система. Сэкономила много времени на создание отзывчивого и красивого интейрфейса.
 
-## Зависимости
+## Системные зависимости
 
-- python
+- [python](https://www.python.org/)
 - [nodejs](https://nodejs.org/en/)
-- [git](https://git-scm.com/downloads)
 - [npm](https://www.npmjs.com/get-npm) (обычно устанавливается вместе с nodejs)
 - [yarn](https://www.npmjs.com/package/yarn) (опционально, вместо yarn можно использовать во всех командах ниже npm)
 
