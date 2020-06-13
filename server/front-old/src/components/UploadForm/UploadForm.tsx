@@ -108,15 +108,16 @@ const UploadForm: React.FC<UploadFormProps> = (
               placeholder="project name"
             />
           </Form.Group>
-          <FileUploader
-            {...{onUploadFile, onUploadFiles, isSuccessLoad}}
-            isDisabled={sendStatus === SendStatus.sending}
-          >
-            {sendStatus === SendStatus.sending && <div>
-              During dicom uploading, 3d generation is also performed. It can take more than two minutes to generate 3d model. Thank you for your patience and for using our service.
-            </div>
-            }
-          </FileUploader>
+          <DwvComponent/>
+          {/*<FileUploader*/}
+          {/*  {...{onUploadFile, onUploadFiles, isSuccessLoad}}*/}
+          {/*  isDisabled={sendStatus === SendStatus.sending}*/}
+          {/*>*/}
+          {/*  {sendStatus === SendStatus.sending && <div>*/}
+          {/*    During dicom uploading, 3d generation is also performed. It can take more than two minutes to generate 3d model. Thank you for your patience and for using our service.*/}
+          {/*  </div>*/}
+          {/*  }*/}
+          {/*</FileUploader>*/}
           <Button
             onClick={onClickSubmit}
             className={cnUploadForm('Submit')}
@@ -140,7 +141,6 @@ const UploadForm: React.FC<UploadFormProps> = (
                 : 'Upload'
             }
           </Button>
-          <DwvComponent/>
           <div className={cnUploadForm('Result')}>
             {
               !!files

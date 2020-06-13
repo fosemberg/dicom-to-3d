@@ -159,13 +159,13 @@ class DwvComponent extends React.Component {
             <div className="drawDiv"></div>
           </div>
 
-          <div><p className="legend">
-            <Typography variant="caption">Powered by <Link
-                href="https://github.com/ivmartel/dwv"
-                title="dwv on github">dwv
-            </Link> {versions.dwv} and React {versions.react}
-            </Typography>
-          </p></div>
+          {/*<div><p className="legend">*/}
+          {/*  <Typography variant="caption">Powered by <Link*/}
+          {/*      href="https://github.com/ivmartel/dwv"*/}
+          {/*      title="dwv on github">dwv*/}
+          {/*  </Link> {versions.dwv} and React {versions.react}*/}
+          {/*  </Typography>*/}
+          {/*</p></div>*/}
 
         </div>
     );

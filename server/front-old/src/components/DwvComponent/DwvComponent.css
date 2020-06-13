@@ -1,5 +1,8 @@
 #dwv {
-  height: 90%; }
+    min-height: 500px;
+    height: 90%;
+    width: 100%;
+}
 
 .button-row {
   text-align: center;
