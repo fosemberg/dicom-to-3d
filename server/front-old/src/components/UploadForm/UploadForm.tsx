@@ -8,6 +8,7 @@ import {STLViewer} from 'react-stl-obj-viewer';
 import {FileUploadRequest, FileUploadResponse} from "../../utils/apiTypes";
 import FileUploader from "../FileUploader/FileUploader";
 import FileUploadPreview from "../FileUploadPreview/FileUploadPreview";
+import DwvComponent from '../DwvComponent/DwvComponent'
 import {SERVER_STATIC_URL} from "../../config/env";
 
 import "./UploadForm.css";
@@ -139,6 +140,7 @@ const UploadForm: React.FC<UploadFormProps> = (
                 : 'Upload'
             }
           </Button>
+          <DwvComponent/>
           <div className={cnUploadForm('Result')}>
             {
               !!files
