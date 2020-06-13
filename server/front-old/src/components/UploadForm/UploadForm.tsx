@@ -8,6 +8,7 @@ import {STLViewer} from 'react-stl-obj-viewer';
 import {FileUploadRequest, FileUploadResponse} from "../../utils/apiTypes";
 import FileUploader from "../FileUploader/FileUploader";
 import FileUploadPreview from "../FileUploadPreview/FileUploadPreview";
+import {SERVER_STATIC_URL} from "../../config/env";
 
 import "./UploadForm.css";
 
@@ -31,7 +32,7 @@ enum SendStatus {
 
 const cnUploadForm = cn('UploadForm');
 
-const generateStlUrl = (projectName: string) => `http://localhost:3021/static/projects/${projectName}/index.stl`
+const generateStlUrl = (projectName: string) => `${SERVER_STATIC_URL}/projects/${projectName}/index.stl`
 
 const UploadForm: React.FC<UploadFormProps> = (
   {
