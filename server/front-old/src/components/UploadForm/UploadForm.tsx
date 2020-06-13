@@ -97,7 +97,9 @@ const UploadForm: React.FC<UploadFormProps> = (
     <>
     <Card className="UploadForm">
       <Card.Body>
-        <Form>
+        <Form
+          className={cnUploadForm('Form')}
+        >
           <Form.Group controlId="formBasicEmail">
             <Form.Label>project name</Form.Label>
             <Form.Control
@@ -109,6 +111,7 @@ const UploadForm: React.FC<UploadFormProps> = (
             />
           </Form.Group>
           <DwvComponent
+            className={cnUploadForm('DwvComponent')}
             {...{onUploadFiles, setIsSuccessLoad}}
           />
           {/*<FileUploader*/}
@@ -162,7 +165,8 @@ const UploadForm: React.FC<UploadFormProps> = (
       </Card.Body>
     </Card>
       {
-        sendStatus === SendStatus.success && <>
+        sendStatus === SendStatus.success &&
+        <div className={cnUploadForm('STLViewer')}>
           <STLViewer
           url={generateStlUrl(projectNameSended)}
           width={400}
@@ -178,7 +182,7 @@ const UploadForm: React.FC<UploadFormProps> = (
             Download stl file
           </Button>
           <br/>
-        </>
+        </div>
       }
       </>
   );

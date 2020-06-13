@@ -92,7 +92,7 @@ class DwvComponent extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, className } = this.props;
     const { versions, tools, loadProgress, dataLoaded, metaData, toolMenuAnchorEl } = this.state;
 
     const toolsMenuItems = Object.keys(tools).map( (tool) =>
@@ -100,7 +100,7 @@ class DwvComponent extends React.Component {
     );
 
     return (
-        <div id="dwv">
+        <div id="dwv" className={className}>
           <LinearProgress variant="determinate" value={loadProgress} />
           <div className="button-row">
             <Button variant="contained" color="primary"
