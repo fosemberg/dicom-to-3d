@@ -20,14 +20,14 @@ cd git
 git clone https://github.com/fosemberg/dicom-to-3d.git
 
 # run serer front
-cd ~/git/dicom-to-3d/server/front
+cd ~/git/dicom-to-3d/server/front-old
 yarn
-pm2 start npm -- start
+pm2 start "npm run start" --name front
 
 # run server back
 cd ~/git/dicom-to-3d/server/back
 yarn
-pm2 start npm -- run dev
+pm2 start "npm run dev" --name back
 
 # python deps
 pip3 install SimpleITK
