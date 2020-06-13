@@ -108,7 +108,9 @@ const UploadForm: React.FC<UploadFormProps> = (
               placeholder="project name"
             />
           </Form.Group>
-          <DwvComponent/>
+          <DwvComponent
+            {...{onUploadFiles, setIsSuccessLoad}}
+          />
           {/*<FileUploader*/}
           {/*  {...{onUploadFile, onUploadFiles, isSuccessLoad}}*/}
           {/*  isDisabled={sendStatus === SendStatus.sending}*/}
@@ -145,11 +147,11 @@ const UploadForm: React.FC<UploadFormProps> = (
             {
               !!files
               ? <>
-                  {
-                    uploadStatus !== UploadStatus.error &&
-                      <h5 className={cnUploadForm('FilePreviewHeader')}>File preview</h5>
-                  }
-                <FileUploadPreview {...{files, setIsSuccessLoad}} />
+                  {/*{*/}
+                  {/*  uploadStatus !== UploadStatus.error &&*/}
+                  {/*    <h5 className={cnUploadForm('FilePreviewHeader')}>File preview</h5>*/}
+                  {/*}*/}
+                {/*<FileUploadPreview {...{files, setIsSuccessLoad}} />*/}
               </>
               : sendStatus === SendStatus.success
                 ? <Alert variant='success'>Files uploaded successfully</Alert>

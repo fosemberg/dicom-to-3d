@@ -205,14 +205,22 @@ class DwvComponent extends React.Component {
       this.setState({dataLoaded: true});
     });
     app.addEventListener('load-end', (/*event*/) => {
+      let isSuccess = true;
+
       if (nReceivedError) {
         this.setState({loadProgress: 0});
         alert('Received errors during load. Check log for details.');
+        isSuccess = false;
       }
+
       if (nReceivedAbort) {
         this.setState({loadProgress: 0});
         alert('Load was aborted.');
+        isSuccess = false;
       }
+
+      this.props.setIsSuccessLoad(isSuccess)
+      console.log('load-end');
     });
     app.addEventListener('error', (event) => {
       console.error(event.error);
@@ -382,9 +390,12 @@ class DwvComponent extends React.Component {
     event.stopPropagation();
     event.preventDefault();
     // load files
-    this.state.dwvApp.loadFiles(event.dataTransfer.files);
+    const {files} = event.dataTransfer;
+    this.state.dwvApp.loadFiles(files);
+    console.log('file', files)
     // hide drop box
     this.hideDropbox();
+    this.props.onUploadFiles(Array.from(files))
   }
 
   // drag and drop [end] -------------------------------------------------------
