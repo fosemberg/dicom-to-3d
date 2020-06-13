@@ -33,3 +33,6 @@ pm2 start npm -- run dev
 pip3 install SimpleITK
 pip3 install vtk
 pip3 install numpy
+
+sudo apt install python-qt4 libgl1-mesa-glx
+sudo apt-get install xvfb
