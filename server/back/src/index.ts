@@ -163,11 +163,13 @@ const moveFileToProject = (file: any, projectName: string) => {
 
 const pathToDicom2StlPy = `${__dirname}/../dicom2stl/dicom2stl.py`
 
+const stlMode = '--enable rotation -t soft_tissue'
+
 const makeStlInProject = (projectName: string) => {
   const pathToProject = path.join(projectsFolder, projectName)
   return new Promise((resolve, reject) => {
     exec(
-      `python3 ${pathToDicom2StlPy} -t bone -o ${path.join(pathToProject, 'index.stl')} ${path.join(pathToProject, 'imgs')}`,
+      `python3 ${pathToDicom2StlPy} ${stlMode} -o ${path.join(pathToProject, 'index.stl')} ${path.join(pathToProject, 'imgs')}`,
       {},
       (error: Error, stdOut: string) =>
         error
