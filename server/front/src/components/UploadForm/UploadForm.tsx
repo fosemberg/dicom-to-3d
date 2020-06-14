@@ -179,7 +179,7 @@ const UploadForm: React.FC<UploadFormProps> = (
             href={generateStlUrl(projectNameSended)}
             variant="primary"
           >
-            Загрузить stl файл
+            Скачать stl файл
           </Button>
           <br/>
         </div>
