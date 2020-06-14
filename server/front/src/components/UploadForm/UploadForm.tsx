@@ -157,8 +157,8 @@ const UploadForm: React.FC<UploadFormProps> = (
                 {/*<FileUploadPreview {...{files, setIsSuccessLoad}} />*/}
               </>
               : sendStatus === SendStatus.success
-                ? <Alert variant='success'>Files uploaded successfully</Alert>
-                : sendStatus === SendStatus.error && <Alert variant='danger'>An error occurred while uploading the files</Alert>
+                ? <Alert variant='success'>Файлы успешно загружены</Alert>
+                : sendStatus === SendStatus.error && <Alert variant='danger'>Во время загрузки файлов произошла ошибка</Alert>
             }
           </div>
         </Form>
@@ -179,7 +179,7 @@ const UploadForm: React.FC<UploadFormProps> = (
             href={generateStlUrl(projectNameSended)}
             variant="primary"
           >
-            Download stl file
+            Загрузить stl файл
           </Button>
           <br/>
         </div>
