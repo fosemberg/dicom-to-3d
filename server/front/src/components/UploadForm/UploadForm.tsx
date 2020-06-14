@@ -101,13 +101,13 @@ const UploadForm: React.FC<UploadFormProps> = (
           className={cnUploadForm('Form')}
         >
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>project name</Form.Label>
+            <Form.Label>имя проекта</Form.Label>
             <Form.Control
               value={projectName}
               onChange={onChangeProjectName}
               disabled={sendStatus === SendStatus.sending}
               type="text"
-              placeholder="project name"
+              placeholder="имя проекта"
             />
           </Form.Group>
           <DwvComponent
@@ -141,9 +141,9 @@ const UploadForm: React.FC<UploadFormProps> = (
                     aria-hidden="true"
                   />
                   {' '}
-                  Uploading and recognition...
+                  Загрузка и генерация 3д...
               </>
-                : 'Upload'
+                : 'Загрузить'
             }
           </Button>
           <div className={cnUploadForm('Result')}>

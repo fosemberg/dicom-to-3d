@@ -153,7 +153,7 @@ class DwvComponent extends React.Component {
 
           <div className="layerContainer">
             <div className="dropBox dropBoxBorder">
-              <Typography>Drag and drop data here.</Typography>
+              <Typography>Перетащите dicom файлы сюда</Typography>
             </div>
             <canvas className="imageLayer">Only for HTML5 compatible browsers...</canvas>
             <div className="drawDiv"></div>

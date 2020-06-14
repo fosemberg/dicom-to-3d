@@ -1,22 +1,28 @@
-import {IClientBuildResult, IClientBuildDetailedResult, RepositoryUrl, BuildId, CommitHash} from "../utils/apiTypes";
+import {
+  FileUploadRequest,
+  FileUploadResponse,
+} from "../utils/apiTypes";
 import {SERVER_HOST, SERVER_HTTP_PORT} from "../config/env";
 
 const hostUrl = `${SERVER_HOST}:${SERVER_HTTP_PORT}`;
 
-export const getAllBuildResults = (): Promise<IClientBuildResult[]> => {
-  const url = 'get_build_results';
-  const _url = `${hostUrl}/${url}`;
-  return fetch(`${_url}`).then((res) => res.json());
-};
+export const sendUploadFileRequest = async ({files, projectName}: FileUploadRequest): Promise<FileUploadResponse> => {
+  const endpoint = 'upload'
+  const url = `${hostUrl}/${endpoint}/${projectName}`
+  try {
+    const formData = new FormData()
+    for (const file of files) {
+      formData.append("file", file)
+    }
 
-export const getBuildDetailedResult = (buildId: BuildId): Promise<IClientBuildDetailedResult> => {
-  const url = 'get_build_detailed_result';
-  const _url = `${hostUrl}/${url}/${buildId}`;
-  return fetch(`${_url}`).then((res) => res.json());
-};
-
-export const sendBuild = (repositoryUrl: RepositoryUrl, commitHash: CommitHash, command: string): Promise<string> => {
-  const url = 'build';
-  const _url = `${hostUrl}/${url}/${encodeURIComponent(repositoryUrl)}/${commitHash}/${command}`;
-  return fetch(`${_url}`).then((res) => res.json());
-};
+    let response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+      redirect: 'follow'
+    })
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}
