@@ -167,7 +167,7 @@ const makeStlInProject = (projectName: string) => {
   const pathToProject = path.join(projectsFolder, projectName)
   return new Promise((resolve, reject) => {
     exec(
-      `python3 ${pathToDicom2StlPy} -t skin -o ${path.join(pathToProject, 'index.stl')} ${path.join(pathToProject, 'imgs')}`,
+      `python3 ${pathToDicom2StlPy} -t bone -o ${path.join(pathToProject, 'index.stl')} ${path.join(pathToProject, 'imgs')}`,
       {},
       (error: Error, stdOut: string) =>
         error
