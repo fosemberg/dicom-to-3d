@@ -1,0 +1,27 @@
+{
+  "params": [
+    {
+      "name": "HDD",
+      "value": "2",
+      "measureUnit": "шт",
+      "description": "Жесткие диски",
+      "groupId": [
+        1
+      ],
+      "relations": [
+        "HDD samsung 1",
+        "HDD samsung 2"
+      ]
+    },
+    {
+      "name": "HDD samsung 1",
+      "value": "4",
+      "measureUnit": "°C"
+    },
+    {
+      "name": "HDD samsung 2",
+      "value": "4",
+      "measureUnit": "°C"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "params": [
+    {
+      "name": "HDD",
+      "value": "2",
+      "measureUnit": "шт",
+      "description": "Жесткие диски",
+      "groupId": [
+        1
+      ],
+      "relations": [
+        "HDD samsung 1",
+        "HDD samsung 2"
+      ]
+    },
+    {
+      "name": "HDD samsung 1",
+      "value": "4",
+      "measureUnit": "°C"
+    },
+    {
+      "name": "HDD samsung 2",
+      "value": "4",
+      "measureUnit": "°C"
+    },
+    {
+      "name": "Video Cards",
+      "value": "3",
+      "measureUnit": "шт",
+      "description": "Графические карты",
+      "groupId": [
+        1
+      ],
+      "relations": [
+        "Graphic Radion 460H 1",
+        "Graphic Radion 460H 2",
+        "Graphic Radion 500"
+      ]
+    },
+    {
+      "name": "Graphic Radion 460H 1",
+      "value": "40",
+      "measureUnit": "°C"
+    },
+    {
+      "name": "Graphic Radion 460H 2",
+      "value": "4",
+      "measureUnit": "°C"
+    },
+    {
+      "name": "Graphic Radion 500",
+      "value": "400",
+      "measureUnit": "°C"
+    },
+    {
+      "name": "CPU",
+      "value": "2",
+      "measureUnit": "шт",
+      "description": "процессоры",
+      "groupId": [
+        1
+      ],
+      "relations": [
+        "Intel core i5",
+        "Intel core i7"
+      ]
+    },
+    {
+      "name": "Intel core i5",
+      "value": "40",
+      "measureUnit": "°C"
+    },
+    {
+      "name": "Intel core i7",
+      "value": "400",
+      "measureUnit": "°C"
+    }
+  ]
+}

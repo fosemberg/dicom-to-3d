@@ -1,0 +1,40 @@
+.relation {
+  background-color: rgb(239, 240, 237);
+  padding-top: 4px;
+  padding-bottom: 4px;
+
+  &_wrapper {
+    height: 12px;
+    background-color: rgb(239, 240, 237);
+    &:hover {
+      background-color: rgb(239, 240, 237) !important;
+    }
+  }
+
+  &:first-child {
+    padding-top: 12px;
+  }
+
+  &:last-child {
+    padding-bottom: 12px;
+  }
+
+  td {
+    padding: 0;
+  }
+
+  &_name {
+    text-align: center;
+    font-weight: bold;
+    margin: auto;
+  }
+
+  &_value {
+    margin: auto;
+    padding: 12px;
+
+    > * {
+      height: 16px;
+    }
+  }
+}
