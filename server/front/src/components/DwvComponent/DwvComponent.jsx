@@ -59,6 +59,15 @@ function TransitionUp(props) {
   return <Slide direction="up" {...props} />;
 }
 
+const getToolName = (tool) => (
+    tool === 'Select Tool' ? 'Выберите инструмент' :
+    tool === 'Scroll' ? 'Прокручивать' :
+    tool === 'ZoomAndPan' ? 'Приближать и отдалять' :
+    tool === 'WindowLevel' ? 'Детализировать' :
+    tool === 'Draw' ? 'Рисовать' :
+    ''
+)
+
 class DwvComponent extends React.Component {
 
   constructor(props) {
@@ -96,7 +105,7 @@ class DwvComponent extends React.Component {
     const { versions, tools, loadProgress, dataLoaded, metaData, toolMenuAnchorEl } = this.state;
 
     const toolsMenuItems = Object.keys(tools).map( (tool) =>
-        <MenuItem onClick={this.handleMenuItemClick.bind(this, tool)} key={tool} value={tool}>{tool}</MenuItem>
+        <MenuItem onClick={this.handleMenuItemClick.bind(this, tool)} key={tool} value={tool}>{getToolName(tool)}</MenuItem>
     );
 
     return (
@@ -110,7 +119,8 @@ class DwvComponent extends React.Component {
                     disabled={!dataLoaded}
                     className={classes.button}
                     size="medium"
-            >{ this.state.selectedTool }
+            >
+              { getToolName(this.state.selectedTool) }
               <ArrowDropDownIcon className={classes.iconSmall}/></Button>
             <Menu
                 id="simple-menu"
@@ -124,13 +134,13 @@ class DwvComponent extends React.Component {
             <Button variant="contained" color="primary"
                     disabled={!dataLoaded}
                     onClick={this.onReset}
-            >Reset</Button>
+            >Сбросить</Button>
 
             <Button variant="contained" color="primary"
                     onClick={this.handleTagsDialogOpen}
                     disabled={!dataLoaded}
                     className={classes.button}
-                    size="medium">Tags</Button>
+                    size="medium">Тэги</Button>
             <Dialog
                 open={this.state.showDicomTags}
                 onClose={this.handleTagsDialogClose}
