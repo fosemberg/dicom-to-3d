@@ -6,7 +6,7 @@ const AppNavbar = () => {
   return (
     <Navbar collapseOnSelect={true} expand="lg" bg="light" variant="light">
       <Container>
-        <Link className="navbar-brand" to="/">Из dicom в 3д</Link>
+        <Link className="navbar-brand" to="/">Построение 3D-модели по снимкам DICOM</Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse className="justify-content-end">
           <Nav>
