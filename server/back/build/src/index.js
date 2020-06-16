@@ -110,12 +110,12 @@ expressApp_1.app.get('/build/:repositoryUrl/:commitHash/:command', function (_a,
     var task = _a.params;
     console.info('build: ', JSON.stringify(task));
     var repositoryUrl = task.repositoryUrl, commitHash = task.commitHash, command = task.command;
-    db.insert({ repositoryUrl: repositoryUrl, commitHash: commitHash, command: command, status: apiTypes_1.Status.building }, function (err, newDoc) {
+    db.insert({ repositoryUrl: repositoryUrl, commitHash: commitHash, mode: command, status: apiTypes_1.Status.building }, function (err, newDoc) {
         var buildRequest = {
             buildId: newDoc._id,
             repositoryUrl: repositoryUrl,
             commitHash: commitHash,
-            command: command
+            mode: command
         };
         var freeAgent = getFreeAgent();
         if (freeAgent) {

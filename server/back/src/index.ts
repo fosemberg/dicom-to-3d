@@ -20,6 +20,7 @@ import {
   IWithPort,
   IWithHost,
   IRepositoryInfo,
+  STL_MODE_NAME,
 } from './apiTypes';
 import {DB_FULL_PATH, STATIC_DIR} from "./constants";
 import * as WS from "ws";
@@ -163,13 +164,39 @@ const moveFileToProject = (file: any, projectName: string) => {
 
 const pathToDicom2StlPy = `${__dirname}/../dicom2stl/dicom2stl.py`
 
+const stlModes = [
+  {
+    name: STL_MODE_NAME.BONE,
+    mode: '-t bone'
+  },
+  {
+    name: STL_MODE_NAME.SKIN,
+    mode: '-t skin'
+  },
+  {
+    name: STL_MODE_NAME.I128,
+    mode: '-i 128'
+  },
+  {
+    name: STL_MODE_NAME.SOFT,
+    mode: '--enable rotation -t soft_tissue'
+  },
+]
+
 const stlMode = '--enable rotation -t soft_tissue'
 
 const makeStlInProject = (projectName: string) => {
   const pathToProject = path.join(projectsFolder, projectName)
+  const command = stlModes
+    .map(({name, mode}) => (
+      `python3 ${pathToDicom2StlPy} ${mode} -o ${path.join(pathToProject, `${name}.stl`)} ${path.join(pathToProject, 'imgs')}`
+    ))
+    .join('\n')
+  console.log('projectName', projectName)
+  console.log('command', command)
   return new Promise((resolve, reject) => {
     exec(
-      `python3 ${pathToDicom2StlPy} ${stlMode} -o ${path.join(pathToProject, 'index.stl')} ${path.join(pathToProject, 'imgs')}`,
+      command,
       {},
       (error: Error, stdOut: string) =>
         error

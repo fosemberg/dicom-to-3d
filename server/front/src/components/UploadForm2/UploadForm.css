@@ -1,0 +1,30 @@
+.UploadForm {
+  margin-bottom: var(--space-xxxl);
+}
+
+.UploadForm-Result {
+  margin-top: var(--space-l);
+}
+
+.UploadForm-FilePreviewHeader {
+  text-align: center;
+}
+
+.UploadForm-STLViewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.UploadForm-Form {
+  display: flex;
+  flex-direction: column;
+}
+
+.UploadForm-Submit {
+  align-self: center;
+}
+
+.UploadForm-DwvComponent {
+  margin-bottom: 16px;
+}

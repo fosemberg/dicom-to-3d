@@ -6,6 +6,8 @@ import {cn} from "@bem-react/classname";
 import {STLViewer} from 'react-stl-obj-viewer';
 
 import {FileUploadRequest, FileUploadResponse, STL_MODE_NAME} from "../../utils/apiTypes";
+import FileUploader from "../FileUploader/FileUploader";
+import FileUploadPreview from "../FileUploadPreview/FileUploadPreview";
 import DwvComponent from '../DwvComponent/DwvComponent'
 import {SERVER_STATIC_URL} from "../../config/env";
 
@@ -30,6 +32,13 @@ enum SendStatus {
 }
 
 const cnUploadForm = cn('UploadForm');
+
+const stlModeNames = [
+  STL_MODE_NAME.BONE,
+  STL_MODE_NAME.SKIN,
+  STL_MODE_NAME.I128,
+  STL_MODE_NAME.SOFT,
+]
 
 const generateStlUrl = (projectName: string, stlModeName: STL_MODE_NAME) => `${SERVER_STATIC_URL}/projects/${projectName}/${stlModeName}.stl`
 
@@ -164,23 +173,30 @@ const UploadForm: React.FC<UploadFormProps> = (
     </Card>
       {
         sendStatus === SendStatus.success &&
-        <div className={cnUploadForm('STLViewer')}>
-          <STLViewer
-          url={generateStlUrl(projectNameSended, STL_MODE_NAME.SOFT)}
-          width={400}
-          height={400}
-          modelColor='#B92C2C'
-          backgroundColor='#EAEAEA'
-        />
-        <br/>
-          <Button
-            href={generateStlUrl(projectNameSended, STL_MODE_NAME.SOFT)}
-            variant="primary"
-          >
-            Скачать stl файл
-          </Button>
-          <br/>
-        </div>
+          <div>
+            {stlModeNames.map((stlModeName) => (
+              <div>
+                <div className={cnUploadForm('STLViewer')}>
+                  <STLViewer
+                    url={generateStlUrl(projectNameSended, stlModeName)}
+                    width={400}
+                    height={400}
+                    modelColor='#B92C2C'
+                    backgroundColor='#EAEAEA'
+                  />
+                  <br/>
+                  <Button
+                    href={generateStlUrl(projectNameSended, stlModeName)}
+                    variant="primary"
+                  >
+                    Скачать {stlModeName}.stl файл
+                  </Button>
+                  <br/>
+                </div>
+              </div>
+            ) )}
+          </div>
+
       }
       </>
   );

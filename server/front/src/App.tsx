@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 
 import AppNavbar from "./components/AppNavbar/AppNavbar";
 import UploadPage from "./pages/UploadPage/UploadPage";
+import UploadPage2 from "./pages/UploadPage2/UploadPage";
 import Loader from "./components/Loader/Loader";
 import { sendUploadFileRequest} from "./store/store";
 import {cnTheme} from "./components/Theme";
@@ -35,6 +36,12 @@ const App: React.FC = () => {
                   <Route
                     path='/upload'
                     component={() => <UploadPage
+                      sendData={sendUploadFileRequest}
+                    />}
+                  />
+                  <Route
+                    path='/upload2'
+                    component={() => <UploadPage2
                       sendData={sendUploadFileRequest}
                     />}
                   />
