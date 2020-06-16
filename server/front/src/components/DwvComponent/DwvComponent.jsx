@@ -61,9 +61,9 @@ function TransitionUp(props) {
 
 const getToolName = (tool) => (
     tool === 'Select Tool' ? 'Выберите инструмент' :
-    tool === 'Scroll' ? 'Прокручивать' :
-    tool === 'ZoomAndPan' ? 'Приближать и отдалять' :
-    tool === 'WindowLevel' ? 'Детализировать' :
+    tool === 'Scroll' ? 'Переключаться между снимками' :
+    tool === 'ZoomAndPan' ? 'Масштабирование' :
+    tool === 'WindowLevel' ? 'Изменить контрастность' :
     tool === 'Draw' ? 'Рисовать' :
     ''
 )
