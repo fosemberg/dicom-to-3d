@@ -195,12 +195,6 @@ const UploadForm: React.FC<UploadFormProps> = (
           <br/>
         </div>
       }
-      {
-        sendStatus === SendStatus.error &&
-        <code>
-          {responseMessage}
-        </code>
-      }
       </>
   );
 };
