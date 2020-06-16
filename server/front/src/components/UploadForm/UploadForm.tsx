@@ -31,7 +31,7 @@ enum SendStatus {
 
 const cnUploadForm = cn('UploadForm');
 
-function transliterate(word: any){
+function transliterate(word: any): string{
   let answer = ""
   let a: any = {};
 
@@ -54,6 +54,11 @@ function transliterate(word: any){
   return answer;
 }
 
+const prepareProjectName = (projectName: string) => (
+  transliterate(projectName)
+    .replace(/ /g, '-')
+)
+
 const generateStlUrl = (projectName: string, stlModeName: STL_MODE_NAME) => `${SERVER_STATIC_URL}/projects/${projectName}/${stlModeName}.stl`
 
 const UploadForm: React.FC<UploadFormProps> = (
@@ -68,7 +73,7 @@ const UploadForm: React.FC<UploadFormProps> = (
 
   const [projectName, setProjectName] = useState<string>('');
   const onChangeProjectName = (e: React.ChangeEvent<HTMLInputElement>) => (
-    setProjectName(transliterate(e.currentTarget.value))
+    setProjectName(e.currentTarget.value)
   )
 
   const [projectNameSended, setProjectNameSended] = useState<string>('');
@@ -91,8 +96,10 @@ const UploadForm: React.FC<UploadFormProps> = (
     if (files) {
       setSendStatus(SendStatus.sending)
       setUploadStatus(UploadStatus.init)
-      const response = await sendData({files, projectName: projectName})
-      setProjectNameSended(projectName)
+      const preparedProjectName = prepareProjectName(projectName)
+      const response = await sendData({files, projectName: preparedProjectName})
+      setProjectNameSended(preparedProjectName)
+
       response ? setSendStatus(SendStatus.success) : setSendStatus(SendStatus.error)
       console.log('response', response)
 
