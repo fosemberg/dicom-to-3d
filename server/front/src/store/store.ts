@@ -26,3 +26,24 @@ export const sendUploadFileRequest = async ({files, projectName}: FileUploadRequ
     return false
   }
 }
+
+export const sendUploadFileRequest2 = async ({files, projectName}: FileUploadRequest): Promise<FileUploadResponse> => {
+  const endpoint = 'upload2'
+  const url = `${hostUrl}/${endpoint}/${projectName}`
+  try {
+    const formData = new FormData()
+    for (const file of files) {
+      formData.append("file", file)
+    }
+
+    let response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+      redirect: 'follow'
+    })
+    return true
+  } catch (error) {
+    console.error(error)
+    return false
+  }
+}

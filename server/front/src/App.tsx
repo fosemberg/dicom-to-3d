@@ -6,7 +6,7 @@ import AppNavbar from "./components/AppNavbar/AppNavbar";
 import UploadPage from "./pages/UploadPage/UploadPage";
 import UploadPage2 from "./pages/UploadPage2/UploadPage";
 import Loader from "./components/Loader/Loader";
-import { sendUploadFileRequest} from "./store/store";
+import {sendUploadFileRequest, sendUploadFileRequest2} from "./store/store";
 import {cnTheme} from "./components/Theme";
 
 import "./components/Theme/_color/Theme_color_project-default.css";
@@ -42,7 +42,7 @@ const App: React.FC = () => {
                   <Route
                     path='/upload2'
                     component={() => <UploadPage2
-                      sendData={sendUploadFileRequest}
+                      sendData={sendUploadFileRequest2}
                     />}
                   />
                 </Switch>
