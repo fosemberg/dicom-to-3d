@@ -5,7 +5,7 @@ import {cn} from "@bem-react/classname";
 // @ts-ignore
 import {STLViewer} from 'react-stl-obj-viewer';
 
-import {FileUploadRequest, FileUploadResponse, STL_MODE_NAME} from "../../utils/apiTypes";
+import {FileUploadRequest, FileUploadResponse, FileUploadSuccessResponse, STL_MODE_NAME} from "../../utils/apiTypes";
 import FileUploader from "../FileUploader/FileUploader";
 import FileUploadPreview from "../FileUploadPreview/FileUploadPreview";
 import DwvComponent from '../DwvComponent/DwvComponent'
@@ -50,6 +50,7 @@ const UploadForm: React.FC<UploadFormProps> = (
 ) => {
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>(UploadStatus.init)
   const [sendStatus, setSendStatus] = useState<SendStatus>(SendStatus.init)
+  const [responseMessage, setResponseMessage] = useState<string>('')
 
   const [projectName, setProjectName] = useState<string>('');
   const onChangeProjectName = (e: React.ChangeEvent<HTMLInputElement>) => setProjectName(e.currentTarget.value);
@@ -76,7 +77,18 @@ const UploadForm: React.FC<UploadFormProps> = (
       setUploadStatus(UploadStatus.init)
       const response = await sendData({files, projectName: projectName})
       setProjectNameSended(projectName)
-      response ? setSendStatus(SendStatus.success) : setSendStatus(SendStatus.error)
+      console.log('response', response)
+
+      if (response) {
+        if (response.state === "success") {
+          setSendStatus(SendStatus.success)
+          setResponseMessage(response.stdOut)
+        } else if (response.state === 'error') {
+          setSendStatus(SendStatus.error)
+          setResponseMessage(response.error)
+        }
+      }
+
       setProjectName('')
       setFile(undefined)
       setFiles(undefined)
@@ -165,7 +177,7 @@ const UploadForm: React.FC<UploadFormProps> = (
               </>
               : sendStatus === SendStatus.success
                 ? <Alert variant='success'>Файлы успешно загружены</Alert>
-                : sendStatus === SendStatus.error && <Alert variant='danger'>Во время загрузки файлов произошла ошибка</Alert>
+                : sendStatus === SendStatus.error && <Alert variant='danger'>Во время распознания и рендеринга произошла ошибка</Alert>
             }
           </div>
         </Form>
@@ -196,7 +208,12 @@ const UploadForm: React.FC<UploadFormProps> = (
               </div>
             ) )}
           </div>
-
+      }
+      {
+        sendStatus === SendStatus.error &&
+          <code>
+            {responseMessage}
+          </code>
       }
       </>
   );

@@ -20,10 +20,27 @@ export const sendUploadFileRequest = async ({files, projectName}: FileUploadRequ
       body: formData,
       redirect: 'follow'
     })
-    return true
+    const json = await response.json()
+    if (!!json.stdOut) {
+      const {stdOut} = json
+      return {
+        state: "success",
+        stdOut,
+      }
+    } else {
+      const {error} = json
+      console.error(error)
+      return {
+        state: "error",
+        error,
+      }
+    }
   } catch (error) {
     console.error(error)
-    return false
+    return {
+      state: "error",
+      error,
+    }
   }
 }
 
@@ -41,9 +58,26 @@ export const sendUploadFileRequest2 = async ({files, projectName}: FileUploadReq
       body: formData,
       redirect: 'follow'
     })
-    return true
+    const json = await response.json()
+    if (!!json.stdOut) {
+      const {stdOut} = json
+       return {
+         state: "success",
+         stdOut,
+       }
+    } else {
+      const {error} = json
+      console.error(error)
+      return {
+        state: "error",
+        error,
+      }
+    }
   } catch (error) {
     console.error(error)
-    return false
+    return {
+      state: "error",
+      error,
+    }
   }
 }

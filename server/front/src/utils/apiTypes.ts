@@ -31,7 +31,17 @@ export interface FileUploadRequest {
   projectName: string;
 }
 
-export type FileUploadResponse = boolean;
+export type FileUploadSuccessResponse = {
+  state: 'success';
+  stdOut: string;
+}
+
+export type FileUploadErrorResponse = {
+  state: 'error';
+  error: string;
+}
+
+export type FileUploadResponse = FileUploadSuccessResponse | FileUploadErrorResponse
 
 export type GetComponentNamesRequest = string;
 

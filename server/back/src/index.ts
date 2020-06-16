@@ -215,19 +215,22 @@ app.post(
     },
     response: Response,
   ) => {
-    const {projectName} = params
-    const filenames = files.map(({filename, originalname}) => ({
-      filename,
-      originalname,
-    })) // or file.originalname);
-    console.log('projectName', projectName)
-    console.log('filenames', filenames)
+    try {
+      const {projectName} = params
+      const filenames = files.map(({filename, originalname}) => ({
+        filename,
+        originalname,
+      })) // or file.originalname);
+      console.log('projectName', projectName)
+      console.log('filenames', filenames)
 
-    await Promise.all(files.map(file => moveFileToProject(file, projectName)))
+      await Promise.all(files.map(file => moveFileToProject(file, projectName)))
 
-    const stdOut = await makeStlInProject(projectName, stlModes.find((stlMode) => stlMode.name === STL_MODE_NAME.SOFT))
-
-    response.json({stdOut});
+      const stdOut = await makeStlInProject(projectName, stlModes.find((stlMode) => stlMode.name === STL_MODE_NAME.SOFT))
+      response.json({stdOut});
+    } catch (e) {
+      response.json({error: e.message})
+    }
   }
 );
 
@@ -241,22 +244,27 @@ app.post(
     },
     response: Response,
   ) => {
-    const {projectName} = params
-    const filenames = files.map(({filename, originalname}) => ({
-      filename,
-      originalname,
-    })) // or file.originalname);
-    console.log('projectName', projectName)
-    console.log('filenames', filenames)
+    try {
+      const {projectName} = params
+      const filenames = files.map(({filename, originalname}) => ({
+        filename,
+        originalname,
+      })) // or file.originalname);
+      console.log('projectName', projectName)
+      console.log('filenames', filenames)
 
-    await Promise.all(files.map(file => moveFileToProject(file, projectName)))
+      await Promise.all(files.map(file => moveFileToProject(file, projectName)))
 
-    let stdOut = ''
-    for (const stlMode of stlModes) {
-      stdOut += await makeStlInProject(projectName, stlMode)
+      let stdOut = ''
+      for (const stlMode of stlModes) {
+        stdOut += await makeStlInProject(projectName, stlMode)
+      }
+
+      response.json({stdOut});
+    } catch (e) {
+      response.json({error: e.message});
     }
 
-    response.json({stdOut});
   }
 );
 

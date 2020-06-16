@@ -229,7 +229,7 @@ class DwvComponent extends React.Component {
         isSuccess = false;
       }
 
-      this.props.setIsSuccessLoad(isSuccess)
+      // this.props.setIsSuccessLoad(isSuccess)
       console.log('load-end');
     });
     app.addEventListener('error', (event) => {
@@ -406,6 +406,7 @@ class DwvComponent extends React.Component {
     // hide drop box
     this.hideDropbox();
     this.props.onUploadFiles(Array.from(files))
+    this.props.setIsSuccessLoad(true)
   }
 
   // drag and drop [end] -------------------------------------------------------
