@@ -179,6 +179,10 @@ const stlModes = [
     mode: '-t skin'
   },
   {
+    name: STL_MODE_NAME.FAT,
+    mode: '-t fat'
+  },
+  {
     name: STL_MODE_NAME.I128,
     mode: '-i 128'
   },

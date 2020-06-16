@@ -36,6 +36,7 @@ const cnUploadForm = cn('UploadForm');
 const stlModeNames = [
   STL_MODE_NAME.BONE,
   STL_MODE_NAME.SKIN,
+  STL_MODE_NAME.FAT,
   STL_MODE_NAME.I128,
   STL_MODE_NAME.SOFT,
 ]
