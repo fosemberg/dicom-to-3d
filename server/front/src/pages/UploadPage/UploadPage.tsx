@@ -25,7 +25,7 @@ class UploadPage extends React.Component<UploadPageProps> {
 
     return (
       <div className={cnBuildPage()}>
-        <h4>Загрузите dicom файлы для генерации 3д модели</h4>
+        <h4>Загрузите DICOM файлы для создания 3D модели</h4>
         <UploadForm {...{sendData}} />
         {/*<STLViewer*/}
         {/*  url='http://localhost:3021/static/projects/big1/index.stl'*/}

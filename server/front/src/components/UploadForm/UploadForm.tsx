@@ -141,7 +141,7 @@ const UploadForm: React.FC<UploadFormProps> = (
                     aria-hidden="true"
                   />
                   {' '}
-                  Загрузка и генерация 3д...
+                  Распознавание и рендеринг 3D...
               </>
                 : 'Загрузить'
             }
