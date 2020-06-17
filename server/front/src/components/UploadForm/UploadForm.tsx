@@ -71,6 +71,8 @@ const UploadForm: React.FC<UploadFormProps> = (
   const [sendStatus, setSendStatus] = useState<SendStatus>(SendStatus.init)
   const [responseMessage, setResponseMessage] = useState<string>('')
 
+  const [dwvComponentKey, setDwvComponentKey] = useState(0)
+
   const [projectName, setProjectName] = useState<string>('');
   const onChangeProjectName = (e: React.ChangeEvent<HTMLInputElement>) => (
     setProjectName(e.currentTarget.value)
@@ -89,6 +91,12 @@ const UploadForm: React.FC<UploadFormProps> = (
     isSuccessLoad
       ? setUploadStatus(UploadStatus.success)
       : setUploadStatus(UploadStatus.error)
+  }
+
+  const clearPreview = () => {
+    setDwvComponentKey(dwvComponentKey + 1)
+    setUploadStatus(UploadStatus.init)
+    setSendStatus(SendStatus.init)
   }
 
   const onClickSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
@@ -156,22 +164,20 @@ const UploadForm: React.FC<UploadFormProps> = (
           <DwvComponent
             className={cnUploadForm('DwvComponent')}
             {...{onUploadFiles, setIsSuccessLoad}}
+            key={dwvComponentKey}
           />
-          {/*<FileUploader*/}
-          {/*  {...{onUploadFile, onUploadFiles, isSuccessLoad}}*/}
-          {/*  isDisabled={sendStatus === SendStatus.sending}*/}
-          {/*>*/}
-          {/*  {sendStatus === SendStatus.sending && <div>*/}
-          {/*    During dicom uploading, 3d generation is also performed. It can take more than two minutes to generate 3d model. Thank you for your patience and for using our service.*/}
-          {/*  </div>*/}
-          {/*  }*/}
-          {/*</FileUploader>*/}
           <Button
-            onClick={onClickSubmit}
+            onClick={
+              sendStatus === SendStatus.init
+                ? onClickSubmit
+                : clearPreview
+            }
             className={cnUploadForm('Submit')}
             variant="primary"
-            type="submit"
-            disabled={!isSuccessLoad || !projectName || sendStatus === SendStatus.sending}
+            disabled={
+              (sendStatus === SendStatus.init && (!isSuccessLoad || !projectName))
+              || sendStatus === SendStatus.sending
+            }
           >
             {
               sendStatus === SendStatus.sending
@@ -186,20 +192,14 @@ const UploadForm: React.FC<UploadFormProps> = (
                   {' '}
                   Распознавание и рендеринг 3D...
               </>
-                : 'Загрузить'
+                : sendStatus === SendStatus.init
+                  ? 'Загрузить'
+                  : 'Очистить превью'
             }
           </Button>
           <div className={cnUploadForm('Result')}>
             {
-              !!files
-              ? <>
-                  {/*{*/}
-                  {/*  uploadStatus !== UploadStatus.error &&*/}
-                  {/*    <h5 className={cnUploadForm('FilePreviewHeader')}>File preview</h5>*/}
-                  {/*}*/}
-                {/*<FileUploadPreview {...{files, setIsSuccessLoad}} />*/}
-              </>
-              : sendStatus === SendStatus.success
+              !files && sendStatus === SendStatus.success
                 ? <Alert variant='success'>Файлы успешно загружены</Alert>
                 : sendStatus === SendStatus.error && <Alert variant='danger'>Во время распознания и рендеринга произошла ошибка</Alert>
             }
