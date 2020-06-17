@@ -37,24 +37,45 @@ const ProjectsContainer = () => {
       if (response.state === 'success') {
         const {projects} = response
         setProjects(projects)
-        setProjectsData(projects.children.map(
-          (project: BaseItem) => (
-            {
-              name: project.name,
-              imgs: [],
-              stls: [],
-            }
-          )
-        ))
 
+          setProjectsData(
+            projects.children
+              .map(
+                (project: DirTreeItem) => {
+                  if ("children" in project) {
+
+                    let imgs: Array<string> = []
+                    const imgsFolder = project.children
+                      .find((projectItem: DirTreeItem) => projectItem.name === "imgs")
+
+                    if (imgsFolder && "children" in imgsFolder) {
+                      imgs = imgsFolder.children.map((img: DirTreeItem) => img.name)
+                    }
+
+                    let stls: Array<string> = []
+                    const stlsFolder = project.children
+                      .find((projectItem: DirTreeItem) => projectItem.name === "stls")
+
+                    if (stlsFolder && "children" in stlsFolder) {
+                      stls = stlsFolder.children.map((stl: DirTreeItem) => stl.name)
+                    }
+
+                    return {
+                      name: project.name,
+                      imgs: imgs,
+                      stls: stls,
+                    }
+                  }
+                }
+              )
+              .filter((project: any) => project)
+          )
       } else {
         setIsError(true)
       }
     })()
   }, []);
 
-  // @ts-ignore
-  window.projects = projects
   return (
     <div>
       {
