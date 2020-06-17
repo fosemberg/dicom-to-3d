@@ -5,9 +5,7 @@
   "scripts": {
     "dev": "ts-node -r dotenv/config src/index.ts dotenv_config_path=.env",
     "build": "tsc",
-    "start": "node -r dotenv/config ./build/src/index.js dotenv_config_path=.env",
-    "test": "tsc --p ./tsconfig.test.json && node build/index.test.js",
-    "build-test": "tsc --p ./tsconfig.test.json"
+    "start": "node -r dotenv/config ./build/src/index.js dotenv_config_path=.env"
   },
   "dependencies": {
     "@types/express": "^4.17.1",
