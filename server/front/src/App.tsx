@@ -11,6 +11,7 @@ import {cnTheme} from "./components/Theme";
 
 import "./components/Theme/_color/Theme_color_project-default.css";
 import "./components/Theme/_space/Theme_space_default.css";
+import ProjectsContainer from "./containers/Projects/Projects";
 
 const App: React.FC = () => {
   const [isReady, setReady] = useState<boolean>(false);
@@ -32,6 +33,10 @@ const App: React.FC = () => {
                     component={() => <UploadPage
                       sendData={sendUploadFileRequest}
                     />}
+                  />
+                  <Route
+                    path='/projects'
+                    component={() => <ProjectsContainer/>}
                   />
                   <Route
                     path='/upload'

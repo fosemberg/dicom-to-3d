@@ -1,6 +1,6 @@
 import {
   FileUploadRequest,
-  FileUploadResponse,
+  FileUploadResponse, GetProjectsResponse,
 } from "../utils/apiTypes";
 import {SERVER_HOST, SERVER_HTTP_PORT} from "../config/env";
 
@@ -81,3 +81,38 @@ export const sendUploadFileRequest2 = async ({files, projectName}: FileUploadReq
     }
   }
 }
+
+export const getProjects = async (): Promise<GetProjectsResponse> => {
+  const endpoint = 'projects'
+  const url = `${hostUrl}/${endpoint}`
+  try {
+    let response = await fetch(url, {
+      method: 'GET',
+    })
+    const json = await response.json()
+    if (!!json.projects) {
+      const {projects} = json
+      console.log('projects', projects)
+      return {
+        state: "success",
+        projects,
+      }
+    } else {
+      const {error} = json
+      console.error(error)
+      return {
+        state: "error",
+        error,
+      }
+    }
+  } catch (error) {
+    console.error(error)
+    return {
+      state: "error",
+      error,
+    }
+  }
+}
+
+console.log('getProjects()', getProjects())
+

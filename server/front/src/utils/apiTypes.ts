@@ -43,6 +43,18 @@ export type FileUploadErrorResponse = {
 
 export type FileUploadResponse = FileUploadSuccessResponse | FileUploadErrorResponse
 
+export type GetProjectsSuccessResponse = {
+  state: 'success';
+  projects: any;
+}
+
+export type GetProjectsErrorResponse = {
+  state: 'error';
+  error: string;
+}
+
+export type GetProjectsResponse = GetProjectsSuccessResponse | GetProjectsErrorResponse
+
 export type GetComponentNamesRequest = string;
 
 export type ComponentNames = string[];
