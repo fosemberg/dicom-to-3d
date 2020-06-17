@@ -59,7 +59,9 @@ const prepareProjectName = (projectName: string) => (
     .replace(/ /g, '-')
 )
 
-const generateStlUrl = (projectName: string, stlModeName: STL_MODE_NAME) => `${SERVER_STATIC_URL}/projects/${projectName}/${stlModeName}.stl`
+const stlsFolderName = 'stls'
+
+const generateStlUrl = (projectName: string, stlModeName: STL_MODE_NAME) => `${SERVER_STATIC_URL}/projects/${projectName}/${stlsFolderName}/${stlModeName}.stl`
 
 const UploadForm: React.FC<UploadFormProps> = (
   {

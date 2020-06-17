@@ -93,9 +93,13 @@ const stlModes = [
   },
 ]
 
+const stlsFolderName = 'stls'
+
 const makeStlInProject = (projectName: string, stlMode: StlMode) => {
   const pathToProject = path.join(projectsFolder, projectName)
-  const command = `python3 ${pathToDicom2StlPy} ${stlMode.mode} -o ${path.join(pathToProject, `${stlMode.name}.stl`)} ${path.join(pathToProject, 'imgs')}`
+  const pathToStls = path.join(pathToProject, stlsFolderName)
+  makeFolderIfNotExist(pathToStls)
+  const command = `python3 ${pathToDicom2StlPy} ${stlMode.mode} -o ${path.join(pathToStls, `${stlMode.name}.stl`)} ${path.join(pathToProject, 'imgs')}`
   console.log('projectName', projectName)
   console.log('command', command)
   return new Promise((resolve, reject) => {
