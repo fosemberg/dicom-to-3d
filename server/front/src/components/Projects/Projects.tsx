@@ -1,21 +1,28 @@
 import React from 'react';
-import {Spinner} from "react-bootstrap";
+
+export interface ProjectData {
+  name: string;
+  stls: Array<string>;
+  imgs: Array<string>;
+}
 
 interface ProjectsProps {
-  stls: Array<string>
+  projectsData: Array<ProjectData>
 }
 
 const Projects: React.FC<ProjectsProps> = (
   {
-    stls,
+    projectsData,
   }
 ) => {
   return (
     <div>
       {
-        stls.map((stl: string) => (
-          <div>
-            {stl}
+        projectsData.map(({name}: ProjectData) => (
+          <div
+            key={name}
+          >
+            {name}
           </div>
         ))
       }
