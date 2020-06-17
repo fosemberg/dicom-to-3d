@@ -99,8 +99,7 @@ const UploadForm: React.FC<UploadFormProps> = (
     setSendStatus(SendStatus.init)
   }
 
-  const onClickSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const sendFiles = async () => {
     if (files) {
       setSendStatus(SendStatus.sending)
       setUploadStatus(UploadStatus.init)
@@ -126,6 +125,12 @@ const UploadForm: React.FC<UploadFormProps> = (
       setFiles(undefined)
     }
   };
+
+  const onClickSubmitButton = () => (
+    sendStatus === SendStatus.init
+      ? sendFiles()
+      : clearPreview()
+  )
 
   const onUploadFile = (file: File) => {
     setUploadStatus(UploadStatus.uploading)
@@ -167,11 +172,7 @@ const UploadForm: React.FC<UploadFormProps> = (
             key={dwvComponentKey}
           />
           <Button
-            onClick={
-              sendStatus === SendStatus.init
-                ? onClickSubmit
-                : clearPreview
-            }
+            onClick={onClickSubmitButton}
             className={cnUploadForm('Submit')}
             variant="primary"
             disabled={
@@ -194,7 +195,7 @@ const UploadForm: React.FC<UploadFormProps> = (
               </>
                 : sendStatus === SendStatus.init
                   ? 'Загрузить'
-                  : 'Очистить превью'
+                  : 'Очистить проект'
             }
           </Button>
           <div className={cnUploadForm('Result')}>
