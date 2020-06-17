@@ -13,6 +13,27 @@ import * as fs from 'fs'
 import * as path from 'path'
 import {exec} from "child_process";
 
+const dirTree = require("directory-tree");
+
+interface BaseItem {
+  path: string;
+  name: string;
+  size: number;
+}
+
+export interface Directory extends BaseItem{
+  type: 'directory';
+  children: DirTreeItem[];
+}
+
+export interface File extends BaseItem{
+  type: 'file';
+  size: number;
+  extension: string;
+}
+
+type DirTreeItem = Directory | File;
+
 console.info('Server starting...');
 
 const projectsFolder = path.join(STATIC_DIR, 'projects')
@@ -148,7 +169,22 @@ app.post(
     } catch (e) {
       response.json({error: e.message});
     }
+  }
+);
 
+app.get(
+  '/projects',
+  (
+    request: Request,
+    response: Response,
+  ) => {
+    try {
+      const projects = dirTree(projectsFolder);
+      console.log('tree', projects)
+      response.json({projects});
+    } catch (e) {
+      response.json({error: e.message});
+    }
   }
 );
 
