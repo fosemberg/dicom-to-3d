@@ -1,0 +1,9 @@
+.Projects-Card {
+    margin-bottom: 20px;
+}
+
+.Projects-CardBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

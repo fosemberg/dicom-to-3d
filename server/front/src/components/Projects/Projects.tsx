@@ -2,6 +2,9 @@ import React from 'react';
 import {generateStlUrl} from "../../utils/stl";
 // @ts-ignore
 import {STLViewer} from 'react-stl-obj-viewer';
+import {Button, Card} from "react-bootstrap";
+
+import './Projects.css'
 
 export interface ProjectData {
   name: string;
@@ -22,25 +25,35 @@ const Projects: React.FC<ProjectsProps> = (
     <div>
       {
         projectsData.map(({name, stls}: ProjectData) => (
-          <div
-              key={name}
-          >
-            {name}
-            {
-              stls.map((stl) => (
-                <STLViewer
-                  url={generateStlUrl({
+          <Card key={name} className={`text-center Projects-Card`}>
+            <Card.Header>{name}</Card.Header>
+            <Card.Body className={'Projects-CardBody'}>
+              {
+                stls.map((stl) => {
+                  const stlUrl = generateStlUrl({
                     projectName: name,
                     stlFileName: stl,
-                  })}
-                  width={400}
-                  height={400}
-                  modelColor='#B92C2C'
-                  backgroundColor='#EAEAEA'
-                />
-              ))
-            }
-          </div>
+                  })
+                  return <div className={''}>
+                    <STLViewer
+                      url={stlUrl}
+                      width={400}
+                      height={400}
+                      modelColor='#B92C2C'
+                      backgroundColor='#EAEAEA'
+                    />
+                    <br/>
+                    <Button
+                      href={stlUrl}
+                      variant="primary"
+                    >
+                      Скачать stl файл
+                    </Button>
+                    </div>
+                })
+              }
+            </Card.Body>
+          </Card>
         ))
       }
     </div>
