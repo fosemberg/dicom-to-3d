@@ -20,7 +20,7 @@ cd git
 git clone https://github.com/fosemberg/dicom-to-3d.git
 
 # run serer front
-cd ~/git/dicom-to-3d/server/front-old
+cd ~/git/dicom-to-3d/server/front
 yarn
 pm2 start "npm run start" --name front
 

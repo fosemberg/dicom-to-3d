@@ -42,7 +42,7 @@ yarn run dev
 #### Запуск server front
 
 ```npm
-cd server/front-old &&
+cd server/front &&
 yarn &&
 yarn run start
 ```
