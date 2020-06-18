@@ -69,6 +69,7 @@ const ProjectsContainer = () => {
                 }
               )
               .filter((project: any) => project)
+              .filter(({name, stls}: ProjectData) => name && stls.length)
           )
       } else {
         setIsError(true)

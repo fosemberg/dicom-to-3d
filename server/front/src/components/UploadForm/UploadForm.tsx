@@ -10,6 +10,7 @@ import DwvComponent from '../DwvComponent/DwvComponent'
 import {SERVER_STATIC_URL} from "../../config/env";
 
 import "./UploadForm.css";
+import {generateStlUrl} from "../../utils/stl";
 
 interface UploadFormProps {
   sendData?: (fileUploadRequest: FileUploadRequest) => Promise<FileUploadResponse>;
@@ -58,10 +59,6 @@ const prepareProjectName = (projectName: string) => (
   transliterate(projectName)
     .replace(/ /g, '-')
 )
-
-const stlsFolderName = 'stls'
-
-const generateStlUrl = (projectName: string, stlModeName: STL_MODE_NAME) => `${SERVER_STATIC_URL}/projects/${projectName}/${stlsFolderName}/${stlModeName}.stl`
 
 const UploadForm: React.FC<UploadFormProps> = (
   {
@@ -151,6 +148,11 @@ const UploadForm: React.FC<UploadFormProps> = (
     })
   }
 
+  const stlUrl = generateStlUrl({
+    projectName: projectNameSended,
+    stlModeName: STL_MODE_NAME.SOFT,
+  })
+
   return (
     <>
     <Card className="UploadForm">
@@ -214,15 +216,15 @@ const UploadForm: React.FC<UploadFormProps> = (
         sendStatus === SendStatus.success &&
         <div className={cnUploadForm('STLViewer')}>
           <STLViewer
-          url={generateStlUrl(projectNameSended, STL_MODE_NAME.SOFT)}
-          width={400}
-          height={400}
-          modelColor='#B92C2C'
-          backgroundColor='#EAEAEA'
-        />
-        <br/>
+            url={stlUrl}
+            width={400}
+            height={400}
+            modelColor='#B92C2C'
+            backgroundColor='#EAEAEA'
+          />
+          <br/>
           <Button
-            href={generateStlUrl(projectNameSended, STL_MODE_NAME.SOFT)}
+            href={stlUrl}
             variant="primary"
           >
             Скачать stl файл
