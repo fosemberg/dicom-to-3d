@@ -7,14 +7,14 @@
 
 
 # clone project
-```
+```shell script
 mkdir git
 cd git
 git clone https://github.com/fosemberg/dicom-to-3d.git
 ```
 
 # python
-```
+```shell script
 pip install SimpleITK
 pip install vtk
 pip install numpy

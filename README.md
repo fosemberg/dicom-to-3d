@@ -29,6 +29,11 @@ dicom to 3d converter:
 - [npm](https://www.npmjs.com/get-npm) (обычно устанавливается вместе с nodejs)
 - [yarn](https://www.npmjs.com/package/yarn) (опционально, вместо yarn можно использовать во всех командах ниже npm)
 
+## Установка проекта
+
+- [windows](docs/windows-install.md)
+- [ubuntu](docs/ubuntu-install.md)
+
 ## Dev запуск
 
 #### Запуск server back

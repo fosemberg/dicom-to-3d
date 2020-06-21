@@ -1,3 +1,4 @@
+```shell script
 # main
 sudo apt update
 sudo apt upgrade
@@ -36,3 +37,4 @@ pip3 install numpy
 
 sudo apt install python-qt4 libgl1-mesa-glx
 sudo apt-get install xvfb
+```
