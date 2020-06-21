@@ -1,7 +1,14 @@
 # Dicom to 3d
 система конвертации dicom файлов в 3d изображения.
 
-[demo](http://84.201.135.0:3000)
+## Дэмо видео
+
+Загрузка и распознание:
+[![Загрузка и распознание](docs/dicom-to-3d-upload-preview.png)](https://yadi.sk/i/uLEea5gBJmR08w)
+
+Просмотр списка 3д моделей:
+[![Просмотр списка 3д моделей](docs/dicom-to-3d-list-preview.png)](https://yadi.sk/i/GCG3vuqKTqNOnA)
+
 
 ## Технологии
 
