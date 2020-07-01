@@ -1,7 +1,14 @@
 # Dicom to 3d
 система конвертации dicom файлов в 3d изображения.
 
-[demo](http://84.201.135.0:3000)
+## Дэмо видео
+
+Загрузка и распознание:
+[![Загрузка и распознание](docs/dicom-to-3d-upload-preview.png)](https://yadi.sk/i/uLEea5gBJmR08w)
+
+Просмотр списка 3д моделей:
+[![Просмотр списка 3д моделей](docs/dicom-to-3d-list-preview.png)](https://yadi.sk/i/GCG3vuqKTqNOnA)
+
 
 ## Технологии
 
@@ -28,6 +35,11 @@ dicom to 3d converter:
 - [nodejs](https://nodejs.org/en/)
 - [npm](https://www.npmjs.com/get-npm) (обычно устанавливается вместе с nodejs)
 - [yarn](https://www.npmjs.com/package/yarn) (опционально, вместо yarn можно использовать во всех командах ниже npm)
+
+## Установка проекта
+
+- [windows](docs/windows-install.md)
+- [ubuntu](docs/ubuntu-install.md)
 
 ## Dev запуск
 
