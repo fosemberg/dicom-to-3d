@@ -1,16 +1,15 @@
 # Dicom to 3d
-система конвертации dicom файлов в 3d изображения.
+A system for converting dicom files into 3D images.
 
-## Дэмо видео
+## Demo video
 
-Загрузка и распознание:
-[![Загрузка и распознание](docs/dicom-to-3d-upload-preview.png)](https://yadi.sk/i/uLEea5gBJmR08w)
+Download and recognition:
+[![Download and recognition](docs/dicom-to-3d-upload-preview.png)](https://yadi.sk/i/uLEea5gBJmR08w)
 
-Просмотр списка 3д моделей:
-[![Просмотр списка 3д моделей](docs/dicom-to-3d-list-preview.png)](https://yadi.sk/i/GCG3vuqKTqNOnA)
+Viewing a list of 3d models:
+[![Viewing a list of 3d models](docs/dicom-to-3d-list-preview.png)](https://yadi.sk/i/GCG3vuqKTqNOnA)
 
-
-## Технологии
+## Technologies
 
 dicom to 3d converter:
 - **python**
@@ -18,32 +17,32 @@ dicom to 3d converter:
 - **vtk**
 - **numpu**
 
-Часть frontend: 
-- **typescript** отличается от JavaScript возможностью явного статического назначения типов, что призвано повысить скорость разработки, облегчить читаемость, рефакторинг и повторное использование кода, помочь осуществлять поиск ошибок на этапе разработки и компиляции. Особенно был полезен для написания интерфейсов, использующихся одновременно в двух разных местах: сервер и агент.
-- **express** - быстрый, гибкий, минималистичный веб-фреймворк для приложений Node.js. Использовался для реализации API, общения между серверами, взаимодействия с базой.
-- **websocket** - протокол связи поверх TCP-соединения, предназначенный для обмена сообщениями между браузером и веб-сервером в режиме реального времени. Использовался для отображения статуса билдов в реальном времени.
-- **react** используется для разработки одностраничных приложений. Его цель — предоставить высокую скорость, простоту, масштабируемость и защиту от XSS атак. Испольозвася для написания интерфейса приложения.
-- **creat react app** - отличный инструмент для быстрого старта React-приложений. Благодаря creat react app сэкономил много врмени на настройку окружения для React.
-- **react bootstrap** - дизайн система. Сэкономила много времени на создание отзывчивого и красивого интейрфейса.
-- **bem** - [за методологию](https://ru.bem.info/methodology/quick-start/)
-- **multer** - express js либа для сохранения файлов на файловую систему, пришедших от пользователя
+Part of the frontend:  
+- **typescript** differs from JavaScript in the possibility of explicit static assignment of types, which is designed to increase the speed of development, facilitate readability, refactoring and reuse of code, and help to search for errors at the development and compilation stage. It was especially useful for writing interfaces that are used simultaneously in two different places: the server and the agent.
+- **express** - fast, flexible, minimalistic web framework for applications Node.js . It was used to implement the API, communicate between servers, and interact with the database.
+- **websocket** - a communication protocol over a TCP connection designed to exchange messages between a browser and a web server in real time. It was used to display the status of builds in real time.
+- **react** is used to develop single-page applications. Its goal is to provide high speed, simplicity, scalability and protection against XSS attacks. It was used to write the application interface.
+- **creat react app** - a great tool for quick start of React applications. Thanks to creat react app, the app has saved a lot of time on setting up the environment for React.
+- **react bootstrap** - the design of the system. It saved me a lot of time to create a responsive and beautiful interface.
+- **bem** - [about the methodology](https://en.bem.info/methodology/quick-start/)
+- **multer** - express js library for saving files to the file system that came from the user.
 - **dwv** - DWV (DICOM Web Viewer) is an open source zero footprint medical image viewer library. It uses _only_ javascript and HTML5 technologies, meaning that it can be run on any platform that provides a modern browser (laptop, tablet, phone and even modern TVs). It can load local or remote data in DICOM format (the standard for medical imaging data such as MR, CT, Echo, Mammo, NM...) and  provides standard tools for its manipulation such as contrast, zoom, drag, possibility to draw regions on top of the image and imaging filters such as threshold and sharpening.
 
-## Системные зависимости
+## System dependencies
 
 - [python](https://www.python.org/)
 - [nodejs](https://nodejs.org/en/)
-- [npm](https://www.npmjs.com/get-npm) (обычно устанавливается вместе с nodejs)
-- [yarn](https://www.npmjs.com/package/yarn) (опционально, вместо yarn можно использовать во всех командах ниже npm)
+- [npm](https://www.npmjs.com/get-npm) (it is usually installed together with nodejs)
+- [yarn](https://www.npmjs.com/package/yarn) (optionally, instead of yarn, it can be used in all commands below npm)
 
-## Установка проекта
+## Installing the project
 
 - [windows](docs/windows-install.md)
 - [ubuntu](docs/ubuntu-install.md)
 
-## Dev запуск
+## Dev run
 
-#### Запуск server back
+#### Run server back
 
 ```npm
 cd server/back &&
@@ -51,7 +50,7 @@ yarn &&
 yarn run dev
 ```
 
-#### Запуск server front
+#### Run server front
 
 ```npm
 cd server/front &&
@@ -59,7 +58,7 @@ yarn &&
 yarn run start
 ```
 
-## Схема работы приложения
+## The scheme of the application
 
 ```
 title images to 3d
