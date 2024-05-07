@@ -18,11 +18,11 @@ dicom to 3d converter:
 - **numpu**
 
 Part of the frontend:  
-- **typescript** differs from JavaScript in the possibility of explicit static assignment of types, which is designed to increase the speed of development, facilitate readability, refactoring and reuse of code, and help to search for errors at the development and compilation stage. It was especially useful for writing interfaces that are used simultaneously in two different places: the server and the agent.
+- **typescript** differs from JavaScript in the possibility of explicit static assignment of types, which is designed to increase the speed of development, facilitate readability, refactoring and reuse of code, and help to search for errors at the development and compilation stages. It was especially useful for writing interfaces that are used simultaneously in two different places: the server and the agent.
 - **express** - fast, flexible, minimalistic web framework for applications Node.js . It was used to implement the API, communicate between servers, and interact with the database.
-- **websocket** - a communication protocol over a TCP connection designed to exchange messages between a browser and a web server in real time. It was used to display the status of builds in real time.
+- **websocket** - a communication protocol over a TCP connection designed to exchange messages between a browser and a web server in real time. It was used to display the real-time status of builds.
 - **react** is used to develop single-page applications. Its goal is to provide high speed, simplicity, scalability and protection against XSS attacks. It was used to write the application interface.
-- **creat react app** - a great tool for quick start of React applications. Thanks to creat react app, the app has saved a lot of time on setting up the environment for React.
+- **creat react app** - a great tool for quick start of React applications. Thanks to creat react app, a lot of time was saved on setting up the environment for React.
 - **react bootstrap** - the design of the system. It saved me a lot of time to create a responsive and beautiful interface.
 - **bem** - [about the methodology](https://en.bem.info/methodology/quick-start/)
 - **multer** - express js library for saving files to the file system that came from the user.
